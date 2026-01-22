@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopGuide - Das Betriebssystem für den Einkauf</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="homepage" class="page active">
+        <nav>
+            <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+            <div class="nav-links">
+                <a onclick="showPage('homepage')">Home</a>
+                <a onclick="showPage('customer-verify')">Für Kunden</a>
+                <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+        </nav>
+
+        <header>
+            <h1>Das Betriebssystem für den effizienten Einkauf</h1>
+            <p>Verbinden Sie analoge Einkaufszettel mit digitaler Navigation.<br>Ohne teure Hardware. Ohne Umbau. Sofort startklar.</p>
+            
+            <div class="role-selector">
+                <div class="role-card customer" onclick="showPage('customer-verify')">
+                    <div class="role-icon">🛒</div>
+                    <h3>Ich bin Kunde</h3>
+                    <p>Erlebe die App-Demo und entdecke, wie ShopGuide deinen Einkauf vereinfacht</p>
+                    <button class="cta-button" style="background: var(--blue);">Demo ansehen</button>
+                </div>
+                
+                <div class="role-card merchant" onclick="showPage('merchant-verify')">
+                    <div class="role-icon">🏪</div>
+                    <h3>Ich bin Händler</h3>
+                    <p>Erfahre, wie ShopGuide dein Geschäft optimiert und Umsatz steigert</p>
+                    <button class="cta-button">Business Infos</button>
+                </div>
+            </div>
+        </header>
+
+        <footer style="margin-top: 4rem;">
+            <p>&copy; 2024 ShopGuide GmbH i.G. | <a href="#" style="color: white;">Impressum</a></p>
+        </footer>
+    </div>
+
+    <div id="customer-verify" class="page">
+        <nav>
+            <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+            <div class="nav-links">
+                <a onclick="showPage('homepage')">Home</a>
+                <a onclick="showPage('customer-verify')">Für Kunden</a>
+                <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <a class="back-link" onclick="showPage('homepage')">← Zurück zur Startseite</a>
+            
+            <div class="verification-box">
+                <div class="role-icon">🛒</div>
+                <h2>Kundenbereich</h2>
+                <p>Willkommen! Bevor du die Demo siehst, bestätige bitte, dass du als Kunde die App erleben möchtest.</p>
+                
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="customer-confirm">
+                    <label for="customer-confirm">
+                        Ja, ich bin ein Endkunde und möchte sehen, wie ShopGuide meinen Einkauf vereinfacht.
+                        Ich verstehe, dass dies eine Demo-Version ist.
+                    </label>
+                </div>
+                
+                <button class="cta-button" id="customer-proceed" onclick="showPage('customer-dashboard')" style="background: var(--blue); opacity: 0.5; cursor: not-allowed;" disabled>
+                    Weiter zur Demo
+                </button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 ShopGuide GmbH i.G. | <a href="#" style="color: white;">Impressum</a></p>
+        </footer>
+    </div>
+
+    <div id="customer-dashboard" class="page">
+        <nav>
+            <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+            <div class="nav-links">
+                <a onclick="showPage('homepage')">Home</a>
+                <a onclick="showPage('customer-verify')">Für Kunden</a>
+                <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+        </nav>
+
+        <header style="padding: 2rem 5%;">
+            <h1>ShopGuide für Kunden</h1>
+            <p>Dein smarter Einkaufsbegleiter</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" onclick="showPage('customer-verify')">← Zurück</a>
+
+            <div class="demo-section">
+                <div class="demo-text">
+                    <h2>So funktioniert's</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                        Schreibe deinen Einkaufszettel wie gewohnt – egal ob unleserlich oder strukturiert.
+                        ShopGuide macht daraus eine optimale Route durch den Supermarkt.
+                    </p>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;">✅ <strong>Zettel scannen:</strong> Foto machen, fertig</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>KI-Erkennung:</strong> Entziffert jede Handschrift</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Smart-Route:</strong> Optimale Reihenfolge</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Navigation:</strong> Direkt zum richtigen Regal</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Zeit sparen:</strong> Bis zu 30% schneller einkaufen</li>
+                    </ul>
+                </div>
+
+                <div class="demo-phone">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="app-header">ShopGuide App</div>
+                            
+                            <div id="customer-screen-scan" class="app-content">
+                                <div class="scan-overlay" id="customer-scanner"></div>
+                                <div class="handwritten-note" id="demo-note">
+                                    - Milch<br>
+                                    - Eier<br>
+                                    - Tomaten<br>
+                                    - Zahnpasta
+                                </div>
+                                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">Zettel scannen</button>
+                            </div>
+
+                            <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
+                                <h3 style="margin-top: 0;">Deine Route (4 Min)</h3>
+                                
+                                <div class="route-item">
+                                    <span>🍅 Tomaten</span> <span class="coordinate">A-02</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🦷 Zahnpasta</span> <span class="coordinate">B-12</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🥚 Eier</span> <span class="coordinate">C-04</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🥛 Milch</span> <span class="coordinate">D-01</span>
+                                </div>
+                                
+                                <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 20px; font-size: 0.8rem; background: #ccc;">Neuer Scan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h2>Deine Vorteile</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Zeit sparen</h3>
+                        <p>Keine Suche mehr nach Produkten. Die App führt dich direkt zum Ziel.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Stressfrei einkaufen</h3>
+                        <p>Kein Vergessen, kein Chaos. Alles auf deiner optimierten Route.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">❄️</div>
+                        <h3>Frische Produkte</h3>
+                        <p>Kühlware wird intelligent am Ende der Route platziert.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Inspiration</h3>
+                        <p>Entdecke neue Produkte, die zu deinem Einkauf passen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 4rem;">
+            <p>&copy; 2024 ShopGuide GmbH i.G. | <a href="#" style="color: white;">Impressum</a></p>
+        </footer>
+    </div>
+
+    <div id="merchant-verify" class="page">
+        <nav>
+            <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+            <div class="nav-links">
+                <a onclick="showPage('homepage')">Home</a>
+                <a onclick="showPage('customer-verify')">Für Kunden</a>
+                <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <a class="back-link" onclick="showPage('homepage')">← Zurück zur Startseite</a>
+            
+            <div class="verification-box">
+                <div class="role-icon">🏪</div>
+                <h2>Händlerbereich</h2>
+                <p>Willkommen! Bevor Sie Zugang zu unseren Business-Informationen erhalten, bestätigen Sie bitte Ihre Rolle.</p>
+                
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="merchant-confirm">
+                    <label for="merchant-confirm">
+                        Ja, ich bin Einzelhändler, Marktleiter oder Geschäftsführer und interessiere mich für ShopGuide 
+                        als Business-Lösung für meinen Markt/meine Märkte.
+                    </label>
+                </div>
+                
+                <button class="cta-button" id="merchant-proceed" onclick="showPage('merchant-dashboard')" style="opacity: 0.5; cursor: not-allowed;" disabled>
+                    Weiter zum Business-Bereich
+                </button>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 ShopGuide GmbH i.G. | <a href="#" style="color: white;">Impressum</a></p>
+        </footer>
+    </div>
+
+    <div id="merchant-dashboard" class="page">
+        <nav>
+            <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+            <div class="nav-links">
+                <a onclick="showPage('homepage')">Home</a>
+                <a onclick="showPage('customer-verify')">Für Kunden</a>
+                <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+        </nav>
+
+        <header style="padding: 2rem 5%;">
+            <h1>ShopGuide für Händler</h1>
+            <p>Steigern Sie Effizienz und Kundenzufriedenheit</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" onclick="showPage('merchant-verify')">← Zurück</a>
+
+            <h2>Warum ShopGuide für Ihren Markt?</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">-70%</div>
+                    <div class="stat-label">Weniger Kundenanfragen an Personal</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">+15%</div>
+                    <div class="stat-label">Höhere Kundenzufriedenheit</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">+8%</div>
+                    <div class="stat-label">Warenkorbwert durch Inspirationen</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">0€</div>
+                    <div class="stat-label">Hardware-Kosten</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h2>ROI-Rechner</h2>
+                <p>Berechnen Sie Ihr Einsparpotenzial</p>
+                
+                <div class="calc-box">
+                    <div class="input-group">
+                        <label>Kunden pro Tag:</label>
+                        <input type="number" id="customerCount" value="1500">
+                    </div>
+                    <div class="input-group">
+                        <label>Such-Fragen an Personal (geschätzt pro Tag):</label>
+                        <input type="number" id="questionsCount" value="50">
+                    </div>
+                    <div class="input-group">
+                        <label>Durchschnittlicher Stundenlohn Personal (€):</label>
+                        <input type="number" id="hourlyWage" value="15">
+                    </div>
+                    
+                    <button class="cta-button" onclick="calculateROI()">Potenzial berechnen</button>
+
+                    <div id="calc-result" class="result-box">
+                        <h3>Ihr monatliches Einsparpotenzial:</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+                            <div>
+                                <p style="font-size: 0.9rem; opacity: 0.8;">Gesparte Arbeitszeit</p>
+                                <div class="result-value" id="timeSaved">0 Std.</div>
+                            </div>
+                            <div>
+                                <p style="font-size: 0.9rem; opacity: 0.8;">Finanzielle Ersparnis</p>
+                                <div class="result-value" id="moneySaved">0 €</div>
+                            </div>
+                        </div>
+                        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #aaa;">
+                            *Basierend auf 2 Min pro Kundenanfrage
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 3rem;">
+    <h2>🏗️ Ladenlayout Planer</h2>
+    <p>Platzieren Sie Regale und Gänge auf Ihrem Ladenplan</p>
+    
+    <div class="layout-planer">
+        <div class="planer-tools">
+            <div class="tool-buttons">
+                <button class="tool-btn active" data-tool="wall" title="Wand/Barriere">
+                    🧱 Wand
+                </button>
+                <button class="tool-btn" data-tool="shelf" title="Regal platzieren">
+                    📦 Regal
+                </button>
+                <button class="tool-btn" data-tool="cash" title="Kasse">
+                    💰 Kasse
+                </button>
+                <button class="tool-btn" data-tool="entrance" title="Eingang">
+                    🚪 Eingang
+                </button>
+                <button class="tool-btn" data-tool="cooling" title="Kühlung">
+                    ❄️ Kühlung
+                </button>
+                <button class="tool-btn" data-tool="delete" title="Element löschen">
+                    🗑️ Löschen
+                </button>
+                <button class="tool-btn" id="clear-grid" title="Alles löschen">
+                    🔄 Neu
+                </button>
+            </div>
+            
+            <div class="tool-info">
+                <p><strong>Anleitung:</strong> Klicken Sie ein Werkzeug, dann auf das Raster.</p>
+                <p>Aktuell ausgewählt: <span id="current-tool">🧱 Wand</span></p>
+                <div class="coordinate-display">
+                    Koordinaten: <span id="coord-display">A-01</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-container">
+            <div class="grid-header">
+                <div class="axis-label">Gänge / Reihen</div>
+            </div>
+            <div class="grid-wrapper">
+                <div class="grid-axis-y">
+                    <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div>
+                    <div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
+                </div>
+                <div class="grid-main">
+                    <div class="grid-axis-x">
+                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+                        <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                    </div>
+                    <div class="grid" id="store-grid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="layout-actions">
+            <button class="cta-button" onclick="saveLayout()">📁 Layout speichern</button>
+            <button class="cta-button secondary" onclick="loadSampleLayout()">📋 Beispiel laden</button>
+            <button class="cta-button secondary" onclick="printLayout()">🖨️ Layout exportieren</button>
+        </div>
+        
+        <div class="layout-summary">
+            <h3>Statistik</h3>
+            <div class="summary-stats">
+                <div class="summary-item">
+                    <span class="stat-label">Regale:</span>
+                    <span class="stat-value" id="shelf-count">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="stat-label">Gänge:</span>
+                    <span class="stat-value" id="aisle-count">0</span>
+                </div>
+                <div class="summary-item">
+                    <span class="stat-label">Fläche:</span>
+                    <span class="stat-value" id="area-used">0%</span>
+                </div>
+                <div class="summary-item">
+                    <span class="stat-label">Elemente gesamt:</span>
+                    <span class="stat-value" id="total-items">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            <div style="margin-top: 3rem;">
+                <h2>Ihre Vorteile</h2>
+                <ul class="benefit-list">
+                    <li>
+                        <strong>🚀 Zero Hardware:</strong> Keine Beacons, kein WLAN-Tracking. 
+                        Nur simple QR-Schilder und unsere Cloud-Software.
+                    </li>
+                    <li>
+                        <strong>📊 Data Insights:</strong> Erfahren Sie, was Kunden suchen aber nicht finden. 
+                        Out-of-Stock Analyse in Echtzeit.
+                    </li>
+                    <li>
+                        <strong>💰 Umsatz-Boost:</strong> Intelligente Produktvorschläge und "Sponsored Pins" 
+                        erhöhen den durchschnittlichen Warenkorbwert um 8%.
+                    </li>
+                    <li>
+                        <strong>⚡ Schnelle Integration:</strong> Setup in unter 2 Stunden. 
+                        Keine Umbaumaßnahmen erforderlich.
+                    </li>
+                    <li>
+                        <strong>👥 Entlastung des Personals:</strong> Bis zu 70% weniger "Wo finde ich...?"-Fragen.
+                    </li>
+                    <li>
+                        <strong>📱 Kundenbindung:</strong> Moderne Shopping-Experience steigert Wiederkehrrate.
+                    </li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 3rem;">
+                <h2>Nächste Schritte</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📞</div>
+                        <h3>Beratungsgespräch</h3>
+                        <p>Kostenloses 30-min Erstgespräch mit unserem Team</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="bookConsultation()">Termin buchen</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧪</div>
+                        <h3>Pilot-Programm</h3>
+                        <p>4 Wochen kostenlos testen in einem Ihrer Märkte</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="applyPilot()">Jetzt bewerben</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>Business Case</h3>
+                        <p>Detaillierte Kalkulation für Ihre spezifische Situation</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="requestBusinessCase()">Anfordern</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 4rem;">
+            <p>&copy; 2024 ShopGuide GmbH i.G. | <a href="#" style="color: white;">Impressum</a></p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
