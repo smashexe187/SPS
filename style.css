@@ -615,3 +615,74 @@ header * {
 #homepage header {
     min-height: 100vh;
 }
+
+
+@media (max-width: 768px) {
+
+    /* Header */
+    header {
+        min-height: 60vh;
+        padding: 3rem 1.5rem;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    /* Navigation */
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .nav-links {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-links a {
+        margin: 10px 0;
+    }
+
+    /* Rollen-Karten */
+    .role-selector {
+        flex-direction: column;
+    }
+
+    .role-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    /* Demo-Bereich */
+    .demo-section {
+        flex-direction: column;
+    }
+
+    .demo-text,
+    .demo-phone {
+        min-width: 100%;
+    }
+
+    /* Features & Stats */
+    .features-grid,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Container */
+    .container {
+        padding: 3rem 1.5rem;
+    }
+
+    /* Phone Mockup */
+    .phone-mockup {
+        transform: scale(0.9);
+    }
+}
