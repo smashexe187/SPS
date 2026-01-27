@@ -781,3 +781,64 @@ function loadLayoutFromStorage(layoutName) {
     
     alert(`✅ Layout "${layoutName}" geladen!\n\nErstellt: ${new Date(layout.timestamp).toLocaleString('de-DE')}`);
 }
+
+/* ========================================
+   9. SETTINGS PANEL & DARK MODE
+   ======================================== */
+
+/**
+ * Öffnet/Schließt das Settings Side Panel
+ */
+function toggleSettingsPanel() {
+    const panel = document.getElementById('settings-panel');
+    const overlay = document.getElementById('settings-overlay');
+    
+    // Toggle active class
+    panel.classList.toggle('active');
+    overlay.classList.toggle('active');
+}
+
+/**
+ * Schaltet zwischen Dark und Light Mode um
+ * Speichert die Präferenz im LocalStorage
+ */
+function toggleDarkMode() {
+    const isDarkMode = document.getElementById('darkModeToggle').checked;
+    
+    if (isDarkMode) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+    } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+    }
+}
+
+/**
+ * Lädt die Dark Mode Präferenz beim Seitenstart
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Prüfe gespeicherte Präferenz
+    const darkModePreference = localStorage.getItem('darkMode');
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    
+    if (darkModePreference === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.checked = true;
+        }
+    }
+    
+    // Schließe Settings Panel wenn ESC gedrückt wird
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const panel = document.getElementById('settings-panel');
+            const overlay = document.getElementById('settings-overlay');
+            
+            if (panel && panel.classList.contains('active')) {
+                panel.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+    });
+});
