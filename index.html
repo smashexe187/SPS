@@ -4,18 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopGuide - Das Betriebssystem für den Einkauf</title>
+    
+    <!-- Open Graph Meta Tags für Social Media -->
+    <meta property="og:title" content="ShopGuide - Das Betriebssystem für den effizienten Einkauf">
+    <meta property="og:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation. Ohne teure Hardware. Ohne Umbau. Sofort startklar.">
+    <meta property="og:image" content="hero-background.png">
+    <meta property="og:url" content="https://shopguide.de">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ShopGuide">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ShopGuide - Das Betriebssystem für den Einkauf">
+    <meta name="twitter:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation">
+    <meta name="twitter:image" content="hero-background.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
+        <span>↑</span>
+    </button>
+    
+    <!-- HOMEPAGE -->
     <div id="homepage" class="page active">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -49,14 +71,10 @@
         </footer>
     </div>
 
+    <!-- CUSTOMER VERIFY -->
     <div id="customer-verify" class="page">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -91,14 +109,10 @@
         </footer>
     </div>
 
+    <!-- CUSTOMER DASHBOARD -->
     <div id="customer-dashboard" class="page">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -163,13 +177,14 @@
                                     <span>🥛 Milch</span> <span class="coordinate">D-01</span>
                                 </div>
                                 
-                                <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 20px; font-size: 0.8rem; background: #ccc;">Neuer Scan</button>
+                                <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal testen</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- CUSTOMER BENEFITS SECTION -->
             <div style="margin-top: 4rem;">
                 <h2>Deine Vorteile</h2>
                 <div class="features-grid">
@@ -202,14 +217,10 @@
         </footer>
     </div>
 
+    <!-- MERCHANT VERIFY -->
     <div id="merchant-verify" class="page">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -223,18 +234,18 @@
             <div class="verification-box">
                 <div class="role-icon">🏪</div>
                 <h2>Händlerbereich</h2>
-                <p>Willkommen! Bevor Sie Zugang zu unseren Business-Informationen erhalten, bestätigen Sie bitte Ihre Rolle.</p>
+                <p>Willkommen! Bitte bestätigen Sie, dass Sie als Händler oder Entscheider die Business-Informationen einsehen möchten.</p>
                 
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="merchant-confirm">
                     <label for="merchant-confirm">
-                        Ja, ich bin Einzelhändler, Marktleiter oder Geschäftsführer und interessiere mich für ShopGuide 
-                        als Business-Lösung für meinen Markt/meine Märkte.
+                        Ja, ich bin Händler/Entscheider und möchte erfahren, wie ShopGuide mein Geschäft optimieren kann.
+                        Ich verstehe, dass diese Daten vertraulich behandelt werden.
                     </label>
                 </div>
                 
                 <button class="cta-button" id="merchant-proceed" onclick="showPage('merchant-dashboard')" style="opacity: 0.5; cursor: not-allowed;" disabled>
-                    Weiter zum Business-Bereich
+                    Weiter zum Dashboard
                 </button>
             </div>
         </div>
@@ -244,14 +255,10 @@
         </footer>
     </div>
 
+    <!-- MERCHANT DASHBOARD -->
     <div id="merchant-dashboard" class="page">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -261,200 +268,206 @@
 
         <header style="padding: 2rem 5%;">
             <h1>ShopGuide für Händler</h1>
-            <p>Steigern Sie Effizienz und Kundenzufriedenheit</p>
+            <p>Optimieren Sie Ihr Geschäft</p>
         </header>
 
         <div class="container">
             <a class="back-link" onclick="showPage('merchant-verify')">← Zurück</a>
 
-            <h2>Warum ShopGuide für Ihren Markt?</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">-70%</div>
-                    <div class="stat-label">Weniger Kundenanfragen an Personal</div>
+            <div class="benefit-section">
+                <h2 style="text-align: center; margin-bottom: 3rem;">Ihre Vorteile</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value">30%</div>
+                        <div class="stat-label">Zeitersparnis</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">15-25%</div>
+                        <div class="stat-label">Umsatzsteigerung</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">😊</div>
+                        <div class="stat-value">+40%</div>
+                        <div class="stat-label">Kundenzufriedenheit</div>
+                    </div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">+15%</div>
-                    <div class="stat-label">Höhere Kundenzufriedenheit</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">+8%</div>
-                    <div class="stat-label">Warenkorbwert durch Inspirationen</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">0€</div>
-                    <div class="stat-label">Hardware-Kosten</div>
+
+                <div class="benefit-list" style="margin-top: 3rem;">
+                    <h3>Konkrete Vorteile für Ihr Geschäft:</h3>
+                    <ul>
+                        <li>✅ <strong>Weniger Personalfragen:</strong> Kunden finden Produkte selbstständig</li>
+                        <li>✅ <strong>Höhere Laufkundschaft:</strong> App wird zum lokalen Service</li>
+                        <li>✅ <strong>Optimierte Regalbelegung:</strong> Datenbasierte Layoutplanung</li>
+                        <li>✅ <strong>Cross-Selling:</strong> Intelligente Produktvorschläge entlang der Route</li>
+                        <li>✅ <strong>Keine Hardwarekosten:</strong> Softwarelösung für bestehende Infrastruktur</li>
+                    </ul>
                 </div>
             </div>
 
-            <div style="margin-top: 3rem;">
-                <h2>ROI-Rechner</h2>
-                <p>Berechnen Sie Ihr Einsparpotenzial</p>
+            <!-- ROI CALCULATOR -->
+            <div class="calc-section" style="margin-top: 4rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">ROI-Rechner</h2>
+                <p style="text-align: center; margin-bottom: 3rem;">Berechnen Sie Ihr persönliches Einsparpotenzial</p>
                 
                 <div class="calc-box">
                     <div class="input-group">
-                        <label>Kunden pro Tag:</label>
-                        <input type="number" id="customerCount" value="1500">
-                    </div>
-                    <div class="input-group">
-                        <label>Such-Fragen an Personal (geschätzt pro Tag):</label>
-                        <input type="number" id="questionsCount" value="50">
-                    </div>
-                    <div class="input-group">
-                        <label>Durchschnittlicher Stundenlohn Personal (€):</label>
-                        <input type="number" id="hourlyWage" value="15">
+                        <label>Durchschnittliche Kunden pro Tag:</label>
+                        <input type="number" id="customerCount" placeholder="z.B. 500" min="0">
                     </div>
                     
-                    <button class="cta-button" onclick="calculateROI()">Potenzial berechnen</button>
-
-                    <div id="calc-result" class="result-box">
+                    <div class="input-group">
+                        <label>Produktfragen pro Tag (geschätzt):</label>
+                        <input type="number" id="questionsCount" placeholder="z.B. 50" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Stundenlohn Personal (€):</label>
+                        <input type="number" id="hourlyWage" placeholder="z.B. 15" min="0">
+                    </div>
+                    
+                    <button class="cta-button" onclick="calculateROI()" style="margin-top: 1rem; width: 100%;">Berechnen</button>
+                    
+                    <div id="calc-result" class="result-box" style="display: none; margin-top: 2rem;">
                         <h3>Ihr monatliches Einsparpotenzial:</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
-                            <div>
-                                <p style="font-size: 0.9rem; opacity: 0.8;">Gesparte Arbeitszeit</p>
-                                <div class="result-value" id="timeSaved">0 Std.</div>
-                            </div>
-                            <div>
-                                <p style="font-size: 0.9rem; opacity: 0.8;">Finanzielle Ersparnis</p>
-                                <div class="result-value" id="moneySaved">0 €</div>
-                            </div>
+                        <div class="result-value">
+                            <span>⏱️ Zeit:</span> <strong id="timeSaved">0 Std.</strong>
                         </div>
-                        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #aaa;">
-                            *Basierend auf 2 Min pro Kundenanfrage
+                        <div class="result-value">
+                            <span>💰 Kosten:</span> <strong id="moneySaved">0 €</strong>
+                        </div>
+                        <p style="font-size: 0.9rem; margin-top: 1rem; color: #666;">
+                            * Basierend auf durchschnittlich 2 Minuten pro Kundenanfrage und 25 Arbeitstagen
                         </p>
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 3rem;">
-    <h2>🏗️ Ladenlayout Planer</h2>
-    <p>Platzieren Sie Regale und Gänge auf Ihrem Ladenplan</p>
-    
-    <div class="layout-planer">
-        <div class="planer-tools">
-            <div class="tool-buttons">
-                <button class="tool-btn active" data-tool="wall" title="Wand/Barriere">
-                    🧱 Wand
-                </button>
-                <button class="tool-btn" data-tool="shelf" title="Regal platzieren">
-                    📦 Regal
-                </button>
-                <button class="tool-btn" data-tool="cash" title="Kasse">
-                    💰 Kasse
-                </button>
-                <button class="tool-btn" data-tool="entrance" title="Eingang">
-                    🚪 Eingang
-                </button>
-                <button class="tool-btn" data-tool="cooling" title="Kühlung">
-                    ❄️ Kühlung
-                </button>
-                <button class="tool-btn" data-tool="delete" title="Element löschen">
-                    🗑️ Löschen
-                </button>
-                <button class="tool-btn" id="clear-grid" title="Alles löschen">
-                    🔄 Neu
-                </button>
-            </div>
-            
-            <div class="tool-info">
-                <p><strong>Anleitung:</strong> Klicken Sie ein Werkzeug, dann auf das Raster.</p>
-                <p>Aktuell ausgewählt: <span id="current-tool">🧱 Wand</span></p>
-                <div class="coordinate-display">
-                    Koordinaten: <span id="coord-display">A-01</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="grid-container">
-            <div class="grid-header">
-                <div class="axis-label">Gänge / Reihen</div>
-            </div>
-            <div class="grid-wrapper">
-                <div class="grid-axis-y">
-                    <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div>
-                    <div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
-                </div>
-                <div class="grid-main">
-                    <div class="grid-axis-x">
-                        <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
-                        <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+
+            <!-- LAYOUT PLANER MIT KOORDINATENSYSTEM -->
+            <div style="margin-top: 4rem;">
+                <h2>🏗️ Ladenlayout Planer</h2>
+                <p>Platzieren Sie Regale und Gänge auf Ihrem Ladenplan</p>
+                
+                <div class="layout-planer">
+                    <div class="planer-tools">
+                        <div class="tool-buttons">
+                            <button class="tool-btn active" data-tool="wall" title="Wand/Barriere">
+                                🧱 Wand
+                            </button>
+                            <button class="tool-btn" data-tool="shelf" title="Regal platzieren">
+                                📦 Regal
+                            </button>
+                            <button class="tool-btn" data-tool="cash" title="Kasse">
+                                💰 Kasse
+                            </button>
+                            <button class="tool-btn" data-tool="entrance" title="Eingang">
+                                🚪 Eingang
+                            </button>
+                            <button class="tool-btn" data-tool="cooling" title="Kühlung">
+                                ❄️ Kühlung
+                            </button>
+                            <button class="tool-btn" data-tool="delete" title="Element löschen">
+                                🗑️ Löschen
+                            </button>
+                            <button class="tool-btn" id="clear-grid" title="Alles löschen">
+                                🔄 Neu
+                            </button>
+                        </div>
+                        
+                        <div class="tool-info">
+                            <p><strong>Anleitung:</strong> Klicken Sie ein Werkzeug, dann auf das Raster.</p>
+                            <p>Aktuell ausgewählt: <span id="current-tool">🧱 Wand</span></p>
+                            <div class="coordinate-display">
+                                Koordinaten: <span id="coord-display">A-01</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="grid" id="store-grid">
+                    
+                    <div class="grid-container">
+                        <div class="grid-header">
+                            <div class="axis-label">Gänge / Reihen</div>
+                        </div>
+                        <div class="grid-wrapper">
+                            <div class="grid-axis-y">
+                                <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div>
+                                <div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
+                            </div>
+                            <div class="grid-main">
+                                <div class="grid-axis-x">
+                                    <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+                                    <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                                </div>
+                                <div class="grid" id="store-grid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layout-actions">
+                        <button class="cta-button" onclick="saveLayout()">📁 Layout speichern</button>
+                        <button class="cta-button secondary" onclick="loadSampleLayout()">📋 Beispiel laden</button>
+                        <button class="cta-button secondary" onclick="printLayout()">🖨️ Layout drucken</button>
+                    </div>
+                    
+                    <div class="layout-summary">
+                        <h3>Statistik</h3>
+                        <div id="layout-stats" class="summary-stats">
+                            <div class="summary-item">
+                                <span class="stat-label">Regale:</span>
+                                <span class="stat-value" id="shelf-count">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Kassen:</span>
+                                <span class="stat-value" id="cash-count">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Fläche:</span>
+                                <span class="stat-value" id="area-used">0%</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Elemente gesamt:</span>
+                                <span class="stat-value" id="total-items">0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="layout-actions">
-            <button class="cta-button" onclick="saveLayout()">📁 Layout speichern</button>
-            <button class="cta-button secondary" onclick="loadSampleLayout()">📋 Beispiel laden</button>
-            <button class="cta-button secondary" onclick="printLayout()">🖨️ Layout exportieren</button>
-        </div>
-        
-        <div class="layout-summary">
-            <h3>Statistik</h3>
-            <div class="summary-stats">
-                <div class="summary-item">
-                    <span class="stat-label">Regale:</span>
-                    <span class="stat-value" id="shelf-count">0</span>
-                </div>
-                <div class="summary-item">
-                    <span class="stat-label">Gänge:</span>
-                    <span class="stat-value" id="aisle-count">0</span>
-                </div>
-                <div class="summary-item">
-                    <span class="stat-label">Fläche:</span>
-                    <span class="stat-value" id="area-used">0%</span>
-                </div>
-                <div class="summary-item">
-                    <span class="stat-label">Elemente gesamt:</span>
-                    <span class="stat-value" id="total-items">0</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-            <div style="margin-top: 3rem;">
-                <h2>Ihre Vorteile</h2>
-                <ul class="benefit-list">
-                    <li>
-                        <strong>🚀 Zero Hardware:</strong> Keine Beacons, kein WLAN-Tracking. 
-                        Nur simple QR-Schilder und unsere Cloud-Software.
-                    </li>
-                    <li>
-                        <strong>📊 Data Insights:</strong> Erfahren Sie, was Kunden suchen aber nicht finden. 
-                        Out-of-Stock Analyse in Echtzeit.
-                    </li>
-                    <li>
-                        <strong>💰 Umsatz-Boost:</strong> Intelligente Produktvorschläge und "Sponsored Pins" 
-                        erhöhen den durchschnittlichen Warenkorbwert um 8%.
-                    </li>
-                    <li>
-                        <strong>⚡ Schnelle Integration:</strong> Setup in unter 2 Stunden. 
-                        Keine Umbaumaßnahmen erforderlich.
-                    </li>
-                    <li>
-                        <strong>👥 Entlastung des Personals:</strong> Bis zu 70% weniger "Wo finde ich...?"-Fragen.
-                    </li>
-                    <li>
-                        <strong>📱 Kundenbindung:</strong> Moderne Shopping-Experience steigert Wiederkehrrate.
-                    </li>
-                </ul>
             </div>
 
-            <div style="margin-top: 3rem;">
-                <h2>Nächste Schritte</h2>
-                <div class="features-grid">
+            <!-- Contact Section mit Copy-to-Clipboard -->
+            <div class="contact-section" style="margin-top: 4rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Kontaktieren Sie uns</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">📧 E-Mail:</span>
+                        <span class="contact-value" id="email-text">lerchjannik7@gmail.com</span>
+                        <button class="copy-btn" onclick="copyToClipboard('lerchjannik7@gmail.com', 'email')" title="E-Mail kopieren">
+                            📋
+                        </button>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-label">📱 Telefon:</span>
+                        <span class="contact-value" id="phone-text">+49 (0) 1590 6831180</span>
+                        <button class="copy-btn" onclick="copyToClipboard('+49 (0) 1590 6831180', 'phone')" title="Telefonnummer kopieren">
+                            📋
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="features-grid" style="margin-top: 3rem;">
                     <div class="feature-card">
                         <div class="feature-icon">📞</div>
                         <h3>Beratungsgespräch</h3>
-                        <p>Kostenloses 30-min Erstgespräch mit unserem Team</p>
+                        <p>Kostenloses 30-minütiges Erstgespräch mit unserem Team</p>
                         <button class="cta-button" style="margin-top: 1rem;" onclick="bookConsultation()">Termin buchen</button>
                     </div>
                     <div class="feature-card">
-                        <div class="feature-icon">🧪</div>
-                        <h3>Pilot-Programm</h3>
-                        <p>4 Wochen kostenlos testen in einem Ihrer Märkte</p>
+                        <div class="feature-icon">🚀</div>
+                        <h3>4-Wochen Pilot</h3>
+                        <p>Testen Sie ShopGuide 4 Wochen kostenlos in Ihrem Markt</p>
                         <button class="cta-button" style="margin-top: 1rem;" onclick="applyPilot()">Jetzt bewerben</button>
                     </div>
                     <div class="feature-card">
@@ -472,15 +485,10 @@
         </footer>
     </div>
 
-    <!-- Impressum Seite -->
+    <!-- IMPRESSUM -->
     <div id="impressum" class="page">
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
-            <div class="nav-links">
-                <a onclick="showPage('homepage')">Home</a>
-                <a onclick="showPage('customer-verify')">Für Kunden</a>
-                <a onclick="showPage('merchant-verify')">Für Händler</a>
-            </div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
                 <div class="hamburger-line"></div>
                 <div class="hamburger-line"></div>
@@ -511,7 +519,7 @@
                 <h2>Kontakt</h2>
                 <p>
                     Telefon: +49 (0) 1590 6831180<br>
-                    E-Mail: <a href="mailto:lerchjannik7@gmail.com">lerchjannik7@gmail.com</a>
+                    E-Mail: lerchjannik7@gmail.com
                 </p>
 
                 <h2>Registereintrag</h2>
@@ -592,9 +600,28 @@
             <span class="close-settings" onclick="toggleSettingsPanel()">&times;</span>
         </div>
         <div class="settings-content">
+            <!-- Navigation Links im Panel -->
+            <div class="panel-nav-section">
+                <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
+                <a href="#" class="panel-nav-link" data-page="homepage" onclick="showPage('homepage'); toggleSettingsPanel(); return false;">
+                    🏠 Home
+                </a>
+                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="showPage('customer-verify'); toggleSettingsPanel(); return false;">
+                    🛒 Für Kunden
+                </a>
+                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="showPage('merchant-verify'); toggleSettingsPanel(); return false;">
+                    🏪 Für Händler
+                </a>
+                <a href="#" class="panel-nav-link" data-page="impressum" onclick="showPage('impressum'); toggleSettingsPanel(); return false;">
+                    📄 Impressum
+                </a>
+            </div>
+            
+            <div class="settings-divider"></div>
+            
             <div class="setting-item">
                 <div class="setting-label">
-                    <span>🌓</span>
+                    <span id="dark-mode-icon">🌙</span>
                     <span>Dark Mode</span>
                 </div>
                 <label class="toggle-switch">
@@ -609,9 +636,12 @@
     </div>
 
     <!-- Overlay for closing panel -->
-
-    <!-- Overlay for closing panel -->
     <div id="settings-overlay" class="settings-overlay" onclick="toggleSettingsPanel()"></div>
+    
+    <!-- Toast Notification for Copy -->
+    <div id="copy-toast" class="copy-toast">
+        <span id="toast-message">Kopiert!</span>
+    </div>
 
     <script src="script.js"></script>
 </body>
