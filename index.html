@@ -16,6 +16,11 @@
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
             </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
         </nav>
 
         <header>
@@ -52,6 +57,11 @@
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
             </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
         </nav>
 
         <div class="container">
@@ -77,7 +87,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2024 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
         </footer>
     </div>
 
@@ -88,6 +98,11 @@
                 <a onclick="showPage('homepage')">Home</a>
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
             </div>
         </nav>
 
@@ -183,7 +198,7 @@
         </div>
 
         <footer style="margin-top: 4rem;">
-            <p>&copy; 2024 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
         </footer>
     </div>
 
@@ -194,6 +209,11 @@
                 <a onclick="showPage('homepage')">Home</a>
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
             </div>
         </nav>
 
@@ -220,7 +240,7 @@
         </div>
 
         <footer>
-            <p>&copy; 2024 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
         </footer>
     </div>
 
@@ -231,6 +251,11 @@
                 <a onclick="showPage('homepage')">Home</a>
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
             </div>
         </nav>
 
@@ -443,7 +468,7 @@
         </div>
 
         <footer style="margin-top: 4rem;">
-            <p>&copy; 2024 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
         </footer>
     </div>
 
@@ -455,6 +480,11 @@
                 <a onclick="showPage('homepage')">Home</a>
                 <a onclick="showPage('customer-verify')">Für Kunden</a>
                 <a onclick="showPage('merchant-verify')">Für Händler</a>
+            </div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
             </div>
         </nav>
 
@@ -555,8 +585,32 @@
         </footer>
     </div>
 
+    <!-- Settings Side Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h3>Einstellungen</h3>
+            <span class="close-settings" onclick="toggleSettingsPanel()">&times;</span>
+        </div>
+        <div class="settings-content">
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span>🌓</span>
+                    <span>Dark Mode</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-description">
+                Wechseln Sie zwischen hellem und dunklem Design für angenehmeres Lesen.
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay for closing panel -->
+    <div id="settings-overlay" class="settings-overlay" onclick="toggleSettingsPanel()"></div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
-
