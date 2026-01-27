@@ -28,7 +28,15 @@ body.dark-mode nav {
 }
 
 body.dark-mode header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+    /* Keep the background image visible in dark mode */
+    background-image: url('hero-background.png');
+    background-size: cover;
+    background-position: center;
+}
+
+body.dark-mode header::before {
+    /* Darker overlay for dark mode */
+    background: rgba(0, 0, 0, 0.75);
 }
 
 body.dark-mode .role-card,
@@ -38,6 +46,18 @@ body.dark-mode .calc-box,
 body.dark-mode .feature-card {
     background: #2c2c2c;
     color: #ecf0f1;
+}
+
+body.dark-mode .feature-card h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .feature-card p {
+    color: #d0d0d0;
+}
+
+body.dark-mode .feature-icon {
+    color: var(--primary);
 }
 
 body.dark-mode .role-card h3,
@@ -57,6 +77,46 @@ body.dark-mode .route-item {
     color: #ecf0f1;
 }
 
+/* Dark Mode für Phone Mockup */
+body.dark-mode .phone-mockup {
+    background: #1a1a1a;
+    border-color: #444;
+}
+
+body.dark-mode .screen {
+    background: #2c2c2c;
+}
+
+body.dark-mode .handwritten-note {
+    background: #3a3a3a;
+    color: #ecf0f1;
+}
+
+body.dark-mode .scan-btn {
+    background: var(--primary);
+    color: #1a1a1a;
+}
+
+body.dark-mode .app-header {
+    background: var(--primary);
+}
+
+body.dark-mode .demo-text {
+    color: #ecf0f1;
+}
+
+body.dark-mode .demo-text ul li {
+    color: #ecf0f1;
+}
+
+body.dark-mode .app-content h3 {
+    color: #ecf0f1;
+}
+
+body.dark-mode #customer-screen-result {
+    color: #ecf0f1;
+}
+
 body.dark-mode .grid div {
     background: #2c2c2c;
     color: #ecf0f1;
@@ -69,6 +129,14 @@ body.dark-mode .grid div:hover {
 body.dark-mode .layout-planer {
     background: #2c2c2c;
     border-color: #444;
+}
+
+body.dark-mode .planer-tools {
+    color: #ecf0f1;
+}
+
+body.dark-mode #layout-stats {
+    color: #ecf0f1;
 }
 
 body.dark-mode .tool-btn {
@@ -86,6 +154,61 @@ body.dark-mode input[type="number"] {
     background: #3a3a3a;
     color: #ecf0f1;
     border-color: #444;
+}
+
+/* Dark Mode für zusätzliche Elemente */
+body.dark-mode .back-link {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+body.dark-mode .back-link:hover {
+    color: #3ddd87;
+}
+
+body.dark-mode footer {
+    background: #1a1a1a;
+    color: #ecf0f1;
+}
+
+body.dark-mode footer a {
+    color: var(--primary);
+}
+
+body.dark-mode .demo-section {
+    color: #ecf0f1;
+}
+
+body.dark-mode .benefit-list {
+    color: #ecf0f1;
+}
+
+body.dark-mode p {
+    color: #d0d0d0;
+}
+
+body.dark-mode .role-card p {
+    color: #b0b0b0;
+}
+
+body.dark-mode label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .checkbox-wrapper label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .settings-panel {
+    background: #2c2c2c;
+}
+
+body.dark-mode .nav-links a {
+    color: #ecf0f1;
+}
+
+body.dark-mode .nav-links a:hover {
+    color: var(--primary);
 }
 
 * {
@@ -961,4 +1084,69 @@ body.dark-mode .setting-description {
     .settings-icon {
         margin-left: 15px;
     }
+}
+
+/* Impressum Content Box */
+.impressum-content {
+    background: white;
+    padding: 3rem;
+    border-radius: 15px;
+    margin-top: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+body.dark-mode .impressum-content {
+    background: #2c2c2c;
+    color: #ecf0f1;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+body.dark-mode .impressum-content h1,
+body.dark-mode .impressum-content h2 {
+    color: #ecf0f1;
+}
+
+body.dark-mode .impressum-content h2 {
+    color: var(--primary) !important;
+}
+
+body.dark-mode .impressum-content p {
+    color: #d0d0d0;
+}
+
+body.dark-mode .impressum-content a {
+    color: var(--primary);
+}
+
+body.dark-mode .impressum-content a:hover {
+    color: #3ddd87;
+}
+
+body.dark-mode .result-box {
+    background: #1a1a1a;
+    color: #ecf0f1;
+    border: 1px solid #444;
+}
+
+body.dark-mode .result-value {
+    color: var(--primary);
+}
+
+body.dark-mode .input-group label {
+    color: #ecf0f1;
+}
+
+body.dark-mode .input-group input {
+    background: #3a3a3a;
+    color: #ecf0f1;
+    border-color: #555;
+}
+
+body.dark-mode .input-group input::placeholder {
+    color: #888;
+}
+
+body.dark-mode .input-group input:focus {
+    border-color: var(--primary);
+    outline: none;
 }
