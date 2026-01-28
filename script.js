@@ -906,39 +906,6 @@ function printLayout() {
 
 // ... DEIN GANZER ORIGINALER CODE BLEIBT VORHANDEN ...
 
-/** NEU: Logo-Cloud Hover-Animation (BW zu Farbe) **/
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.logo-cloud-item').forEach(img=>{
-    const color = img.getAttribute('data-color');
-    if(!color) return;
-    img.addEventListener('mouseover',()=>img.src=color);
-    img.addEventListener('focus',()=>img.src=color);
-    img.addEventListener('mouseout',()=>img.src=img.src.replace('.png','-bw.png'));
-    img.addEventListener('blur',()=>img.src=img.src.replace('.png','-bw.png'));
-  });
-});
-
-/** NEU: Lesezeit-Indikator dynamisch berechnen **/
-function calculateReadingTime() {
-  let totalText = '';
-  // alle sichtbaren .page Elemente
-  document.querySelectorAll('.page.active').forEach(p => { totalText += p.textContent; });
-  const wpm = 200;
-  const wordCount = totalText.trim().split(/\s+/).length;
-  let min = Math.max(1, Math.round(wordCount / wpm));
-  document.getElementById('reading-time-value').textContent = min + ' Min. Lesezeit';
-}
-document.addEventListener('DOMContentLoaded', () => {
-  calculateReadingTime();
-  // Beim Seitenwechsel auch aktualisieren
-  window.showPage = (function(oldShowPage){
-    return function(pageId){
-      oldShowPage(pageId);
-      setTimeout(()=>calculateReadingTime(),300);
-    };
-  })(window.showPage || showPage);
-});
-
 /** NEU: Statistik Counter Animation **/
 function animateCounter(element, target, duration){
   let start=0;
@@ -963,24 +930,6 @@ window.addEventListener('scroll',()=>{
     });
     statsAnimated=true;
   }
-});
-
-/** NEU: Sprachwechsel **/
-function switchLanguage(lang){
-  // Toggle logic: DE/EN
-  document.querySelectorAll('[data-en]').forEach(node=>{
-    if(lang==="en"){ if(!node.dataset.orig){node.dataset.orig=node.textContent;} node.textContent=node.dataset.en;}
-    else if(node.dataset.orig){node.textContent=node.dataset.orig;}
-  });
-}
-document.addEventListener('DOMContentLoaded',()=>{
-  let currLang="de";
-  const btn=document.getElementById('language-toggle');
-  btn.addEventListener('click',()=>{
-    currLang=currLang==="de"?"en":"de";
-    switchLanguage(currLang);
-    btn.textContent=currLang.toUpperCase()==="DE"?"DE / EN":"EN / DE";
-  });
 });
 
 /** (Optional) Newsletter Confetti (Vorlage, noch nicht sichtbar) **/
