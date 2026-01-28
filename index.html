@@ -25,7 +25,18 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div class="glass-bg" aria-hidden="true">
+  <div class="glass-circle circle1"></div>
+  <div class="glass-circle circle2"></div>
+  <div class="glass-circle circle3"></div>
+</div>
+<div class="topbar-indicators">
+  <div id="reading-time-indicator">
+    <span id="reading-time-value">3 Min. Lesezeit</span>
+  </div>
+  <button id="language-toggle" aria-label="Sprache wechseln">DE / EN</button>
+</div>
+
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
     
@@ -46,6 +57,31 @@
         </nav>
 
         <header>
+            <section class="trust-badges-section">
+        <div class="trust-badge" title="DSGVO konform">
+            <span class="badge-icon">🔒</span>
+            <span class="badge-label" data-en="GDPR compliant">DSGVO konform</span>
+      </div>
+      <div class="trust-badge" title="Cloud Hosting in Germany">
+            <span class="badge-icon">☁️</span>
+            <span class="badge-label" data-en="Cloud hosting in Germany">Cloud Hosting in Germany</span>
+      </div>
+  <div class="trust-badge" title="Plug & Play fähig">
+    <span class="badge-icon">🔌</span>
+    <span class="badge-label" data-en="Plug & Play ready">Plug & Play fähig</span>
+  </div>
+</section>
+            <section class="logo-cloud-section">
+  <div class="logo-cloud-title" data-en="In talks with:">In Gesprächen mit:</div>
+  <div class="logo-cloud">
+    <img src="logo-rewe-bw.png" alt="REWE" class="logo-cloud-item" data-color="logo-rewe.png">
+    <img src="logo-edeka-bw.png" alt="EDEKA" class="logo-cloud-item" data-color="logo-edeka.png">
+    <img src="logo-aldi-bw.png" alt="ALDI" class="logo-cloud-item" data-color="logo-aldi.png">
+    <img src="logo-lidl-bw.png" alt="LIDL" class="logo-cloud-item" data-color="logo-lidl.png">
+    <img src="logo-penny-bw.png" alt="PENNY" class="logo-cloud-item" data-color="logo-penny.png">
+  </div>
+  <div class="logo-cloud-caption" data-en="Partnerships in progress">Partnerschaftsverhandlungen laufen</div>
+</section>
             <h1>Das Betriebssystem für den effizienten Einkauf</h1>
             <p>Verbinden Sie analoge Einkaufszettel mit digitaler Navigation.<br>Ohne teure Hardware. Ohne Umbau. Sofort startklar.</p>
             
@@ -65,6 +101,33 @@
                 </div>
             </div>
         </header>
+        <section class="trust-badges-section">
+  <div class="trust-badge" title="DSGVO konform">
+    <span class="badge-icon">🔒</span>
+    <span class="badge-label" data-en="GDPR compliant">DSGVO konform</span>
+  </div>
+  <div class="trust-badge" title="Cloud Hosting in Germany">
+    <span class="badge-icon">☁️</span>
+    <span class="badge-label" data-en="Cloud hosting in Germany">Cloud Hosting in Germany</span>
+  </div>
+  <div class="trust-badge" title="Plug & Play fähig">
+    <span class="badge-icon">🔌</span>
+    <span class="badge-label" data-en="Plug & Play ready">Plug & Play fähig</span>
+  </div>
+</section>
+        <section class="logo-cloud-section">
+  <div class="logo-cloud-title" data-en="In talks with:">In Gesprächen mit:</div>
+  <div class="logo-cloud">
+    <img src="logo-rewe-bw.png" alt="REWE" class="logo-cloud-item" data-color="logo-rewe.png">
+    <img src="logo-edeka-bw.png" alt="EDEKA" class="logo-cloud-item" data-color="logo-edeka.png">
+    <img src="logo-aldi-bw.png" alt="ALDI" class="logo-cloud-item" data-color="logo-aldi.png">
+    <img src="logo-lidl-bw.png" alt="LIDL" class="logo-cloud-item" data-color="logo-lidl.png">
+    <img src="logo-penny-bw.png" alt="PENNY" class="logo-cloud-item" data-color="logo-penny.png">
+  </div>
+  <div class="logo-cloud-caption" data-en="Partnerships in progress">Partnerschaftsverhandlungen laufen</div>
+</section>
+
+
 
         <footer style="margin-top: 4rem;">
             <p>&copy; 2026 ShopGuide GmbH i.G. | <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a></p>
@@ -273,6 +336,22 @@
 
         <div class="container">
             <a class="back-link" onclick="showPage('merchant-verify')">← Zurück</a>
+        <section class="merchant-stats-animated">
+  <div class="stats-row">
+    <div class="merchant-stat">
+      <span class="stat-label" data-en="Time saved">Zeitersparnis</span>
+      <span class="stat-animated stat-counter" data-target="30">0</span><span class="stat-unit">%</span>
+    </div>
+    <div class="merchant-stat">
+      <span class="stat-label" data-en="Revenue increase">Umsatzsteigerung</span>
+      <span class="stat-animated stat-counter" data-target="25">0</span><span class="stat-unit">%</span>
+    </div>
+    <div class="merchant-stat">
+      <span class="stat-label" data-en="Customer satisfaction">Kundenzufriedenheit</span>
+      <span class="stat-animated stat-counter" data-target="40">0</span><span class="stat-unit">%</span>
+    </div>
+  </div>
+</section>
 
             <div class="benefit-section">
                 <h2 style="text-align: center; margin-bottom: 3rem;">Ihre Vorteile</h2>
@@ -487,6 +566,8 @@
 
     <!-- IMPRESSUM -->
     <div id="impressum" class="page">
+        <a onclick="showPage('impressum')" ...>Impressum</a> | 
+<a onclick="showPage('datenschutz')" ...>Datenschutz</a>
         <nav>
             <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
@@ -615,6 +696,13 @@
                 <a href="#" class="panel-nav-link" data-page="impressum" onclick="showPage('impressum'); toggleSettingsPanel(); return false;">
                     📄 Impressum
                 </a>
+                <a href="#" class="panel-nav-link" data-page="impressum" onclick="showPage('impressum'); toggleSettingsPanel(); return false;">
+        📄 Impressum
+      </a>
+      <!-- NEU HIER: Datenschutz -->
+      <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="showPage('datenschutz'); toggleSettingsPanel(); return false;">
+        🔒 Datenschutz
+      </a>
             </div>
             
             <div class="settings-divider"></div>
@@ -634,6 +722,33 @@
             </div>
         </div>
     </div>
+    <div id="datenschutz" class="page">
+    <nav>
+        <div class="logo" onclick="showPage('homepage')">ShopGuide</div>
+        <div class="settings-icon" onclick="toggleSettingsPanel()">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    </nav>
+    <div class="container">
+        <a class="back-link" onclick="showPage('homepage')">← Zurück zur Startseite</a>
+        <div class="impressum-content">
+            <h1>Datenschutz</h1>
+            <h2>Allgemeiner Hinweis und Pflichtinformationen</h2>
+            <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst...</p>
+            <!-- ... Rest wie oben im Beispiel ... -->
+        </div>
+    </div>
+    <footer style="margin-top: 4rem;">
+        <p>
+            &copy; 2026 ShopGuide GmbH i.G. | 
+            <a onclick="showPage('impressum')" style="color: white; cursor: pointer;">Impressum</a> | 
+            <a onclick="showPage('datenschutz')" style="color: white; cursor: pointer;">Datenschutz</a>
+        </p>
+    </footer>
+</div>
+
 
     <!-- Overlay for closing panel -->
     <div id="settings-overlay" class="settings-overlay" onclick="toggleSettingsPanel()"></div>
@@ -646,3 +761,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
