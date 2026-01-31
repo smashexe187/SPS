@@ -690,6 +690,10 @@ header p {
     padding: 15px;
     text-align: center;
     font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
 }
 
 .app-content {
@@ -697,9 +701,11 @@ header p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 20px;
     position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .handwritten-note {
@@ -775,6 +781,34 @@ header p {
     font-weight: bold;
     font-size: 0.9rem;
 }
+
+/* Spezielle Anpassungen für den Result-Screen */
+#customer-screen-result {
+    padding-top: 10px !important;
+}
+
+#customer-screen-result h3 {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    padding: 10px 0;
+    margin: 0 0 15px 0;
+    z-index: 5;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+body.dark-mode #customer-screen-result h3 {
+    background: #2c2c2c;
+    border-bottom-color: #444;
+}
+
+#route-items-container {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 10px;
+}
+
 
 /* ========================================
    STATS & FEATURES
@@ -1697,6 +1731,10 @@ body.dark-mode .setting-description {
         width: 280px;
         height: 560px;
     }
+    
+    .app-content {
+        padding: 18px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1768,10 +1806,30 @@ body.dark-mode .setting-description {
 
     /* Phone Mockup */
     .phone-mockup {
-        width: 260px;
-        height: 520px;
+        width: 280px;
+        height: 560px;
         transform: scale(1);
     }
+    
+    .app-header {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+    
+    .app-content {
+        padding: 15px;
+    }
+    
+    #customer-screen-result h3 {
+        font-size: 1.1rem;
+        padding: 8px 0;
+    }
+    
+    .route-item {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
     
     /* Contact Items */
     .contact-item {
@@ -1826,8 +1884,35 @@ body.dark-mode .setting-description {
     }
     
     .phone-mockup {
-        width: 240px;
-        height: 480px;
+        width: 260px;
+        height: 520px;
+        padding: 12px;
+    }
+    
+    .app-header {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+    
+    .app-content {
+        padding: 12px;
+    }
+    
+    #customer-screen-result h3 {
+        font-size: 1rem;
+        padding: 6px 0;
+        margin-bottom: 10px;
+    }
+    
+    .route-item {
+        padding: 8px;
+        margin: 6px 0;
+        font-size: 0.85rem;
+    }
+    
+    .coordinate {
+        padding: 3px 10px;
+        font-size: 0.8rem;
     }
     
     .verification-box,

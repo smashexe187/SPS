@@ -65,39 +65,56 @@
                 </div>
 
                 <div class="demo-phone">
-                    <div class="phone-mockup">
-                        <div class="screen">
-                            <div class="app-header">ShopGuide App</div>
-                            
-                            <div id="customer-screen-scan" class="app-content">
-                                <div class="scan-overlay" id="customer-scanner"></div>
-                                <div class="handwritten-note" id="demo-note">
-                                    - Milch<br>
-                                    - Eier<br>
-                                    - Tomaten<br>
-                                    - Zahnpasta
-                                </div>
-                                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">Zettel scannen</button>
-                            </div>
+    <div class="phone-mockup">
+        <div class="screen">
+            <div class="app-header">ShopGuide App</div>
+            
+            <!-- SCREEN 1: Zettel erstellen -->
+            <div id="customer-screen-start" class="app-content">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
+                    <h3 style="margin-bottom: 1rem;">Erstelle deinen Einkaufszettel</h3>
+                    <p style="margin-bottom: 2rem; color: #666;">
+                        Klicke auf den Button um einen zufälligen Einkaufszettel zu generieren
+                    </p>
+                    <button class="scan-btn" onclick="erstelleEinkaufszettel()">
+                        Neuen Zettel erstellen
+                    </button>
+                </div>
+            </div>
+            
+            <!-- SCREEN 2: Generierter Zettel -->
+            <div id="customer-screen-note" class="app-content" style="display: none;">
+                <div class="scan-overlay" id="customer-scanner"></div>
+                <div class="handwritten-note" id="demo-note"></div>
+                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">
+                    Zettel scannen
+                </button>
+            </div>
 
-                            <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
-                                <h3 style="margin-top: 0;">Deine Route (4 Min)</h3>
-                                
-                                <div class="route-item">
-                                    <span>🍅 Tomaten</span> <span class="coordinate">A-02</span>
-                                </div>
-                                <div class="route-item">
-                                    <span>🦷 Zahnpasta</span> <span class="coordinate">B-12</span>
-                                </div>
-                                <div class="route-item">
-                                    <span>🥚 Eier</span> <span class="coordinate">C-04</span>
-                                </div>
-                                <div class="route-item">
-                                    <span>🥛 Milch</span> <span class="coordinate">D-01</span>
-                                </div>
-                                
-                                <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal testen</button>
-                            </div>
+            <!-- SCREEN 3: Route -->
+            <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
+                <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
+                <div id="route-items-container"></div>
+                <button class="scan-btn" onclick="resetCompleteDemo()" style="margin-top: 2rem;">
+                    Nochmal testen
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                        <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
+    <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
+    
+    <!-- Container für dynamische Route-Items -->
+    <div id="route-items-container">
+        <!-- Wird dynamisch von JavaScript gefüllt -->
+    </div>
+    
+    <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal testen</button>
+</div>
+
                         </div>
                     </div>
                 </div>

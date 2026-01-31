@@ -273,12 +273,31 @@ document.addEventListener('DOMContentLoaded', () => {
    ======================================== */
 
 /**
- * Startet die Demo-Animation der Kunden-App
+ * Erstellt einen neuen zufälligen Einkaufszettel
+ */
+function erstelleEinkaufszettel() {
+    const anzahl = Math.floor(Math.random() * 6) + 3;
+    const produkte = getZufaelligeProdukte(anzahl);
+    window.aktuelleProdukte = produkte;
+    
+    const demoNote = document.getElementById('demo-note');
+    let zettelHTML = '';
+    produkte.forEach(produkt => {
+        zettelHTML += `- ${produkt.name}<br>`;
+    });
+    demoNote.innerHTML = zettelHTML;
+    
+    document.getElementById('customer-screen-start').style.display = 'none';
+    document.getElementById('customer-screen-note').style.display = 'flex';
+}
+
+/**
+ * Scannt den Zettel (mit Animation)
  */
 function runCustomerDemo() {
     const scanner = document.getElementById('customer-scanner');
     const scanBtn = document.getElementById('scan-btn');
-    const scanScreen = document.getElementById('customer-screen-scan');
+    const noteScreen = document.getElementById('customer-screen-note');
     const resultScreen = document.getElementById('customer-screen-result');
 
     scanner.style.display = 'block';
@@ -287,9 +306,54 @@ function runCustomerDemo() {
 
     setTimeout(() => {
         scanner.style.display = 'none';
-        scanScreen.style.display = 'none';
+        noteScreen.style.display = 'none';
+        generiereRouteVonProdukten(window.aktuelleProdukte);
         resultScreen.style.display = 'flex';
     }, 2000);
+}
+
+/**
+ * Erstellt die Route aus den Produkten
+ */
+function generiereRouteVonProdukten(produkte) {
+    const zeit = berechneEinkaufszeit(produkte.length);
+    const routeContainer = document.getElementById('route-items-container');
+    const zeitAnzeige = document.getElementById('route-zeit');
+    
+    if (zeitAnzeige) zeitAnzeige.textContent = `${zeit} Min`;
+    
+    if (routeContainer) {
+        let routeHTML = '';
+        produkte.forEach(produkt => {
+            routeHTML += `
+                <div class="route-item">
+                    <span>${produkt.emoji} ${produkt.name}</span>
+                    <span class="coordinate">${produkt.gang}-${produkt.regal}</span>
+                </div>
+            `;
+        });
+        routeContainer.innerHTML = routeHTML;
+    }
+}
+
+/**
+ * Zurück zum Start
+ */
+function resetCompleteDemo() {
+    document.getElementById('customer-screen-start').style.display = 'flex';
+    document.getElementById('customer-screen-note').style.display = 'none';
+    document.getElementById('customer-screen-result').style.display = 'none';
+    
+    const scanBtn = document.getElementById('scan-btn');
+    if (scanBtn) {
+        scanBtn.innerText = 'Zettel scannen';
+        scanBtn.disabled = false;
+    }
+    window.aktuelleProdukte = null;
+}
+
+function resetCustomerDemo() {
+    resetCompleteDemo();
 }
 
 /**
@@ -302,6 +366,193 @@ function resetCustomerDemo() {
     const scanBtn = document.getElementById('scan-btn');
     scanBtn.innerText = 'Zettel scannen';
     scanBtn.disabled = false;
+}
+/* ========================================
+   PRODUKTDATENBANK FÜR CUSTOMER DEMO
+   Diese Sektion NACH Zeile 305 in script.js einfügen
+   ======================================== */
+
+/**
+ * Große Produktdatenbank mit über 100 Artikeln
+ * Jedes Produkt hat: name, emoji, kategorie, gang, regal
+ */
+const PRODUKTE_DATENBANK = [
+    // Obst & Gemüse
+    { name: "Tomaten", emoji: "🍅", kategorie: "Obst & Gemüse", gang: "A", regal: "02" },
+    { name: "Gurken", emoji: "🥒", kategorie: "Obst & Gemüse", gang: "A", regal: "03" },
+    { name: "Paprika", emoji: "🫑", kategorie: "Obst & Gemüse", gang: "A", regal: "04" },
+    { name: "Karotten", emoji: "🥕", kategorie: "Obst & Gemüse", gang: "A", regal: "05" },
+    { name: "Brokkoli", emoji: "🥦", kategorie: "Obst & Gemüse", gang: "A", regal: "06" },
+    { name: "Salat", emoji: "🥬", kategorie: "Obst & Gemüse", gang: "A", regal: "07" },
+    { name: "Zwiebeln", emoji: "🧅", kategorie: "Obst & Gemüse", gang: "A", regal: "08" },
+    { name: "Knoblauch", emoji: "🧄", kategorie: "Obst & Gemüse", gang: "A", regal: "09" },
+    { name: "Kartoffeln", emoji: "🥔", kategorie: "Obst & Gemüse", gang: "A", regal: "10" },
+    { name: "Äpfel", emoji: "🍎", kategorie: "Obst & Gemüse", gang: "A", regal: "11" },
+    { name: "Bananen", emoji: "🍌", kategorie: "Obst & Gemüse", gang: "A", regal: "12" },
+    { name: "Orangen", emoji: "🍊", kategorie: "Obst & Gemüse", gang: "A", regal: "13" },
+    { name: "Erdbeeren", emoji: "🍓", kategorie: "Obst & Gemüse", gang: "A", regal: "14" },
+    { name: "Trauben", emoji: "🍇", kategorie: "Obst & Gemüse", gang: "A", regal: "15" },
+    { name: "Wassermelone", emoji: "🍉", kategorie: "Obst & Gemüse", gang: "A", regal: "16" },
+    { name: "Ananas", emoji: "🍍", kategorie: "Obst & Gemüse", gang: "A", regal: "17" },
+    { name: "Mango", emoji: "🥭", kategorie: "Obst & Gemüse", gang: "A", regal: "18" },
+    { name: "Avocado", emoji: "🥑", kategorie: "Obst & Gemüse", gang: "A", regal: "19" },
+    { name: "Zitronen", emoji: "🍋", kategorie: "Obst & Gemüse", gang: "A", regal: "20" },
+    
+    // Drogerie & Hygiene
+    { name: "Zahnpasta", emoji: "🦷", kategorie: "Drogerie", gang: "B", regal: "01" },
+    { name: "Shampoo", emoji: "🧴", kategorie: "Drogerie", gang: "B", regal: "02" },
+    { name: "Duschgel", emoji: "🧼", kategorie: "Drogerie", gang: "B", regal: "03" },
+    { name: "Seife", emoji: "🧼", kategorie: "Drogerie", gang: "B", regal: "04" },
+    { name: "Toilettenpapier", emoji: "🧻", kategorie: "Drogerie", gang: "B", regal: "05" },
+    { name: "Taschentücher", emoji: "🤧", kategorie: "Drogerie", gang: "B", regal: "06" },
+    { name: "Deo", emoji: "💨", kategorie: "Drogerie", gang: "B", regal: "07" },
+    { name: "Rasierer", emoji: "🪒", kategorie: "Drogerie", gang: "B", regal: "08" },
+    { name: "Creme", emoji: "🧴", kategorie: "Drogerie", gang: "B", regal: "09" },
+    { name: "Waschmittel", emoji: "🧺", kategorie: "Drogerie", gang: "B", regal: "10" },
+    { name: "Putzmittel", emoji: "🧽", kategorie: "Drogerie", gang: "B", regal: "11" },
+    { name: "Spülmittel", emoji: "🫧", kategorie: "Drogerie", gang: "B", regal: "12" },
+    { name: "Windeln", emoji: "👶", kategorie: "Drogerie", gang: "B", regal: "13" },
+    { name: "Zahnbürste", emoji: "🪥", kategorie: "Drogerie", gang: "B", regal: "14" },
+    
+    // Milchprodukte & Eier
+    { name: "Milch", emoji: "🥛", kategorie: "Kühlware", gang: "C", regal: "01" },
+    { name: "Eier", emoji: "🥚", kategorie: "Kühlware", gang: "C", regal: "02" },
+    { name: "Butter", emoji: "🧈", kategorie: "Kühlware", gang: "C", regal: "03" },
+    { name: "Käse", emoji: "🧀", kategorie: "Kühlware", gang: "C", regal: "04" },
+    { name: "Joghurt", emoji: "🥛", kategorie: "Kühlware", gang: "C", regal: "05" },
+    { name: "Quark", emoji: "🥛", kategorie: "Kühlware", gang: "C", regal: "06" },
+    { name: "Sahne", emoji: "🥛", kategorie: "Kühlware", gang: "C", regal: "07" },
+    { name: "Frischkäse", emoji: "🧀", kategorie: "Kühlware", gang: "C", regal: "08" },
+    { name: "Mozzarella", emoji: "🧀", kategorie: "Kühlware", gang: "C", regal: "09" },
+    
+    // Fleisch & Wurst
+    { name: "Hähnchen", emoji: "🍗", kategorie: "Fleisch", gang: "D", regal: "01" },
+    { name: "Hackfleisch", emoji: "🍖", kategorie: "Fleisch", gang: "D", regal: "02" },
+    { name: "Würstchen", emoji: "🌭", kategorie: "Fleisch", gang: "D", regal: "03" },
+    { name: "Salami", emoji: "🥓", kategorie: "Fleisch", gang: "D", regal: "04" },
+    { name: "Schinken", emoji: "🥓", kategorie: "Fleisch", gang: "D", regal: "05" },
+    { name: "Steak", emoji: "🥩", kategorie: "Fleisch", gang: "D", regal: "06" },
+    { name: "Bacon", emoji: "🥓", kategorie: "Fleisch", gang: "D", regal: "07" },
+    
+    // Brot & Backwaren
+    { name: "Brot", emoji: "🍞", kategorie: "Backwaren", gang: "E", regal: "01" },
+    { name: "Brötchen", emoji: "🥖", kategorie: "Backwaren", gang: "E", regal: "02" },
+    { name: "Toast", emoji: "🍞", kategorie: "Backwaren", gang: "E", regal: "03" },
+    { name: "Croissant", emoji: "🥐", kategorie: "Backwaren", gang: "E", regal: "04" },
+    { name: "Kuchen", emoji: "🍰", kategorie: "Backwaren", gang: "E", regal: "05" },
+    { name: "Bagel", emoji: "🥯", kategorie: "Backwaren", gang: "E", regal: "06" },
+    
+    // Getränke
+    { name: "Wasser", emoji: "💧", kategorie: "Getränke", gang: "F", regal: "01" },
+    { name: "Cola", emoji: "🥤", kategorie: "Getränke", gang: "F", regal: "02" },
+    { name: "Saft", emoji: "🧃", kategorie: "Getränke", gang: "F", regal: "03" },
+    { name: "Bier", emoji: "🍺", kategorie: "Getränke", gang: "F", regal: "04" },
+    { name: "Wein", emoji: "🍷", kategorie: "Getränke", gang: "F", regal: "05" },
+    { name: "Kaffee", emoji: "☕", kategorie: "Getränke", gang: "F", regal: "06" },
+    { name: "Tee", emoji: "🍵", kategorie: "Getränke", gang: "F", regal: "07" },
+    { name: "Energy Drink", emoji: "🥤", kategorie: "Getränke", gang: "F", regal: "08" },
+    { name: "Limonade", emoji: "🥤", kategorie: "Getränke", gang: "F", regal: "09" },
+    { name: "Smoothie", emoji: "🥤", kategorie: "Getränke", gang: "F", regal: "10" },
+    
+    // Süßigkeiten & Snacks
+    { name: "Schokolade", emoji: "🍫", kategorie: "Süßwaren", gang: "G", regal: "01" },
+    { name: "Chips", emoji: "🍿", kategorie: "Süßwaren", gang: "G", regal: "02" },
+    { name: "Gummibärchen", emoji: "🍬", kategorie: "Süßwaren", gang: "G", regal: "03" },
+    { name: "Kekse", emoji: "🍪", kategorie: "Süßwaren", gang: "G", regal: "04" },
+    { name: "Bonbons", emoji: "🍭", kategorie: "Süßwaren", gang: "G", regal: "05" },
+    { name: "Eis", emoji: "🍦", kategorie: "Süßwaren", gang: "G", regal: "06" },
+    { name: "Popcorn", emoji: "🍿", kategorie: "Süßwaren", gang: "G", regal: "07" },
+    { name: "Nüsse", emoji: "🥜", kategorie: "Süßwaren", gang: "G", regal: "08" },
+    { name: "Müsliriegel", emoji: "🍫", kategorie: "Süßwaren", gang: "G", regal: "09" },
+    
+    // Tiefkühl
+    { name: "Pizza", emoji: "🍕", kategorie: "Tiefkühl", gang: "H", regal: "01" },
+    { name: "Pommes", emoji: "🍟", kategorie: "Tiefkühl", gang: "H", regal: "02" },
+    { name: "Fischstäbchen", emoji: "🐟", kategorie: "Tiefkühl", gang: "H", regal: "03" },
+    { name: "Gemüsemix", emoji: "🥦", kategorie: "Tiefkühl", gang: "H", regal: "04" },
+    { name: "Erbsen", emoji: "🫛", kategorie: "Tiefkühl", gang: "H", regal: "05" },
+    
+    // Konserven & Vorräte
+    { name: "Nudeln", emoji: "🍝", kategorie: "Vorräte", gang: "I", regal: "01" },
+    { name: "Reis", emoji: "🍚", kategorie: "Vorräte", gang: "I", regal: "02" },
+    { name: "Mehl", emoji: "🌾", kategorie: "Vorräte", gang: "I", regal: "03" },
+    { name: "Zucker", emoji: "🍬", kategorie: "Vorräte", gang: "I", regal: "04" },
+    { name: "Salz", emoji: "🧂", kategorie: "Vorräte", gang: "I", regal: "05" },
+    { name: "Pfeffer", emoji: "🌶️", kategorie: "Vorräte", gang: "I", regal: "06" },
+    { name: "Olivenöl", emoji: "🫒", kategorie: "Vorräte", gang: "I", regal: "07" },
+    { name: "Essig", emoji: "🧪", kategorie: "Vorräte", gang: "I", regal: "08" },
+    { name: "Tomatenmark", emoji: "🍅", kategorie: "Vorräte", gang: "I", regal: "09" },
+    { name: "Ketchup", emoji: "🍅", kategorie: "Vorräte", gang: "I", regal: "10" },
+    { name: "Senf", emoji: "🌭", kategorie: "Vorräte", gang: "I", regal: "11" },
+    { name: "Mayo", emoji: "🥚", kategorie: "Vorräte", gang: "I", regal: "12" },
+    { name: "Honig", emoji: "🍯", kategorie: "Vorräte", gang: "I", regal: "13" },
+    { name: "Marmelade", emoji: "🍓", kategorie: "Vorräte", gang: "I", regal: "14" },
+    { name: "Nutella", emoji: "🍫", kategorie: "Vorräte", gang: "I", regal: "15" },
+    { name: "Dosentomaten", emoji: "🥫", kategorie: "Vorräte", gang: "I", regal: "16" },
+    { name: "Bohnen", emoji: "🥫", kategorie: "Vorräte", gang: "I", regal: "17" },
+    { name: "Thunfisch", emoji: "🐟", kategorie: "Vorräte", gang: "I", regal: "18" },
+    { name: "Mais", emoji: "🌽", kategorie: "Vorräte", gang: "I", regal: "19" },
+    
+    // Fertiggerichte
+    { name: "Suppe", emoji: "🍲", kategorie: "Fertiggerichte", gang: "J", regal: "01" },
+    { name: "Ravioli", emoji: "🥫", kategorie: "Fertiggerichte", gang: "J", regal: "02" },
+    { name: "Instant Nudeln", emoji: "🍜", kategorie: "Fertiggerichte", gang: "J", regal: "03" },
+];
+
+/**
+ * Wählt zufällige Produkte aus der Datenbank
+ * @param {number} anzahl - Wie viele Produkte sollen ausgewählt werden
+ * @returns {Array} - Array mit zufälligen Produkten
+ */
+function getZufaelligeProdukte(anzahl = 5) {
+    const verfuegbar = [...PRODUKTE_DATENBANK];
+    const ausgewaehlte = [];
+    
+    for (let i = 0; i < anzahl && verfuegbar.length > 0; i++) {
+        const zufallsIndex = Math.floor(Math.random() * verfuegbar.length);
+        ausgewaehlte.push(verfuegbar[zufallsIndex]);
+        verfuegbar.splice(zufallsIndex, 1);
+    }
+    
+    return ausgewaehlte;
+}
+
+/**
+ * Berechnet die Einkaufszeit basierend auf Anzahl der Produkte
+ * @param {number} anzahl - Anzahl der Produkte
+ * @returns {number} - Geschätzte Zeit in Minuten
+ */
+function berechneEinkaufszeit(anzahl) {
+    return Math.ceil((anzahl * 0.5) + 1);
+}
+
+/**
+ * Generiert eine neue zufällige Route mit Produkten
+ */
+function generiereZufaelligeRoute() {
+    const anzahl = Math.floor(Math.random() * 6) + 3;
+    const produkte = getZufaelligeProdukte(anzahl);
+    const zeit = berechneEinkaufszeit(anzahl);
+    
+    const routeContainer = document.getElementById('route-items-container');
+    const zeitAnzeige = document.getElementById('route-zeit');
+    
+    if (zeitAnzeige) {
+        zeitAnzeige.textContent = `${zeit} Min`;
+    }
+    
+    if (routeContainer) {
+        let routeHTML = '';
+        produkte.forEach(produkt => {
+            routeHTML += `
+                <div class="route-item">
+                    <span>${produkt.emoji} ${produkt.name}</span>
+                    <span class="coordinate">${produkt.gang}-${produkt.regal}</span>
+                </div>
+            `;
+        });
+        routeContainer.innerHTML = routeHTML;
+    }
 }
 
 /* ========================================
