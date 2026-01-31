@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopGuide für Händler - Dashboard</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg" aria-hidden="true">
+        <div class="glass-circle circle1"></div>
+        <div class="glass-circle circle2"></div>
+        <div class="glass-circle circle3"></div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
+        <span>↑</span>
+    </button>
+    
+<div id="merchant-dashboard" class="page active">
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">ShopGuide</div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+
+        <header style="padding: 2rem 5%;">
+            <h1>ShopGuide für Händler</h1>
+            <p>Optimieren Sie Ihr Geschäft</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" onclick="window.location.href='merchant-verify.html'">← Zurück</a>
+        <section class="merchant-stats-animated">
+  <div class="stats-row">
+    <div class="merchant-stat">
+      <span class="stat-label">Zeitersparnis</span>
+      <span class="stat-animated stat-counter" data-target="30">0</span><span class="stat-unit">%</span>
+    </div>
+    <div class="merchant-stat">
+      <span class="stat-label">Umsatzsteigerung</span>
+      <span class="stat-animated stat-counter" data-target="25">0</span><span class="stat-unit">%</span>
+    </div>
+    <div class="merchant-stat">
+      <span class="stat-label">Kundenzufriedenheit</span>
+      <span class="stat-animated stat-counter" data-target="40">0</span><span class="stat-unit">%</span>
+    </div>
+  </div>
+</section>
+
+            <div class="benefit-section">
+                <h2 style="text-align: center; margin-bottom: 3rem;">Ihre Vorteile</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⏱️</div>
+                        <div class="stat-value">30%</div>
+                        <div class="stat-label">Zeitersparnis</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-value">15-25%</div>
+                        <div class="stat-label">Umsatzsteigerung</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">😊</div>
+                        <div class="stat-value">+40%</div>
+                        <div class="stat-label">Kundenzufriedenheit</div>
+                    </div>
+                </div>
+
+                <div class="benefit-list" style="margin-top: 3rem;">
+                    <h3>Konkrete Vorteile für Ihr Geschäft:</h3>
+                    <ul>
+                        <li>✅ <strong>Weniger Personalfragen:</strong> Kunden finden Produkte selbstständig</li>
+                        <li>✅ <strong>Höhere Laufkundschaft:</strong> App wird zum lokalen Service</li>
+                        <li>✅ <strong>Optimierte Regalbelegung:</strong> Datenbasierte Layoutplanung</li>
+                        <li>✅ <strong>Cross-Selling:</strong> Intelligente Produktvorschläge entlang der Route</li>
+                        <li>✅ <strong>Keine Hardwarekosten:</strong> Softwarelösung für bestehende Infrastruktur</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ROI CALCULATOR -->
+            <div class="calc-section" style="margin-top: 4rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">ROI-Rechner</h2>
+                <p style="text-align: center; margin-bottom: 3rem;">Berechnen Sie Ihr persönliches Einsparpotenzial</p>
+                
+                <div class="calc-box">
+                    <div class="input-group">
+                        <label>Durchschnittliche Kunden pro Tag:</label>
+                        <input type="number" id="customerCount" placeholder="z.B. 500" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Produktfragen pro Tag (geschätzt):</label>
+                        <input type="number" id="questionsCount" placeholder="z.B. 50" min="0">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Stundenlohn Personal (€):</label>
+                        <input type="number" id="hourlyWage" placeholder="z.B. 15" min="0">
+                    </div>
+                    
+                    <button class="cta-button" onclick="calculateROI()" style="margin-top: 1rem; width: 100%;">Berechnen</button>
+                    
+                    <div id="calc-result" class="result-box" style="display: none; margin-top: 2rem;">
+                        <h3>Ihr monatliches Einsparpotenzial:</h3>
+                        <div class="result-value">
+                            <span>⏱️ Zeit:</span> <strong id="timeSaved">0 Std.</strong>
+                        </div>
+                        <div class="result-value">
+                            <span>💰 Kosten:</span> <strong id="moneySaved">0 €</strong>
+                        </div>
+                        <p style="font-size: 0.9rem; margin-top: 1rem; color: #666;">
+                            * Basierend auf durchschnittlich 2 Minuten pro Kundenanfrage und 25 Arbeitstagen
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAYOUT PLANER MIT KOORDINATENSYSTEM -->
+            <div style="margin-top: 4rem;">
+                <h2>🏗️ Ladenlayout Planer</h2>
+                <p>Platzieren Sie Regale und Gänge auf Ihrem Ladenplan</p>
+                
+                <div class="layout-planer">
+                    <div class="planer-tools">
+                        <div class="tool-buttons">
+                            <button class="tool-btn active" data-tool="wall" title="Wand/Barriere">
+                                🧱 Wand
+                            </button>
+                            <button class="tool-btn" data-tool="shelf" title="Regal platzieren">
+                                📦 Regal
+                            </button>
+                            <button class="tool-btn" data-tool="cash" title="Kasse">
+                                💰 Kasse
+                            </button>
+                            <button class="tool-btn" data-tool="entrance" title="Eingang">
+                                🚪 Eingang
+                            </button>
+                            <button class="tool-btn" data-tool="cooling" title="Kühlung">
+                                ❄️ Kühlung
+                            </button>
+                            <button class="tool-btn" data-tool="delete" title="Element löschen">
+                                🗑️ Löschen
+                            </button>
+                            <button class="tool-btn" id="clear-grid" title="Alles löschen">
+                                🔄 Neu
+                            </button>
+                        </div>
+                        
+                        <div class="tool-info">
+                            <p><strong>Anleitung:</strong> Klicken Sie ein Werkzeug, dann auf das Raster.</p>
+                            <p>Aktuell ausgewählt: <span id="current-tool">🧱 Wand</span></p>
+                            <div class="coordinate-display">
+                                Koordinaten: <span id="coord-display">A-01</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-container">
+                        <div class="grid-header">
+                            <div class="axis-label">Gänge / Reihen</div>
+                        </div>
+                        <div class="grid-wrapper">
+                            <div class="grid-axis-y">
+                                <div>A</div><div>B</div><div>C</div><div>D</div><div>E</div>
+                                <div>F</div><div>G</div><div>H</div><div>I</div><div>J</div>
+                            </div>
+                            <div class="grid-main">
+                                <div class="grid-axis-x">
+                                    <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div>
+                                    <div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
+                                </div>
+                                <div class="grid" id="store-grid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="layout-actions">
+                        <button class="cta-button" onclick="saveLayout()">📁 Layout speichern</button>
+                        <button class="cta-button secondary" onclick="loadSampleLayout()">📋 Beispiel laden</button>
+                        <button class="cta-button secondary" onclick="printLayout()">🖨️ Layout drucken</button>
+                    </div>
+                    
+                    <div class="layout-summary">
+                        <h3>Statistik</h3>
+                        <div id="layout-stats" class="summary-stats">
+                            <div class="summary-item">
+                                <span class="stat-label">Regale:</span>
+                                <span class="stat-value" id="shelf-count">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Kassen:</span>
+                                <span class="stat-value" id="cash-count">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Fläche:</span>
+                                <span class="stat-value" id="area-used">0%</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="stat-label">Elemente gesamt:</span>
+                                <span class="stat-value" id="total-items">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section mit Copy-to-Clipboard -->
+            <div class="contact-section" style="margin-top: 4rem;">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Kontaktieren Sie uns</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-label">📧 E-Mail:</span>
+                        <span class="contact-value" id="email-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="214d445342494b404f4f484a1661464c40484d0f424e4c"><span class="__cf_email__" data-cfemail="dbb7bea9b0b1bab5b5b2b09bbcb6bab2b7f5b8b4b6">lerkjannik@gmail.com</span></a></span>
+                        <button class="copy-btn" onclick="copyToClipboard('lerchjannik7@gmail.com', 'email')" title="E-Mail kopieren">
+                            📋
+                        </button>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <span class="contact-label">📱 Telefon:</span>
+                        <span class="contact-value" id="phone-text">+49 (0) 1590 6831180</span>
+                        <button class="copy-btn" onclick="copyToClipboard('+49 (0) 1590 6831180', 'phone')" title="Telefonnummer kopieren">
+                            📋
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="features-grid" style="margin-top: 3rem;">
+                    <div class="feature-card">
+                        <div class="feature-icon">📞</div>
+                        <h3>Beratungsgespräch</h3>
+                        <p>Kostenloses 30-minütiges Erstgespräch mit unserem Team</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="bookConsultation()">Termin buchen</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>4-Wochen Pilot</h3>
+                        <p>Testen Sie ShopGuide 4 Wochen kostenlos in Ihrem Markt</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="applyPilot()">Jetzt bewerben</button>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📄</div>
+                        <h3>Business Case</h3>
+                        <p>Detaillierte Kalkulation für Ihre spezifische Situation</p>
+                        <button class="cta-button" style="margin-top: 1rem;" onclick="requestBusinessCase()">Anfordern</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 4rem;">
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a></p>
+        </footer>
+    </div>
+
+    <!-- IMPRESSUM -->
+
+        <!-- Settings Overlay -->
+    <div id="settings-overlay" class="settings-overlay"></div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h3>Einstellungen</h3>
+            <span class="close-settings" onclick="toggleSettingsPanel()">&times;</span>
+        </div>
+        <div class="settings-content">
+            <!-- Navigation Links im Panel -->
+            <div class="panel-nav-section">
+                <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
+                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
+                    🏠 Home
+                </a>
+                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
+                    🛒 Für Kunden
+                </a>
+                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
+                    🏪 Für Händler
+                </a>
+                <a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
+                    ℹ️ Über uns
+                </a>
+                <a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
+                    📄 Impressum
+                </a>
+                <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
+                    🔒 Datenschutz
+                </a>
+            </div>
+            
+            <div class="settings-divider"></div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span id="dark-mode-icon">🌙</span>
+                    <span>Dark Mode</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-description">
+                Wechseln Sie zwischen hellem und dunklem Design für angenehmeres Lesen.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
