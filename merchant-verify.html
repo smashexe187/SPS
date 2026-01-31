@@ -3,21 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopGuide - Das Betriebssystem für den Einkauf</title>
-    
-    <!-- Open Graph Meta Tags für Social Media -->
-    <meta property="og:title" content="ShopGuide - Das Betriebssystem für den effizienten Einkauf">
-    <meta property="og:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation. Ohne teure Hardware. Ohne Umbau. Sofort startklar.">
-    <meta property="og:image" content="hero-background.png">
-    <meta property="og:url" content="https://shopguide.de">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="ShopGuide">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ShopGuide - Das Betriebssystem für den Einkauf">
-    <meta name="twitter:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation">
-    <meta name="twitter:image" content="hero-background.png">
+    <title>Händlerbereich - ShopGuide</title>
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -42,8 +28,8 @@
         <span>↑</span>
     </button>
     
-    <!-- HOMEPAGE -->
-    <div id="homepage" class="page active">
+    <!-- MERCHANT VERIFY -->
+    <div id="merchant-verify" class="page active">
         <nav>
             <div class="logo" onclick="window.location.href='index.html'">ShopGuide</div>
             <div class="settings-icon" onclick="toggleSettingsPanel()">
@@ -53,65 +39,29 @@
             </div>
         </nav>
 
-        <header>
-            <h1>Das Betriebssystem für den effizienten Einkauf</h1>
-            <p>Verbinden Sie analoge Einkaufszettel mit digitaler Navigation.<br>Ohne teure Hardware. Ohne Umbau. Sofort startklar.</p>
+        <div class="container">
+            <a class="back-link" onclick="window.location.href='index.html'">← Zurück zur Startseite</a>
             
-            <div class="role-selector">
-                <div class="role-card customer" onclick="window.location.href='customer-verify.html'">
-                    <div class="role-icon">🛒</div>
-                    <h3>Ich bin Kunde</h3>
-                    <p>Erlebe die App-Demo und entdecke, wie ShopGuide deinen Einkauf vereinfacht</p>
-                    <button class="cta-button" style="background: var(--blue);">Demo ansehen</button>
+            <div class="verification-box">
+                <div class="role-icon">🏪</div>
+                <h2>Händlerbereich</h2>
+                <p>Willkommen! Bitte bestätigen Sie, dass Sie als Händler oder Entscheider die Business-Informationen einsehen möchten.</p>
+                
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="merchant-confirm">
+                    <label for="merchant-confirm">
+                        Ja, ich bin Händler/Entscheider und möchte erfahren, wie ShopGuide mein Geschäft optimieren kann.
+                        Ich verstehe, dass diese Daten vertraulich behandelt werden.
+                    </label>
                 </div>
                 
-                <div class="role-card merchant" onclick="window.location.href='merchant-verify.html'">
-                    <div class="role-icon">🏪</div>
-                    <h3>Ich bin Händler</h3>
-                    <p>Erfahre, wie ShopGuide dein Geschäft optimiert und Umsatz steigert</p>
-                    <button class="cta-button">Business Infos</button>
-                </div>
+                <button class="cta-button" id="merchant-proceed" onclick="window.location.href='merchant-dashboard.html'" style="opacity: 0.5; cursor: not-allowed;" disabled>
+                    Weiter zum Dashboard
+                </button>
             </div>
-        </header>
+        </div>
 
-        <section class="trust-badges-section">
-            <div class="trust-badge" title="DSGVO konform">
-                <span class="badge-icon">🔒</span>
-                <span class="badge-label">DSGVO konform</span>
-            </div>
-            <div class="trust-badge" title="Cloud Hosting in Germany">
-                <span class="badge-icon">☁️</span>
-                <span class="badge-label">Cloud Hosting in Germany</span>
-            </div>
-            <div class="trust-badge" title="Plug & Play fähig">
-                <span class="badge-icon">🔌</span>
-                <span class="badge-label">Plug & Play fähig</span>
-            </div>
-        </section>
-        
-        <section class="logo-cloud-section">
-            <div class="logo-cloud-title">In Gesprächen mit:</div>
-            <div class="logo-cloud">
-                <a href="https://www.edeka.de" target="_blank" rel="noopener noreferrer">
-                    <img src="edeka.png" alt="EDEKA" class="logo-cloud-item">
-                </a>
-                <a href="https://www.aldi-sued.de" target="_blank" rel="noopener noreferrer">
-                    <img src="aldi.png" alt="ALDI" class="logo-cloud-item">
-                </a>
-                <a href="https://www.lidl.de" target="_blank" rel="noopener noreferrer">
-                    <img src="lidl.png" alt="LIDL" class="logo-cloud-item">
-                </a>
-                <a href="https://www.penny.de" target="_blank" rel="noopener noreferrer">
-                    <img src="penny.png" alt="PENNY" class="logo-cloud-item">
-                </a>
-                <a href="https://www.rewe.de" target="_blank" rel="noopener noreferrer">
-                    <img src="rewe.png" alt="REWE" class="logo-cloud-item">
-                </a>
-            </div>
-            <div class="logo-cloud-caption">Partnerschaftsverhandlungen laufen</div>
-        </section>
-
-        <footer style="margin-top: 4rem;">
+        <footer>
             <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a></p>
         </footer>
     </div>

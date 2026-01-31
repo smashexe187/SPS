@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopGuide für Kunden - Demo</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+    <link rel="shortcut icon" href="favicon.png">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-bg" aria-hidden="true">
+        <div class="glass-circle circle1"></div>
+        <div class="glass-circle circle2"></div>
+        <div class="glass-circle circle3"></div>
+    </div>
+
+    <!-- Scroll Progress Indicator -->
+    <div id="scroll-progress"></div>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
+        <span>↑</span>
+    </button>
+    
+    <!-- CUSTOMER DASHBOARD -->
+    <div id="customer-dashboard" class="page active">
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">ShopGuide</div>
+            <div class="settings-icon" onclick="toggleSettingsPanel()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+        </nav>
+
+        <header style="padding: 2rem 5%;">
+            <h1>ShopGuide für Kunden</h1>
+            <p>Dein smarter Einkaufsbegleiter</p>
+        </header>
+
+        <div class="container">
+            <a class="back-link" onclick="window.location.href='customer-verify.html'">← Zurück</a>
+
+            <div class="demo-section">
+                <div class="demo-text">
+                    <h2>So funktioniert's</h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                        Schreibe deinen Einkaufszettel wie gewohnt – egal ob unleserlich oder strukturiert.
+                        ShopGuide macht daraus eine optimale Route durch den Supermarkt.
+                    </p>
+                    
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;">✅ <strong>Zettel scannen:</strong> Foto machen, fertig</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>KI-Erkennung:</strong> Entziffert jede Handschrift</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Smart-Route:</strong> Optimale Reihenfolge</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Navigation:</strong> Direkt zum richtigen Regal</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Zeit sparen:</strong> Bis zu 30% schneller einkaufen</li>
+                    </ul>
+                </div>
+
+                <div class="demo-phone">
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="app-header">ShopGuide App</div>
+                            
+                            <div id="customer-screen-scan" class="app-content">
+                                <div class="scan-overlay" id="customer-scanner"></div>
+                                <div class="handwritten-note" id="demo-note">
+                                    - Milch<br>
+                                    - Eier<br>
+                                    - Tomaten<br>
+                                    - Zahnpasta
+                                </div>
+                                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">Zettel scannen</button>
+                            </div>
+
+                            <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
+                                <h3 style="margin-top: 0;">Deine Route (4 Min)</h3>
+                                
+                                <div class="route-item">
+                                    <span>🍅 Tomaten</span> <span class="coordinate">A-02</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🦷 Zahnpasta</span> <span class="coordinate">B-12</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🥚 Eier</span> <span class="coordinate">C-04</span>
+                                </div>
+                                <div class="route-item">
+                                    <span>🥛 Milch</span> <span class="coordinate">D-01</span>
+                                </div>
+                                
+                                <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal testen</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STORY SECTION -->
+            <section class="story-section">
+                <h2 class="section-title">Warum ShopGuide? Die Geschichte von Sarah</h2>
+                
+                <div class="story-container">
+                    <div class="story-card problem">
+                        <div class="story-header">
+                            <span class="status-icon">❌</span>
+                            <h3>Ohne ShopGuide</h3>
+                        </div>
+                        <div class="story-content">
+                            <p class="persona"><strong>Sarah (32)</strong>, Mutter & Managerin</p>
+                            <ul>
+                                <li>Sucht seit 10 Minuten verzweifelt Kokosmilch.</li>
+                                <li>Kinder quengeln, der Zeitdruck steigt.</li>
+                                <li>Läuft kreuz und quer durch den Laden (ineffizient).</li>
+                                <li><strong>Resultat:</strong> Frustrierter Kaufabbruch nach 15 Min. Suche.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="story-card solution">
+                        <div class="story-header">
+                            <span class="status-icon">✅</span>
+                            <h3>Mit ShopGuide</h3>
+                        </div>
+                        <div class="story-content">
+                            <p class="persona"><strong>Entspannt & Effizient</strong></p>
+                            <ul>
+                                <li>Einkaufszettel wird automatisch nach Laufweg sortiert.</li>
+                                <li>Präzise Indoor-Navigation führt direkt zum Regal.</li>
+                                <li>Kinder sind durch das <strong>Schnitzeljagd-Feature</strong> abgelenkt.</li>
+                                <li><strong>Resultat:</strong> Einkauf in Rekordzeit erledigt.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CUSTOMER BENEFITS SECTION -->
+            <div style="margin-top: 4rem;">
+                <h2>Deine Vorteile</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Zeit sparen</h3>
+                        <p>Keine Suche mehr nach Produkten. Die App führt dich direkt zum Ziel.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Stressfrei einkaufen</h3>
+                        <p>Kein Vergessen, kein Chaos. Alles auf deiner optimierten Route.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">❄️</div>
+                        <h3>Frische Produkte</h3>
+                        <p>Kühlware wird intelligent am Ende der Route platziert.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3>Inspiration</h3>
+                        <p>Entdecke neue Produkte, die zu deinem Einkauf passen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer style="margin-top: 4rem;">
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a></p>
+        </footer>
+    </div>
+
+        <!-- Settings Overlay -->
+    <div id="settings-overlay" class="settings-overlay"></div>
+
+    <!-- Settings Panel -->
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h3>Einstellungen</h3>
+            <span class="close-settings" onclick="toggleSettingsPanel()">&times;</span>
+        </div>
+        <div class="settings-content">
+            <!-- Navigation Links im Panel -->
+            <div class="panel-nav-section">
+                <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
+                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
+                    🏠 Home
+                </a>
+                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
+                    🛒 Für Kunden
+                </a>
+                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
+                    🏪 Für Händler
+                </a>
+                <a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
+                    ℹ️ Über uns
+                </a>
+                <a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
+                    📄 Impressum
+                </a>
+                <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
+                    🔒 Datenschutz
+                </a>
+            </div>
+            
+            <div class="settings-divider"></div>
+            
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span id="dark-mode-icon">🌙</span>
+                    <span>Dark Mode</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-description">
+                Wechseln Sie zwischen hellem und dunklem Design für angenehmeres Lesen.
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
