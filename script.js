@@ -338,7 +338,7 @@ function calculateROI() {
  * Öffnet Email-Client für Beratungsgespräch-Anfrage
  */
 function bookConsultation() {
-    const email = "lerchjannik7@gmail.com";
+    const email = "lerkjannik@gmail.com";
     const subject = "Anfrage: Kostenloses Beratungsgespräch";
     const body = `Guten Tag,
 
@@ -361,7 +361,7 @@ Mit freundlichen Grüßen`;
  * Öffnet Email-Client für Pilot-Programm-Bewerbung
  */
 function applyPilot() {
-    const email = "lerchjannik7@gmail.com";
+    const email = "lerkjannik@gmail.com";
     const subject = "Bewerbung: 4-Wochen Pilot-Programm";
     const body = `Guten Tag,
 
@@ -388,7 +388,7 @@ Mit freundlichen Grüßen`;
  * Öffnet Email-Client für Business Case Anforderung
  */
 function requestBusinessCase() {
-    const email = "lerchjannik7@gmail.com";
+    const email = "lerkjannik@gmail.com";
     const subject = "Anforderung: Detaillierter Business Case";
     const body = `Guten Tag,
 
