@@ -1198,3 +1198,212 @@ function createConfetti(parent){
 // Stil: (demo) .confetti { width:12px; height:12px; border-radius:50%; position:absolute; top:0; animation:pop .8s 1; }
 
 /* Alle anderen Funktionen von dir bleiben erhalten – keine Änderungen am Koordinatensystem, Darkmode, E-Mail-Versand, ROI etc! */
+/* ========================================
+   EASTER EGGS
+   ======================================== */
+
+// Easter Egg 1: Shift + S für lustige Statistik
+document.addEventListener('keydown', function(e) {
+    if (e.shiftKey && e.key === 'S') {
+        e.preventDefault();
+        showFunnyStats();
+    }
+});
+
+function showFunnyStats() {
+    const funnyStats = [
+        "🛒 Wusstest du? 73% aller Einkaufswagen quietschen - unsere App auch nicht! 😄",
+        "📊 Fun Fact: Du hast gerade mehr Zeit mit diesem Easter Egg verbracht als mit der Suche nach Milch im Supermarkt! 🥛",
+        "🎯 Statistik des Tages: 99% der Kunden vergessen mindestens 1 Produkt - ShopGuide vergisst nichts! 🧠",
+        "🍕 Breaking News: 87% aller Einkäufe enden mit Spontankäufen. Bei uns endet es mit einem Lächeln! 😊",
+        "⚡ Rekord: Der schnellste ShopGuide-Nutzer hat einen Wocheneinkauf in 7 Minuten geschafft. Dein Highscore? 🏆",
+        "🎪 Spaßfakt: Mehr Menschen kennen jetzt Shift+S als den Weg zur Kasse im Laden! 🤓",
+        "🌟 Easter Egg gefunden! Du gehörst zu den 0,3% Elite-Usern, die Shortcuts kennen! 🎖️"
+    ];
+    
+    const randomStat = funnyStats[Math.floor(Math.random() * funnyStats.length)];
+    
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+        color: white;
+        padding: 3rem;
+        border-radius: 20px;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.4s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem;">Easter Egg gefunden!</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6; margin: 0 0 2rem 0;">${randomStat}</p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: white;
+            color: #27ae60;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Weiter gehts! 🚀
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+}
+
+// Easter Egg 2: 30 Sekunden auf der Website
+let timeOnSite = 0;
+let thirtySecondPopupShown = false;
+
+// Nur Zeit zählen wenn Tab aktiv ist
+let isTabActive = true;
+document.addEventListener('visibilitychange', function() {
+    isTabActive = !document.hidden;
+});
+
+setInterval(function() {
+    if (isTabActive && !thirtySecondPopupShown) {
+        timeOnSite++;
+        
+        if (timeOnSite >= 30) {
+            thirtySecondPopupShown = true;
+            showThirtySecondPopup();
+        }
+    }
+}, 1000);
+
+function showThirtySecondPopup() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.5s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+        color: white;
+        padding: 3rem 2.5rem;
+        border-radius: 20px;
+        max-width: 550px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: bounceIn 0.6s;
+        position: relative;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🎊</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 2rem; font-weight: 700;">Wow, danke für dein Interesse!</h2>
+        <p style="font-size: 1.1rem; line-height: 1.7; margin: 0 0 1.5rem 0; opacity: 0.95;">
+            Du bist jetzt schon <strong>30 Sekunden</strong> hier und erkundest ShopGuide! 
+            Das freut mich wirklich sehr. 🙌
+        </p>
+        <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 2rem 0; opacity: 0.9;">
+            ShopGuide revolutioniert den Einkauf - und du bist einer der Ersten, 
+            die das Potenzial erkennen. Danke, dass du dir Zeit nimmst! 🚀
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: white;
+            color: #2c3e50;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)'" 
+           onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(0, 0, 0, 0.2)'">
+            Weiter entdecken! ✨
+        </button>
+        <p style="font-size: 0.8rem; margin: 1.5rem 0 0 0; opacity: 0.7;">
+            PS: Probier mal Shift+S für ein weiteres Goodie! 😉
+        </p>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+}
+
+// CSS Animationen für die Popups
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes bounceIn {
+        0% {
+            transform: scale(0.3);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+`;
+document.head.appendChild(style);
