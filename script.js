@@ -1198,3 +1198,281 @@ function createConfetti(parent){
 // Stil: (demo) .confetti { width:12px; height:12px; border-radius:50%; position:absolute; top:0; animation:pop .8s 1; }
 
 /* Alle anderen Funktionen von dir bleiben erhalten – keine Änderungen am Koordinatensystem, Darkmode, E-Mail-Versand, ROI etc! */
+/* ========================================
+   EASTER EGGS - EINFACH & COOL! 🎉
+   ======================================== */
+
+/* ========================================
+   EASTER EGG #1: GEHEIME STATISTIK
+   Halte SHIFT und drücke S
+   ======================================== */
+
+document.addEventListener('keydown', function(e) {
+    // SHIFT + S gedrückt?
+    if (e.shiftKey && e.key === 'S') {
+        e.preventDefault();
+        showSecretStats();
+    }
+});
+
+function showSecretStats() {
+    // Zufällige realistische Zahlen generieren
+    const einkäufeProWoche = 2;
+    const wochenProJahr = 52;
+    const jahreErwachsen = 50; // Durchschnitt
+    const minutenGespart = 15; // Pro Einkauf mit ShopGuide
+    
+    const totalEinkäufe = einkäufeProWoche * wochenProJahr * jahreErwachsen;
+    const minutenGesamt = totalEinkäufe * minutenGespart;
+    const stundenGesamt = Math.round(minutenGesamt / 60);
+    const tageGesamt = Math.round(stundenGesamt / 24);
+    
+    // Zufällige Fun Facts
+    const funFacts = [
+        `Das sind ${Math.round(tageGesamt / 7)} Wochen reiner Freizeit!`,
+        `Damit könntest du ${Math.round(stundenGesamt / 2)} Filme schauen!`,
+        `Das entspricht ${Math.round(tageGesamt)} ganzen Tagen!`,
+        `In dieser Zeit könntest du ${Math.round(stundenGesamt / 8)} Arbeitstage frei haben!`,
+        `Oder ${Math.round(stundenGesamt / 24 / 14)} Urlaube à 2 Wochen machen!`
+    ];
+    
+    const randomFact = funFacts[Math.floor(Math.random() * funFacts.length)];
+    
+    // Erstelle Popup
+    const popup = document.createElement('div');
+    popup.className = 'secret-stats-popup';
+    popup.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+            z-index: 999999;
+            animation: statsPopIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            max-width: 90vw;
+            border: 3px solid rgba(255,255,255,0.2);
+        ">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">📊</div>
+            <h2 style="margin: 0 0 0.5rem 0; font-size: 1.8rem;">🔓 GEHEIME STATISTIK FREIGESCHALTET!</h2>
+            <div style="background: rgba(0,0,0,0.2); padding: 1.5rem; border-radius: 15px; margin: 1.5rem 0;">
+                <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Mit ShopGuide sparst du in deinem Leben:</div>
+                <div style="font-size: 3.5rem; font-weight: bold; margin: 1rem 0; text-shadow: 3px 3px 6px rgba(0,0,0,0.5);">
+                    ${stundenGesamt.toLocaleString()} Stunden
+                </div>
+                <div style="font-size: 1.1rem; opacity: 0.95; margin-top: 1rem;">
+                    ${randomFact}
+                </div>
+            </div>
+            <div style="font-size: 0.9rem; opacity: 0.7; margin-top: 1rem;">
+                ⏱️ Basierend auf ${einkäufeProWoche}x Einkaufen/Woche über ${jahreErwachsen} Jahre
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" style="
+                margin-top: 2rem;
+                padding: 12px 30px;
+                background: rgba(255,255,255,0.2);
+                border: 2px solid white;
+                border-radius: 25px;
+                color: white;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: all 0.3s;
+                font-weight: bold;
+            " onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+               onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+                Wow! 🤯
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(popup);
+    
+    // Sound-Effekt (optional)
+    try {
+        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTcIGWi77eefTRAMUKfj8LZjHAY4ktfyyXstBSJ1xPDekkIKElyw6OyrWBUJQ5zd8sFuIQQngM3z2og3CRhmu+zvn04QC06k5O+2Yx0GN5HX8sp6LQUgc8Tv35JDChFYrujtuVoWCUGZ2/K+bSAFJoDM89qJOAkXZLrr7p9QEgxKoeHvt2MdBjaP1vLKei0FH3HC8N+SRAoQVKzo7rpbFglAmNryvm0gBSZ/y/Paijg=');
+        audio.volume = 0.2;
+        audio.play().catch(() => {});
+    } catch(e) {}
+    
+    console.log('📊 Geheime Statistik freigeschaltet!');
+}
+
+
+/* ========================================
+   EASTER EGG #2: DANKE-KONFETTI
+   Nach 30 Sekunden auf der Seite
+   ======================================== */
+
+let confettiTimeout = null;
+let confettiShown = false;
+
+// Starte Timer sobald Seite geladen ist
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('⏱️ Danke-Konfetti startet in 30 Sekunden...');
+    
+    confettiTimeout = setTimeout(function() {
+        if (!confettiShown) {
+            showThankYouConfetti();
+            confettiShown = true;
+        }
+    }, 30000); // 30 Sekunden
+});
+
+// Reset bei Seitenwechsel (für Single-Page-Apps)
+document.addEventListener('click', function(e) {
+    // Wenn auf Navigation geklickt wird, timer neu starten
+    if (e.target.closest('.nav-links, .panel-nav-link')) {
+        clearTimeout(confettiTimeout);
+        confettiShown = false;
+        confettiTimeout = setTimeout(function() {
+            if (!confettiShown) {
+                showThankYouConfetti();
+                confettiShown = true;
+            }
+        }, 30000);
+    }
+});
+
+function showThankYouConfetti() {
+    console.log('🎉 Danke-Konfetti aktiviert!');
+    
+    // Erstelle Danke-Popup
+    const thankYou = document.createElement('div');
+    thankYou.className = 'thank-you-popup';
+    thankYou.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            z-index: 999998;
+            animation: thankYouPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            border: 3px solid rgba(255,255,255,0.3);
+        ">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+            <h2 style="margin: 0; font-size: 2rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                Danke fürs Bleiben!
+            </h2>
+            <p style="margin: 1rem 0 0 0; font-size: 1.1rem; opacity: 0.9;">
+                Du scheinst wirklich interessiert zu sein 😊
+            </p>
+        </div>
+    `;
+    
+    document.body.appendChild(thankYou);
+    
+    // Starte Konfetti-Regen
+    startConfettiRain();
+    
+    // Entferne Popup nach 5 Sekunden
+    setTimeout(() => {
+        thankYou.style.animation = 'thankYouFade 0.5s forwards';
+        setTimeout(() => thankYou.remove(), 500);
+    }, 5000);
+}
+
+function startConfettiRain() {
+    const colors = ['#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#43e97b', '#38f9d7', '#fa709a', '#fee140'];
+    const confettiCount = 80;
+    const duration = 5000; // 5 Sekunden
+    
+    for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+            createConfettiPiece(colors);
+        }, i * 60); // Verteilt über Zeit
+    }
+}
+
+function createConfettiPiece(colors) {
+    const confetti = document.createElement('div');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const startX = Math.random() * window.innerWidth;
+    const rotation = Math.random() * 360;
+    const size = 8 + Math.random() * 8;
+    
+    confetti.style.cssText = `
+        position: fixed;
+        top: -20px;
+        left: ${startX}px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+        z-index: 999999;
+        pointer-events: none;
+        animation: confettiFall ${3 + Math.random() * 2}s linear forwards;
+        transform: rotate(${rotation}deg);
+        opacity: 0.9;
+    `;
+    
+    document.body.appendChild(confetti);
+    
+    // Entferne nach Animation
+    setTimeout(() => confetti.remove(), 6000);
+}
+
+// CSS Animations
+const easterEggStyles = document.createElement('style');
+easterEggStyles.innerHTML = `
+    @keyframes statsPopIn {
+        0% { 
+            transform: translate(-50%, -50%) scale(0) rotate(-20deg); 
+            opacity: 0; 
+        }
+        70% { 
+            transform: translate(-50%, -50%) scale(1.1) rotate(5deg); 
+        }
+        100% { 
+            transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+            opacity: 1; 
+        }
+    }
+    
+    @keyframes thankYouPop {
+        0% { 
+            transform: translate(-50%, -50%) scale(0); 
+            opacity: 0; 
+        }
+        70% { 
+            transform: translate(-50%, -50%) scale(1.1); 
+        }
+        100% { 
+            transform: translate(-50%, -50%) scale(1); 
+            opacity: 1; 
+        }
+    }
+    
+    @keyframes thankYouFade {
+        to { 
+            transform: translate(-50%, -50%) scale(0.8); 
+            opacity: 0; 
+        }
+    }
+    
+    @keyframes confettiFall {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 0.9;
+        }
+        100% {
+            transform: translateY(${window.innerHeight + 50}px) rotate(${360 + Math.random() * 720}deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(easterEggStyles);
+
+console.log('✅ Easter Eggs geladen!');
+console.log('📊 SHIFT+S = Geheime Statistik');
+console.log('🎉 30 Sekunden warten = Danke-Konfetti');
