@@ -1655,7 +1655,274 @@ function showEinkaufEasterEgg() {
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
 }
+// ========================================
+// MOBILE/TABLET EASTER EGGS (VERBESSERT)
+// ========================================
 
+// Easter Egg 1: Triple-Tap auf den Screen (FUNKTIONIERT GARANTIERT)
+let tapCount = 0;
+let tapTimer = null;
+let lastTapShown = 0;
+
+document.addEventListener('touchend', function(e) {
+    // Verhindere zu häufige Trigger
+    if (Date.now() - lastTapShown < 3000) return;
+    
+    tapCount++;
+    
+    if (tapTimer) clearTimeout(tapTimer);
+    
+    if (tapCount >= 3) {
+        showTripleTapEasterEgg();
+        tapCount = 0;
+        lastTapShown = Date.now();
+    }
+    
+    tapTimer = setTimeout(function() {
+        tapCount = 0;
+    }, 600);
+});
+
+function showTripleTapEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 2.5rem 2rem;
+        border-radius: 25px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: bounceIn 0.6s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4rem; margin-bottom: 1rem;">👆👆👆</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #3498db;">Triple-Tap!</h2>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            3x schnell getippt! Deine Finger sind schneller als deine Gedanken! ⚡
+        </p>
+        <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 2rem 0; color: #7f8c8d;">
+            Mit ShopGuide ist dein Einkauf genauso flott wie deine Finger! 💨
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        ">
+            Verstanden! 🚀
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+}
+
+// Easter Egg 2: Long-Press (2 Sekunden halten) - VEREINFACHT
+let longPressTimer = null;
+let longPressActive = false;
+let lastLongPressShown = 0;
+
+document.addEventListener('touchstart', function(e) {
+    if (Date.now() - lastLongPressShown < 5000) return;
+    
+    const target = e.target;
+    if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'BUTTON' || target.tagName === 'A') {
+        return;
+    }
+    
+    longPressActive = true;
+    longPressTimer = setTimeout(function() {
+        if (longPressActive) {
+            showLongPressEasterEgg();
+            lastLongPressShown = Date.now();
+        }
+    }, 2000);
+});
+
+document.addEventListener('touchend', function() {
+    longPressActive = false;
+    if (longPressTimer) {
+        clearTimeout(longPressTimer);
+    }
+});
+
+document.addEventListener('touchmove', function() {
+    longPressActive = false;
+    if (longPressTimer) {
+        clearTimeout(longPressTimer);
+    }
+});
+
+function showLongPressEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 2.5rem 2rem;
+        border-radius: 25px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: bounceIn 0.6s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4rem; margin-bottom: 1rem;">⏰💎</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #16a085;">Geduld-Champion!</h2>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            2 Sekunden gedrückt gehalten! Du hast Ausdauer! 💪
+        </p>
+        <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 2rem 0; color: #7f8c8d;">
+            Mit ShopGuide sparst du durchschnittlich 8 Minuten pro Einkauf. 
+            Das ist echte Zeitersparnis! ⚡
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #16a085, #138d75);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        ">
+            Awesome! 🌟
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+}
+
+
+
+// Easter Egg 5: Zwei-Finger gleichzeitig tippen (VEREINFACHT)
+let twoFingerTapShown = false;
+
+document.addEventListener('touchstart', function(e) {
+    if (twoFingerTapShown) return;
+    
+    if (e.touches.length === 2) {
+        twoFingerTapShown = true;
+        showTwoFingerEasterEgg();
+        
+        setTimeout(function() {
+            twoFingerTapShown = false;
+        }, 5000);
+    }
+});
+
+function showTwoFingerEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 2.5rem 2rem;
+        border-radius: 25px;
+        max-width: 90%;
+        width: 400px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: bounceIn 0.6s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4rem; margin-bottom: 1rem;">✌️✨</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #e67e22;">Zwei-Finger-Talent!</h2>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            Peace! ✌️ Du hast mit 2 Fingern gleichzeitig getippt!
+        </p>
+        <p style="font-size: 1rem; line-height: 1.6; margin: 0 0 2rem 0; color: #7f8c8d;">
+            Mit ShopGuide brauchst du nur einen Finger - für die perfekte Route! 👆
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        ">
+            Peace out! ✌️
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+            overlay.remove();
+        }
+    });
+}
 // CSS-Animationen für die Easter Eggs
 const easterEggStyles = document.createElement('style');
 easterEggStyles.textContent = `
