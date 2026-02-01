@@ -1218,7 +1218,54 @@ function showFunnyStats() {
         "🍕 Breaking News: 87% aller Einkäufe enden mit Spontankäufen. Bei uns endet es mit einem Lächeln! 😊",
         "⚡ Rekord: Der schnellste ShopGuide-Nutzer hat einen Wocheneinkauf in 7 Minuten geschafft. Dein Highscore? 🏆",
         "🎪 Spaßfakt: Mehr Menschen kennen jetzt Shift+S als den Weg zur Kasse im Laden! 🤓",
-        "🌟 Easter Egg gefunden! Du gehörst zu den 0,3% Elite-Usern, die Shortcuts kennen! 🎖️"
+        "🌟 Easter Egg gefunden! Du gehörst zu den 0,3% Elite-Usern, die Shortcuts kennen! 🎖️",
+        "🚀 Wissenschaftlich bewiesen: Menschen mit ShopGuide lächeln 42% mehr beim Einkaufen! 😁",
+        "🎲 Zufall des Tages: Die Wahrscheinlichkeit, Shift+S zu drücken, liegt bei 0,0001% - du Glückspilz! 🍀",
+        "🏃‍♂️ Fun Fact: Der durchschnittliche Kunde läuft 2,3 km im Supermarkt. Mit ShopGuide nur noch 800m! 📉",
+        "🧮 Mathe-Moment: 1 Einkaufszettel + ShopGuide = 100% weniger Stress! ✨",
+        "🎭 Plot Twist: Dieser Text hier ist länger als deine durchschnittliche Wartezeit an der Kasse mit ShopGuide! ⏱️",
+        "🍎 Wusstest du? Äpfel werden durchschnittlich 23x angefasst, bevor jemand sie kauft. Eklig, oder? 🤢",
+        "💡 Geistesblitz: Du könntest jetzt schon fertig sein, wenn du ShopGuide im echten Leben benutzt hättest! 🏁",
+        "🎯 Insider-Info: 91% aller Kunden laufen im Supermarkt gegen den Uhrzeigersinn. Chaos! 🌀",
+        "🔮 Prophecy: In 5 Jahren wird niemand mehr ohne ShopGuide einkaufen gehen! (Hoffentlich!) 🙏",
+        "🎨 Kreativ-Fakt: Mehr Menschen nutzen ihren Einkaufszettel als Notizblock als tatsächlich zum Einkaufen! 📝",
+        "🌈 Regenbogen-Statistik: Bunte Produkte werden 67% häufiger gekauft. ShopGuide zeigt dir ALLE Farben! 🎨",
+        "🎪 Zirkus-Fakt: Jonglieren ist leichter als ohne Plan durch den Supermarkt zu irren! 🤹",
+        "🦸‍♂️ Superhelden-Tipp: Mit ShopGuide hast du die Superkraft der Effizienz! POW! 💥",
+        "🎵 Musikfakt: Die durchschnittliche Supermarkt-Musik lässt dich 15% langsamer laufen. ShopGuide beschleunigt dich! 🎶",
+        "🧠 Brainfood: Dein Gehirn verbraucht mehr Energie beim Suchen im Supermarkt als beim Sudoku! 🤯",
+        "🎰 Glücksspiel: Ohne Plan einzukaufen ist wie Roulette - aber mit schlechteren Gewinnchancen! 🎲",
+        "🌍 Weltrekord: Der längste Einkauf aller Zeiten dauerte 4 Stunden. Mit ShopGuide unmöglich! ⏰",
+        "🎬 Blockbuster: Dein Einkauf mit ShopGuide ist spannender als die meisten Netflix-Serien! 🍿",
+        "🔬 Labor-Ergebnis: 10 von 10 Wissenschaftlern empfehlen, nicht mehr kreuz und quer zu laufen! 👨‍🔬",
+        "🎓 Wissen ist Macht: Du weißt jetzt, dass Shift+S existiert. Das zählt schon als Bildung! 📚",
+        "🌟 VIP-Status: Du hast gerade den geheimen Entwickler-Modus freigeschaltet! (Nicht wirklich, aber fühlt sich so an!) 🎖️",
+        "🍰 Süße Wahrheit: Menschen, die strukturiert einkaufen, sind 38% glücklicher! 😊",
+        "🎪 Manege frei: Der Supermarkt ist eine Show - ShopGuide ist dein Regisseur! 🎬",
+        "🧩 Puzzle-Piece: Einkaufen ohne ShopGuide ist wie ein 1000-Teile-Puzzle... im Dunkeln... mit verbundenen Augen! 🤷‍♂️",
+        "🚁 Hubschrauber-Blick: Mit ShopGuide siehst du den Supermarkt von oben. Ohne? Du bist im Labyrinth! 🌀",
+        "💎 Diamant-Tipp: Zeit ist Geld. ShopGuide spart beides. Du bist jetzt reich! 💰",
+        "🎈 Party-Fakt: Jeder 100. Shift+S-Drücker bekommt... absolut nichts! Aber trotzdem cool! 🎉",
+        "🦄 Einhorn-Status: So selten wie Einhörner sind Leute, die Easter Eggs finden. Du bist eins! 🦄",
+        "🎯 Bullseye: Du hast ins Schwarze getroffen! Genau wie ShopGuide bei der Produktsuche! 🎯",
+        "🌮 Taco-Tuesday-Fact: Mit der gesparten Zeit kannst du dir 15 Tacos machen. Oder auch nicht. 🌮",
+        "🎸 Rock'n'Roll: Shift+S ist der neue Rock'n'Roll! Oder so ähnlich... 🤘",
+        "🍕 Pizza-Weisheit: In der Zeit, die du beim Suchen sparst, könntest du 2,3 Pizzen backen! 🍕",
+        "🎮 Achievement unlocked: 'Easter Egg Hunter' - 100 Punkte für dein Gamer-Herz! 🏆",
+        "🌙 Nachts um 3 Uhr Fakt: Wir hoffen, du liest das nicht um 3 Uhr nachts. Wenn doch: Geh schlafen! 😴",
+        "🎨 Kunstwerk: Dein Einkaufsweg ohne ShopGuide sieht aus wie ein Jackson Pollock Gemälde! 🖼️",
+        "🔥 Hot Take: ShopGuide ist heißer als die Rabatte am Black Friday! 🔥",
+        "🎪 Zaubertrick: Shift+S verwandelt Langeweile in Unterhaltung. Tadaaa! ✨",
+        "🌊 Wellen-Effekt: Dein Shift+S-Klick hat gerade eine Welle der Freude ausgelöst! 🌊",
+        "🎯 Treffer: Du hast den Code geknackt! Neo wäre stolz auf dich! 💻",
+        "🍔 Burger-Fakt: Während du diesen Text liest, wurden weltweit 847 Burger verkauft. Relevant? Nein! 🍔",
+        "🎭 Drama: Ohne ShopGuide ist jeder Einkauf ein Drama in 3 Akten. Mit uns? Ein Happy End! 🎬",
+        "🌟 Sternstunde: Dies ist deine Sternstunde! Shift+S wird in deine Biografie aufgenommen! 📖",
+        "🎪 Konfetti-Kanone: BOOM! 🎊 Du hast gerade virtuelles Konfetti freigeschaltet! (Imagine it!) 🎉",
+        "🚀 Raketen-Wissenschaft: ShopGuide ist keine Raketenwissenschaft. Es ist besser! 🧑‍🚀",
+        "🎨 Farben-Lehre: Grau = langweiliger Einkauf. Bunt = ShopGuide! 🌈",
+        "🍀 Glücksklee: Du hast gerade ein vierblättriges Kleeblatt gefunden! Metaphorisch! 🍀",
+        "🎪 Finale: Wenn Easter Eggs eine Show wären, wäre das hier der stehende Applaus! 👏"
     ];
     
     const randomStat = funnyStats[Math.floor(Math.random() * funnyStats.length)];
@@ -1369,7 +1416,256 @@ function showThirtySecondPopup() {
         }
     });
 }
+// Easter Egg: Typ "supermarkt" irgendwo auf der Seite
+let typedText = '';
+let typeTimer = null;
 
+document.addEventListener('keypress', function(e) {
+    // Nur wenn kein Input-Feld aktiv ist
+    if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        typedText += e.key.toLowerCase();
+        
+        if (typeTimer) clearTimeout(typeTimer);
+        
+        if (typedText.includes('supermarkt')) {
+            showSupermarktEasterEgg();
+            typedText = '';
+        }
+        
+        typeTimer = setTimeout(function() {
+            typedText = '';
+        }, 2000);
+    }
+});
+
+function showSupermarktEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #16a085 0%, #27ae60 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 3.5rem 3rem;
+        border-radius: 25px;
+        max-width: 550px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: slideIn 0.5s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4.5rem; margin-bottom: 1rem;">🏪🎊</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 2rem; color: #27ae60;">Das Zauberwort!</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            Du hast "supermarkt" getippt! Genau darum geht es hier! 🎯
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            <strong>Wusstest du?</strong> Das Wort "Supermarkt" wurde erstmals 1933 verwendet! 
+            Aber erst 2026 wurde der Einkauf wirklich smart! 🧠✨
+        </p>
+        <p style="font-size: 1rem; margin: 0 0 2rem 0; color: #7f8c8d;">
+            ShopGuide macht aus jedem Supermarkt einen... <em>Supermarkt!</em> 😄
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #27ae60, #229954);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Super! 🌟
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+}
+
+// Easter Egg: Shake/Rüttel das Fenster (Tab schnell wechseln)
+let tabSwitchCount = 0;
+let tabSwitchTimer = null;
+
+document.addEventListener('visibilitychange', function() {
+    tabSwitchCount++;
+    
+    if (tabSwitchTimer) clearTimeout(tabSwitchTimer);
+    
+    if (tabSwitchCount >= 5) {
+        showTabShakeEasterEgg();
+        tabSwitchCount = 0;
+    }
+    
+    tabSwitchTimer = setTimeout(function() {
+        tabSwitchCount = 0;
+    }, 3000);
+});
+
+function showTabShakeEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 3.5rem 3rem;
+        border-radius: 25px;
+        max-width: 550px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: shake 0.6s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4.5rem; margin-bottom: 1rem;">🤹‍♂️</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 2rem; color: #e67e22;">Multitasking-Meister!</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            Du wechselst Tabs wie ein DJ Platten! 🎧 5x hin und her in 3 Sekunden!
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 2rem 0;">
+            Genau so fühlt man sich beim Einkaufen ohne ShopGuide - ständig hin und her! 
+            Mit uns bleibst du fokussiert! 🎯
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #e67e22, #d35400);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Konzentration! 🧘‍♂️
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+}
+
+// Easter Egg: Drücke "E" für "Einkauf" 5x hintereinander
+let eKeyPresses = 0;
+let eKeyTimer = null;
+
+document.addEventListener('keypress', function(e) {
+    if (e.key.toLowerCase() === 'e' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        eKeyPresses++;
+        
+        if (eKeyTimer) clearTimeout(eKeyTimer);
+        
+        if (eKeyPresses >= 5) {
+            showEinkaufEasterEgg();
+            eKeyPresses = 0;
+        }
+        
+        eKeyTimer = setTimeout(function() {
+            eKeyPresses = 0;
+        }, 1500);
+    }
+});
+
+function showEinkaufEasterEgg() {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    
+    const popup = document.createElement('div');
+    popup.style.cssText = `
+        background: white;
+        color: #2c3e50;
+        padding: 3.5rem 3rem;
+        border-radius: 25px;
+        max-width: 550px;
+        text-align: center;
+        box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+        animation: bounceIn 0.6s;
+    `;
+    
+    popup.innerHTML = `
+        <div style="font-size: 4.5rem; margin-bottom: 1rem;">🛒🎉</div>
+        <h2 style="margin: 0 0 1rem 0; font-size: 2rem; color: #16a085;">EEEEE-inkaufen!</h2>
+        <p style="font-size: 1.2rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            Du hast 5x "E" gedrückt! Das "E" in ShopGuide steht für: 
+            <strong>Effizient!</strong> ⚡
+        </p>
+        <p style="font-size: 1.1rem; line-height: 1.6; margin: 0 0 1.5rem 0;">
+            Und auch für: <strong>E</strong>infach, <strong>E</strong>lastisch, <strong>E</strong>xzellent, 
+            <strong>E</strong>rstklassig und <strong>E</strong>motional! 💚
+        </p>
+        <p style="font-size: 1rem; margin: 0 0 2rem 0; color: #7f8c8d;">
+            Aber hauptsächlich für: <em>Einkaufen war noch nie so easy!</em> 😎
+        </p>
+        <button onclick="this.parentElement.parentElement.remove()" style="
+            background: linear-gradient(135deg, #16a085, #138d75);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+            Echt cool! 🌟
+        </button>
+    `;
+    
+    overlay.appendChild(popup);
+    document.body.appendChild(overlay);
+}
+
+// CSS-Animationen für die Easter Eggs
+const easterEggStyles = document.createElement('style');
+easterEggStyles.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70% { transform: translateX(-5px); }
+        20%, 40%, 60% { transform: translateX(5px); }
+    }
+`;
+document.head.appendChild(easterEggStyles);
 // CSS Animationen für die Popups
 const style = document.createElement('style');
 style.textContent = `
