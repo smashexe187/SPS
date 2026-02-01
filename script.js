@@ -56,6 +56,7 @@ function showPage(pageId) {
                 
                 // Active-Link Highlighting aktualisieren
                 updateActiveNavLink(pageId);
+                updateURL(pageId);
             }
         }, 150);
     } else {
@@ -65,10 +66,62 @@ function showPage(pageId) {
         if (targetPage) {
             targetPage.classList.add('active');
             updateActiveNavLink(pageId);
+            updateURL(pageId);
+        }
+    }
+}
+// URL-Verwaltung (funktioniert automatisch lokal UND auf Vercel/Netlify)
+function updateURL(pageId) {
+    // Nur auf echten Servern (nicht lokal)
+    if (window.location.protocol !== 'file:') {
+        if (pageId === 'home') {
+            history.pushState(null, '', '/');
+        } else {
+            history.pushState(null, '', '/' + pageId);
         }
     }
 }
 
+// Beim Laden: Richtige Seite anzeigen basierend auf URL
+window.addEventListener('DOMContentLoaded', function() {
+    // Nur auf echten Servern
+    if (window.location.protocol !== 'file:') {
+        const path = window.location.pathname;
+        let pageId = 'home';
+        
+        if (path === '/' || path === '/index.html' || path === '') {
+            pageId = 'home';
+        } else {
+            pageId = path.replace('/', '');
+        }
+        
+        showPage(pageId);
+    }
+});
+
+// Browser Back/Forward Buttons
+window.addEventListener('popstate', function() {
+    if (window.location.protocol !== 'file:') {
+        const path = window.location.pathname;
+        let pageId = 'home';
+        
+        if (path === '/' || path === '/index.html' || path === '') {
+            pageId = 'home';
+        } else {
+            pageId = path.replace('/', '');
+        }
+        
+        const pages = document.querySelectorAll('.page');
+        pages.forEach(page => page.classList.remove('active'));
+        
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+            updateActiveNavLink(pageId);
+            window.scrollTo(0, 0);
+        }
+    }
+});
 /**
  * Aktualisiert die active class für Navigation Links
  * @param {string} pageId - Die ID der aktuellen Seite
