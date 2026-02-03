@@ -1962,6 +1962,120 @@ body.dark-mode .setting-description {
 }
 body.dark-mode .glass-circle { opacity:.10; }
 
+/* ========================================
+   VIDEO WELCOME SECTION
+   ======================================== */
+.video-welcome-section {
+  padding: 3rem 5% 2rem 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.video-container {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  transition: all 0.4s ease;
+}
+
+.video-container:hover {
+  box-shadow: 0 12px 40px rgba(39, 174, 96, 0.15);
+  transform: translateY(-5px);
+}
+
+.video-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.video-subtitle {
+  font-size: 1.1rem;
+  color: var(--dark);
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background: #000;
+  transition: transform 0.3s ease;
+}
+
+.video-wrapper:hover {
+  transform: scale(1.02);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+}
+
+/* Dark Mode Anpassungen */
+body.dark-mode .video-container {
+  background: rgba(44, 44, 44, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .video-title {
+  color: var(--primary);
+}
+
+body.dark-mode .video-subtitle {
+  color: #ecf0f1;
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-welcome-section {
+    padding: 2rem 1rem 1.5rem 1rem;
+  }
+  
+  .video-container {
+    padding: 1.5rem 1rem;
+    border-radius: 16px;
+  }
+  
+  .video-title {
+    font-size: 1.5rem;
+  }
+  
+  .video-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .video-wrapper {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-title {
+    font-size: 1.3rem;
+  }
+  
+  .video-subtitle {
+    font-size: 0.95rem;
+  }
+}
 /* TRUST BADGES */
 .trust-badges-section {
   display:flex;gap:1.2rem;justify-content:center;align-items:center;padding:1.5rem 1rem;

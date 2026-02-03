@@ -1,4 +1,44 @@
 /* ========================================
+   RANDOM VIDEO LOADER
+   ======================================== */
+
+function loadRandomVideo() {
+    const videos = [
+        {
+            id: 'DFDkf_CkFA0',
+            url: 'https://www.youtube.com/embed/DFDkf_CkFA0',
+            title: 'ShopGuide Erklärvideo 1'
+        },
+        {
+            id: 'nJD2PUckmUQ',
+            url: 'https://www.youtube.com/embed/nJD2PUckmUQ',
+            title: 'ShopGuide Erklärvideo 2'
+        }
+    ];
+    
+    const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+    const container = document.getElementById('randomVideoContainer');
+    
+    if (container) {
+        container.innerHTML = `
+            <iframe 
+                src="${randomVideo.url}?rel=0&modestbranding=1&autohide=1&showinfo=0"
+                title="${randomVideo.title}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            ></iframe>
+        `;
+        
+        console.log(`✅ Video geladen: ${randomVideo.title} (ID: ${randomVideo.id})`);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadRandomVideo);
+
+document.addEventListener('DOMContentLoaded', loadRandomVideo);
+/* ========================================
    SHOPGUIDE - HAUPTLOGIK
    ========================================
    Diese Datei steuert alle interaktiven Funktionen
@@ -1702,4 +1742,5 @@ style.textContent = `
         }
     }
 `;
+
 document.head.appendChild(style);
