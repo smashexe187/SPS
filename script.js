@@ -235,8 +235,7 @@ function showCopyToast(type) {
     if (!toast || !message) return;
     
     const messages = {
-        email: '✉️ E-Mail kopiert!',
-        phone: '📱 Telefonnummer kopiert!'
+        email: '✉️ E-Mail kopiert!'
     };
     
     message.textContent = messages[type] || '✅ Kopiert!';
@@ -1366,9 +1365,9 @@ function showFunnyStats() {
     });
 }
 
-// Easter Egg 2: 30 Sekunden auf der Website
+// Easter Egg 2: 30 Sekunden auf der Website - NUR EINMAL PRO SESSION
 let timeOnSite = 0;
-let thirtySecondPopupShown = false;
+let thirtySecondPopupShown = sessionStorage.getItem('thirtySecondPopupShown') === 'true';
 
 // Nur Zeit zählen wenn Tab aktiv ist
 let isTabActive = true;
@@ -1382,6 +1381,7 @@ setInterval(function() {
         
         if (timeOnSite >= 30) {
             thirtySecondPopupShown = true;
+            sessionStorage.setItem('thirtySecondPopupShown', 'true');
             showThirtySecondPopup();
         }
     }
@@ -1744,3 +1744,44 @@ style.textContent = `
 `;
 
 document.head.appendChild(style);
+
+/* ========================================
+   ACTIVE PAGE HIGHLIGHTING
+   ======================================== */
+
+/**
+ * Markiert die aktive Seite im Settings Panel basierend auf der aktuellen URL
+ */
+function highlightActivePage() {
+    // Hole den aktuellen Dateinamen aus der URL
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    
+    // Mapping von Dateinamen zu data-page Werten
+    const pageMapping = {
+        'index.html': 'homepage',
+        'customer-verify.html': 'customer-verify',
+        'customer-dashboard.html': 'customer-dashboard',
+        'merchant-verify.html': 'merchant-verify',
+        'merchant-dashboard.html': 'merchant-dashboard',
+        'about.html': 'about',
+        'impressum.html': 'impressum',
+        'datenschutz.html': 'datenschutz',
+        'faq.html': 'faq'
+    };
+    
+    const activePageId = pageMapping[currentPage] || 'homepage';
+    
+    // Entferne active class von allen Links
+    document.querySelectorAll('.panel-nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Füge active class zum aktuellen Link hinzu
+    const activeLink = document.querySelector(`.panel-nav-link[data-page="${activePageId}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+}
+
+// Rufe die Funktion beim Laden der Seite auf
+document.addEventListener('DOMContentLoaded', highlightActivePage);

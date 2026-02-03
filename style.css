@@ -202,6 +202,11 @@ body.dark-mode .impressum-content h2 {
     color: var(--primary) !important;
 }
 
+body.dark-mode .impressum-content h3,
+body.dark-mode .impressum-content h4 {
+    color: #ecf0f1;
+}
+
 body.dark-mode .impressum-content p {
     color: #d0d0d0;
 }
@@ -1599,6 +1604,7 @@ body.dark-mode .hamburger-line {
     color: var(--dark);
     font-weight: 500;
     transition: all 0.3s;
+    text-align: left;
 }
 
 .panel-nav-link:hover {
@@ -2086,6 +2092,23 @@ body.dark-mode .video-subtitle {
 .trust-badge:hover {background:rgba(39,174,96,0.11);box-shadow:0 3px 16px #27ae6030;transform:translateY(-3px) scale(1.03);}
 .badge-icon {font-size:1.3em;}
 @media (max-width:600px){.trust-badges-section{flex-direction:column;gap:1rem;}}
+
+/* Dark Mode für Trust Badges */
+body.dark-mode .trust-badges-section {
+  background: rgba(44, 44, 44, 0.7);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .trust-badge {
+  background: rgba(46, 204, 113, 0.1);
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+body.dark-mode .trust-badge:hover {
+  background: rgba(46, 204, 113, 0.2);
+  box-shadow: 0 3px 16px rgba(46, 204, 113, 0.3);
+}
 
 /* LOGO CLOUD */
 .logo-cloud-section{display:flex;flex-direction:column;align-items:center;margin:2.5rem auto 0 auto;}
