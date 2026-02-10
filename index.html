@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopGuide - Das Betriebssystem für den Einkauf</title>
-    
+
     <!-- Open Graph Meta Tags für Social Media -->
     <meta property="og:title" content="ShopGuide - Das Betriebssystem für den effizienten Einkauf">
-    <meta property="og:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation. Ohne teure Hardware. Ohne Umbau. Sofort startklar.">
+    <meta property="og:description"
+        content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation. Ohne teure Hardware. Ohne Umbau. Sofort startklar.">
     <meta property="og:image" content="hero-background.png">
     <meta property="og:url" content="https://shopguide.de">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ShopGuide">
-    
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="ShopGuide - Das Betriebssystem für den Einkauf">
     <meta name="twitter:description" content="Verbinden Sie analoge Einkaufszettel mit digitaler Navigation">
     <meta name="twitter:image" content="hero-background.png">
-    
-   <!-- Favicon - Optimiert für alle Geräte und Browser -->
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
-    
+
+    <!-- Favicon - Optimiert für alle Geräte und Browser -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="glass-bg" aria-hidden="true">
         <div class="glass-circle circle1"></div>
@@ -36,12 +39,12 @@
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
-    
+
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
         <span>↑</span>
     </button>
-    
+
     <!-- HOMEPAGE -->
     <div id="homepage" class="page active">
         <nav>
@@ -55,8 +58,9 @@
 
         <header>
             <h1>Das Betriebssystem für den effizienten Einkauf</h1>
-            <p>Verbinden Sie analoge Einkaufszettel mit digitaler Navigation.<br>Ohne teure Hardware. Ohne Umbau. Sofort startklar.</p>
-            
+            <p>Verbinden Sie analoge Einkaufszettel mit digitaler Navigation.<br>Ohne teure Hardware. Ohne Umbau. Sofort
+                startklar.</p>
+
             <div class="role-selector">
                 <div class="role-card customer" onclick="window.location.href='customer-verify.html'">
                     <div class="role-icon">🛒</div>
@@ -64,7 +68,7 @@
                     <p>Erlebe die App-Demo und entdecke, wie ShopGuide deinen Einkauf vereinfacht</p>
                     <button class="cta-button" style="background: var(--blue);">Demo ansehen</button>
                 </div>
-                
+
                 <div class="role-card merchant" onclick="window.location.href='merchant-verify.html'">
                     <div class="role-icon">🏪</div>
                     <h3>Ich bin Händler</h3>
@@ -74,15 +78,15 @@
             </div>
         </header>
         <!-- NEU: Video Welcome Section -->
-<section class="video-welcome-section">
-    <div class="video-container">
-        <h2 class="video-title">🎬 ShopGuide in Aktion</h2>
-        <p class="video-subtitle">Sehen Sie, wie ShopGuide den Einkauf revolutioniert</p>
-        <div class="video-wrapper" id="randomVideoContainer">
-            <!-- Video wird per JavaScript geladen -->
-        </div>
-    </div>
-</section>
+        <section class="video-welcome-section">
+            <div class="video-container">
+                <h2 class="video-title">🎬 ShopGuide in Aktion</h2>
+                <p class="video-subtitle">Sehen Sie, wie ShopGuide den Einkauf revolutioniert</p>
+                <div class="video-wrapper" id="randomVideoContainer">
+                    <!-- Video wird per JavaScript geladen -->
+                </div>
+            </div>
+        </section>
 
         <section class="trust-badges-section">
             <div class="trust-badge" title="DSGVO konform">
@@ -98,7 +102,7 @@
                 <span class="badge-label">Plug & Play fähig</span>
             </div>
         </section>
-        
+
         <section class="logo-cloud-section">
             <div class="logo-cloud-title">In Gesprächen mit:</div>
             <div class="logo-cloud">
@@ -125,11 +129,14 @@
         </section>
 
         <footer style="margin-top: 4rem;">
-            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a> | <a href="faq.html" style="color: white;">FAQ</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a
+                    href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html"
+                    style="color: white;">Über uns</a> | <a href="faq.html" style="color: white;">FAQ</a> | <a
+                    href="so-funktioniert-es.html" style="color: white;">So funktioniert's</a></p>
         </footer>
     </div>
 
-        <!-- Settings Overlay -->
+    <!-- Settings Overlay -->
     <div id="settings-overlay" class="settings-overlay"></div>
 
     <!-- Settings Panel -->
@@ -142,31 +149,42 @@
             <!-- Navigation Links im Panel -->
             <div class="panel-nav-section">
                 <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
-                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="homepage"
+                    onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
                     🏠 Home
                 </a>
-                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="customer-verify"
+                    onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
                     🛒 Für Kunden
                 </a>
-                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="merchant-verify"
+                    onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
                     🏪 Für Händler
                 </a>
-                <a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="how-it-works"
+                    onclick="window.location.href='so-funktioniert-es.html'; toggleSettingsPanel(); return false;">
+                    🔍 So funktioniert's
+                </a>
+                <a href="#" class="panel-nav-link" data-page="about"
+                    onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
                     ℹ️ Über uns
                 </a>
-                <a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="impressum"
+                    onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
                     📄 Impressum
                 </a>
-                <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="datenschutz"
+                    onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
                     🔒 Datenschutz
                 </a>
-                <a href="#" class="panel-nav-link" data-page="faq" onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="faq"
+                    onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
                     ❓ FAQ
                 </a>
             </div>
-            
+
             <div class="settings-divider"></div>
-            
+
             <div class="setting-item">
                 <div class="setting-label">
                     <span id="dark-mode-icon">🌙</span>
@@ -185,4 +203,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopGuide für Kunden - Demo</title>
-    
+
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="glass-bg" aria-hidden="true">
         <div class="glass-circle circle1"></div>
@@ -21,12 +23,12 @@
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
-    
+
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
         <span>↑</span>
     </button>
-    
+
     <!-- CUSTOMER DASHBOARD -->
     <div id="customer-dashboard" class="page active">
         <nav>
@@ -53,144 +55,151 @@
                         Schreibe deinen Einkaufszettel wie gewohnt – egal ob unleserlich oder strukturiert.
                         ShopGuide macht daraus eine optimale Route durch den Supermarkt.
                     </p>
-                    
+
                     <ul style="list-style: none; padding: 0;">
                         <li style="margin-bottom: 1rem;">✅ <strong>Zettel scannen:</strong> Foto machen, fertig</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>KI-Erkennung:</strong> Entziffert jede Handschrift</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>KI-Erkennung:</strong> Entziffert jede Handschrift
+                        </li>
                         <li style="margin-bottom: 1rem;">✅ <strong>Smart-Route:</strong> Optimale Reihenfolge</li>
                         <li style="margin-bottom: 1rem;">✅ <strong>Navigation:</strong> Direkt zum richtigen Regal</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>Zeit sparen:</strong> Bis zu 30% schneller einkaufen</li>
+                        <li style="margin-bottom: 1rem;">✅ <strong>Zeit sparen:</strong> Bis zu 30% schneller einkaufen
+                        </li>
                     </ul>
                 </div>
 
                 <div class="demo-phone">
-    <div class="phone-mockup">
-        <div class="screen">
-            <div class="app-header">ShopGuide App</div>
-            
-            <!-- SCREEN 1: Zettel erstellen -->
-            <div id="customer-screen-start" class="app-content">
-                <div style="text-align: center; padding: 2rem;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
-                    <h3 style="margin-bottom: 1rem;">Erstelle deinen Einkaufszettel</h3>
-                    <p style="margin-bottom: 2rem; color: #666;">
-                        Klicke auf den Button um einen zufälligen Einkaufszettel zu generieren
-                    </p>
-                    <button class="scan-btn" onclick="erstelleEinkaufszettel()">
-                        Neuen Zettel erstellen
-                    </button>
-                </div>
-            </div>
-            
-            <!-- SCREEN 2: Generierter Zettel -->
-            <div id="customer-screen-note" class="app-content" style="display: none;">
-                <div class="scan-overlay" id="customer-scanner"></div>
-                <div class="handwritten-note" id="demo-note"></div>
-                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">
-                    Zettel scannen
-                </button>
-            </div>
+                    <div class="phone-mockup">
+                        <div class="screen">
+                            <div class="app-header">ShopGuide App</div>
 
-            <!-- SCREEN 3: Route -->
-            <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
-                <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
-                <div id="route-items-container"></div>
-                <button class="scan-btn" onclick="resetCompleteDemo()" style="margin-top: 2rem;">
-                    Nochmal testen
-                </button>
+                            <!-- SCREEN 1: Zettel erstellen -->
+                            <div id="customer-screen-start" class="app-content">
+                                <div style="text-align: center; padding: 2rem;">
+                                    <div style="font-size: 4rem; margin-bottom: 1rem;">📝</div>
+                                    <h3 style="margin-bottom: 1rem;">Erstelle deinen Einkaufszettel</h3>
+                                    <p style="margin-bottom: 2rem; color: #666;">
+                                        Klicke auf den Button um einen zufälligen Einkaufszettel zu generieren
+                                    </p>
+                                    <button class="scan-btn" onclick="erstelleEinkaufszettel()">
+                                        Neuen Zettel erstellen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- SCREEN 2: Generierter Zettel -->
+                            <div id="customer-screen-note" class="app-content" style="display: none;">
+                                <div class="scan-overlay" id="customer-scanner"></div>
+                                <div class="handwritten-note" id="demo-note"></div>
+                                <button class="scan-btn" id="scan-btn" onclick="runCustomerDemo()">
+                                    Zettel scannen
+                                </button>
+                            </div>
+
+                            <!-- SCREEN 3: Route -->
+                            <div id="customer-screen-result" class="app-content"
+                                style="display: none; align-items: flex-start; overflow-y: auto;">
+                                <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
+                                <div id="route-items-container"></div>
+                                <button class="scan-btn" onclick="resetCompleteDemo()" style="margin-top: 2rem;">
+                                    Nochmal testen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="customer-screen-result" class="app-content"
+                    style="display: none; align-items: flex-start; overflow-y: auto;">
+                    <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
+
+                    <!-- Container für dynamische Route-Items -->
+                    <div id="route-items-container">
+                        <!-- Wird dynamisch von JavaScript gefüllt -->
+                    </div>
+
+                    <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal
+                        testen</button>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
-                        
-                        <div id="customer-screen-result" class="app-content" style="display: none; align-items: flex-start; overflow-y: auto;">
-    <h3 style="margin-top: 0;">Deine Route (<span id="route-zeit">4 Min</span>)</h3>
-    
-    <!-- Container für dynamische Route-Items -->
-    <div id="route-items-container">
-        <!-- Wird dynamisch von JavaScript gefüllt -->
     </div>
-    
-    <button class="scan-btn" onclick="resetCustomerDemo()" style="margin-top: 2rem;">Nochmal testen</button>
-</div>
 
-                        </div>
-                    </div>
+    <!-- STORY SECTION -->
+    <section class="story-section">
+        <h2 class="section-title">Warum ShopGuide? Die Geschichte von Sarah</h2>
+
+        <div class="story-container">
+            <div class="story-card problem">
+                <div class="story-header">
+                    <span class="status-icon">❌</span>
+                    <h3>Ohne ShopGuide</h3>
+                </div>
+                <div class="story-content">
+                    <p class="persona"><strong>Sarah (32)</strong>, Mutter & Managerin</p>
+                    <ul>
+                        <li>Sucht seit 10 Minuten verzweifelt Kokosmilch.</li>
+                        <li>Kinder quengeln, der Zeitdruck steigt.</li>
+                        <li>Läuft kreuz und quer durch den Laden (ineffizient).</li>
+                        <li><strong>Resultat:</strong> Frustrierter Kaufabbruch nach 15 Min. Suche.</li>
+                    </ul>
                 </div>
             </div>
-
-            <!-- STORY SECTION -->
-            <section class="story-section">
-                <h2 class="section-title">Warum ShopGuide? Die Geschichte von Sarah</h2>
-                
-                <div class="story-container">
-                    <div class="story-card problem">
-                        <div class="story-header">
-                            <span class="status-icon">❌</span>
-                            <h3>Ohne ShopGuide</h3>
-                        </div>
-                        <div class="story-content">
-                            <p class="persona"><strong>Sarah (32)</strong>, Mutter & Managerin</p>
-                            <ul>
-                                <li>Sucht seit 10 Minuten verzweifelt Kokosmilch.</li>
-                                <li>Kinder quengeln, der Zeitdruck steigt.</li>
-                                <li>Läuft kreuz und quer durch den Laden (ineffizient).</li>
-                                <li><strong>Resultat:</strong> Frustrierter Kaufabbruch nach 15 Min. Suche.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="story-card solution">
-                        <div class="story-header">
-                            <span class="status-icon">✅</span>
-                            <h3>Mit ShopGuide</h3>
-                        </div>
-                        <div class="story-content">
-                            <p class="persona"><strong>Entspannt & Effizient</strong></p>
-                            <ul>
-                                <li>Einkaufszettel wird automatisch nach Laufweg sortiert.</li>
-                                <li>Präzise Indoor-Navigation führt direkt zum Regal.</li>
-                                <li>Kinder sind durch das <strong>Schnitzeljagd-Feature</strong> abgelenkt.</li>
-                                <li><strong>Resultat:</strong> Einkauf in Rekordzeit erledigt.</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="story-card solution">
+                <div class="story-header">
+                    <span class="status-icon">✅</span>
+                    <h3>Mit ShopGuide</h3>
                 </div>
-            </section>
-
-            <!-- CUSTOMER BENEFITS SECTION -->
-            <div style="margin-top: 4rem;">
-                <h2>Deine Vorteile</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⏱️</div>
-                        <h3>Zeit sparen</h3>
-                        <p>Keine Suche mehr nach Produkten. Die App führt dich direkt zum Ziel.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🧠</div>
-                        <h3>Stressfrei einkaufen</h3>
-                        <p>Kein Vergessen, kein Chaos. Alles auf deiner optimierten Route.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">❄️</div>
-                        <h3>Frische Produkte</h3>
-                        <p>Kühlware wird intelligent am Ende der Route platziert.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💡</div>
-                        <h3>Inspiration</h3>
-                        <p>Entdecke neue Produkte, die zu deinem Einkauf passen.</p>
-                    </div>
+                <div class="story-content">
+                    <p class="persona"><strong>Entspannt & Effizient</strong></p>
+                    <ul>
+                        <li>Einkaufszettel wird automatisch nach Laufweg sortiert.</li>
+                        <li>Präzise Indoor-Navigation führt direkt zum Regal.</li>
+                        <li>Kinder sind durch das <strong>Schnitzeljagd-Feature</strong> abgelenkt.</li>
+                        <li><strong>Resultat:</strong> Einkauf in Rekordzeit erledigt.</li>
+                    </ul>
                 </div>
             </div>
         </div>
+    </section>
 
-        <footer style="margin-top: 4rem;">
-            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a></p>
-        </footer>
+    <!-- CUSTOMER BENEFITS SECTION -->
+    <div style="margin-top: 4rem;">
+        <h2>Deine Vorteile</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⏱️</div>
+                <h3>Zeit sparen</h3>
+                <p>Keine Suche mehr nach Produkten. Die App führt dich direkt zum Ziel.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Stressfrei einkaufen</h3>
+                <p>Kein Vergessen, kein Chaos. Alles auf deiner optimierten Route.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❄️</div>
+                <h3>Frische Produkte</h3>
+                <p>Kühlware wird intelligent am Ende der Route platziert.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💡</div>
+                <h3>Inspiration</h3>
+                <p>Entdecke neue Produkte, die zu deinem Einkauf passen.</p>
+            </div>
+        </div>
+    </div>
     </div>
 
-        <!-- Settings Overlay -->
+    <footer style="margin-top: 4rem;">
+        <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a
+                href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html"
+                style="color: white;">Über uns</a></p>
+    </footer>
+    </div>
+
+    <!-- Settings Overlay -->
     <div id="settings-overlay" class="settings-overlay"></div>
 
     <!-- Settings Panel -->
@@ -203,31 +212,42 @@
             <!-- Navigation Links im Panel -->
             <div class="panel-nav-section">
                 <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
-                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="homepage"
+                    onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
                     🏠 Home
                 </a>
-                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="customer-verify"
+                    onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
                     🛒 Für Kunden
                 </a>
-                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="merchant-verify"
+                    onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
                     🏪 Für Händler
                 </a>
-                <a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="how-it-works"
+                    onclick="window.location.href='so-funktioniert-es.html'; toggleSettingsPanel(); return false;">
+                    🔍 So funktioniert's
+                </a>
+                <a href="#" class="panel-nav-link" data-page="about"
+                    onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
                     ℹ️ Über uns
                 </a>
-                <a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="impressum"
+                    onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
                     📄 Impressum
                 </a>
-                <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="datenschutz"
+                    onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
                     🔒 Datenschutz
                 </a>
-                <a href="#" class="panel-nav-link" data-page="faq" onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="faq"
+                    onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
                     ❓ FAQ
                 </a>
             </div>
-            
+
             <div class="settings-divider"></div>
-            
+
             <div class="setting-item">
                 <div class="setting-label">
                     <span id="dark-mode-icon">🌙</span>
@@ -246,4 +266,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

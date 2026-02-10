@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Händlerbereich - ShopGuide</title>
-    
+
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
-    
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="glass-bg" aria-hidden="true">
         <div class="glass-circle circle1"></div>
@@ -21,12 +23,12 @@
 
     <!-- Scroll Progress Indicator -->
     <div id="scroll-progress"></div>
-    
+
     <!-- Back to Top Button -->
     <button id="back-to-top" class="back-to-top" onclick="scrollToTop()">
         <span>↑</span>
     </button>
-    
+
     <!-- MERCHANT VERIFY -->
     <div id="merchant-verify" class="page active">
         <nav>
@@ -40,32 +42,38 @@
 
         <div class="container">
             <a class="back-link" onclick="window.location.href='index.html'">← Zurück zur Startseite</a>
-            
+
             <div class="verification-box">
                 <div class="role-icon">🏪</div>
                 <h2>Händlerbereich</h2>
-                <p>Willkommen! Bitte bestätigen Sie, dass Sie als Händler oder Entscheider die Business-Informationen einsehen möchten.</p>
-                
+                <p>Willkommen! Bitte bestätigen Sie, dass Sie als Händler oder Entscheider die Business-Informationen
+                    einsehen möchten.</p>
+
                 <div class="checkbox-wrapper">
                     <input type="checkbox" id="merchant-confirm">
                     <label for="merchant-confirm">
-                        Ja, ich bin Händler/Entscheider und möchte erfahren, wie ShopGuide mein Geschäft optimieren kann.
+                        Ja, ich bin Händler/Entscheider und möchte erfahren, wie ShopGuide mein Geschäft optimieren
+                        kann.
                         Ich verstehe, dass diese Daten vertraulich behandelt werden.
                     </label>
                 </div>
-                
-                <button class="cta-button" id="merchant-proceed" onclick="window.location.href='merchant-dashboard.html'" style="opacity: 0.5; cursor: not-allowed;" disabled>
+
+                <button class="cta-button" id="merchant-proceed"
+                    onclick="window.location.href='merchant-dashboard.html'" style="opacity: 0.5; cursor: not-allowed;"
+                    disabled>
                     Weiter zum Dashboard
                 </button>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html" style="color: white;">Über uns</a></p>
+            <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a
+                    href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html"
+                    style="color: white;">Über uns</a></p>
         </footer>
     </div>
 
-        <!-- Settings Overlay -->
+    <!-- Settings Overlay -->
     <div id="settings-overlay" class="settings-overlay"></div>
 
     <!-- Settings Panel -->
@@ -78,31 +86,42 @@
             <!-- Navigation Links im Panel -->
             <div class="panel-nav-section">
                 <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
-                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="homepage"
+                    onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
                     🏠 Home
                 </a>
-                <a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="customer-verify"
+                    onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
                     🛒 Für Kunden
                 </a>
-                <a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="merchant-verify"
+                    onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
                     🏪 Für Händler
                 </a>
-                <a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="how-it-works"
+                    onclick="window.location.href='so-funktioniert-es.html'; toggleSettingsPanel(); return false;">
+                    🔍 So funktioniert's
+                </a>
+                <a href="#" class="panel-nav-link" data-page="about"
+                    onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
                     ℹ️ Über uns
                 </a>
-                <a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="impressum"
+                    onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
                     📄 Impressum
                 </a>
-                <a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="datenschutz"
+                    onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
                     🔒 Datenschutz
                 </a>
-                <a href="#" class="panel-nav-link" data-page="faq" onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
+                <a href="#" class="panel-nav-link" data-page="faq"
+                    onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
                     ❓ FAQ
                 </a>
             </div>
-            
+
             <div class="settings-divider"></div>
-            
+
             <div class="setting-item">
                 <div class="setting-label">
                     <span id="dark-mode-icon">🌙</span>
@@ -121,4 +140,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
