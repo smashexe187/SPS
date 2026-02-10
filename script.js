@@ -1242,10 +1242,14 @@ function createConfetti(parent){
    ======================================== */
 
 // Easter Egg 1: Shift + S für lustige Statistik
+let easterEggActive = false;
+
 document.addEventListener('keydown', function(e) {
     if (e.shiftKey && e.key === 'S') {
         e.preventDefault();
-        showFunnyStats();
+        if (!easterEggActive) {
+            showFunnyStats();
+        }
     }
 });
 
@@ -1357,12 +1361,21 @@ function showFunnyStats() {
     
     overlay.appendChild(popup);
     document.body.appendChild(overlay);
+    easterEggActive = true;
+    
+    function closeOverlay() {
+        overlay.remove();
+        easterEggActive = false;
+    }
     
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) {
-            overlay.remove();
+            closeOverlay();
         }
     });
+    
+    // Update button to use closeOverlay
+    popup.querySelector('button').onclick = closeOverlay;
 }
 
 // Easter Egg 2: 30 Sekunden auf der Website - NUR EINMAL PRO SESSION
