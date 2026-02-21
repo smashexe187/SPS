@@ -221,15 +221,8 @@
     </div>
 
     <!-- ═══════════════════════════════════════════
-         SMARTE FEATURES SEKTION
+         SMARTE FEATURES SEKTION — Redesigned
     ═══════════════════════════════════════════ -->
-
-    <!--
-        KANONISCHER MARKT-GRUNDRISS (wird in ALLEN Features verwendet):
-        Eingang → A: Obst & Gemüse → B: Brot & Backwaren → C: Getränke
-                 → D: Cerealien & Konserven → E: Pflege & Drogerie
-                 → F: Kühlregal (Milch, Käse, Wurst) → Kasse
-    -->
 
     <section class="nf-section">
         <div class="nf-inner">
@@ -239,68 +232,55 @@
                 <p>ShopGuide denkt mit — für einen Einkauf, der wirklich zu dir passt.</p>
             </div>
 
-            <!-- Einheitlicher Marktplan-Legende -->
-            <div class="store-legend">
-                <div class="sl-title">🏪 Dein REWE · Musterstraße — Grundriss</div>
-                <div class="sl-grid">
-                    <div class="sl-cell a">A<span>Obst &amp; Gemüse</span></div>
-                    <div class="sl-cell b">B<span>Brot &amp; Backwaren</span></div>
-                    <div class="sl-cell c">C<span>Getränke</span></div>
-                    <div class="sl-cell d">D<span>Cerealien &amp; Konserven</span></div>
-                    <div class="sl-cell e">E<span>Pflege &amp; Drogerie</span></div>
-                    <div class="sl-cell f">F<span>Kühlregal</span></div>
-                    <div class="sl-cell kasse">→ Kasse</div>
-                </div>
-                <p class="sl-hint">Dieser Grundriss gilt für alle Feature-Demos auf dieser Seite.</p>
-            </div>
-
             <!-- ══ 1. ECO-ROUTING ══ -->
-            <div class="nf-block nf-eco">
+            <div class="nf-block">
                 <div class="nf-block-text">
                     <div class="nf-icon-wrap eco">🌿</div>
                     <span class="nf-tag eco">Eco-Routing</span>
                     <h3>Dein Weg. Deine Werte.</h3>
-                    <p>Wähle zwischen dem <strong>schnellsten</strong> oder dem <strong>nachhaltigsten</strong> Weg. Der Eco-Modus führt dich bevorzugt an regionalen Bio-Artikeln und Unverpackt-Stationen vorbei.</p>
+                    <p>Wähle zwischen dem schnellsten oder dem nachhaltigsten Weg. Der Eco-Modus priorisiert regionale Bio-Artikel und Unverpackt-Stationen.</p>
                     <div class="eco-toggle-demo">
                         <button class="eco-btn active" id="eco-fast" onclick="setEcoMode('fast')">⚡ Schnellster Weg</button>
                         <button class="eco-btn" id="eco-green" onclick="setEcoMode('green')">🌿 Nachhaltigster Weg</button>
                     </div>
                     <div class="eco-result">
                         <div class="eco-route" id="eco-route-fast">
-                            <div class="eco-route-item"><span class="rno">1</span><span>🧴 Shampoo — Gang E, Regal 3</span><span class="rtag">2 Min</span></div>
-                            <div class="eco-route-item"><span class="rno">2</span><span>🍞 Brot — Gang B, Regal 1</span><span class="rtag">1 Min</span></div>
-                            <div class="eco-route-item"><span class="rno">3</span><span>🥛 Milch — Gang F, Kühlregal</span><span class="rtag">2 Min</span></div>
-                            <div class="eco-time">⚡ Gesamtzeit: <strong>5 Min</strong></div>
+                            <div class="eco-route-step"><span class="step-num">1</span><span class="step-text">🧴 Shampoo — Gang E, Regal 3</span><span class="step-time">2 Min</span></div>
+                            <div class="eco-route-step"><span class="step-num">2</span><span class="step-text">🍞 Brot — Gang B, Regal 1</span><span class="step-time">1 Min</span></div>
+                            <div class="eco-route-step"><span class="step-num">3</span><span class="step-text">🥛 Milch — Gang F, Kühlregal</span><span class="step-time">2 Min</span></div>
+                            <div class="eco-summary blue">⚡ Gesamtzeit: <strong>5 Min</strong></div>
                         </div>
                         <div class="eco-route" id="eco-route-green" style="display:none;">
-                            <div class="eco-route-item eco-hi"><span class="rno g">1</span><span>🌾 Bio-Brot regional — Gang B</span><span class="rtag g">🌿</span></div>
-                            <div class="eco-route-item eco-hi"><span class="rno g">2</span><span>🫙 Unverpackt-Ecke — Gang D</span><span class="rtag g">🌿</span></div>
-                            <div class="eco-route-item eco-hi"><span class="rno g">3</span><span>🥛 Bio-Milch Demeter — Gang F</span><span class="rtag g">🌿</span></div>
-                            <div class="eco-save">🌍 Du sparst heute: <strong>0,8 kg CO₂</strong></div>
+                            <div class="eco-route-step green"><span class="step-num g">1</span><span class="step-text">🌾 Bio-Brot regional — Gang B</span><span class="step-time g">🌿</span></div>
+                            <div class="eco-route-step green"><span class="step-num g">2</span><span class="step-text">🫙 Unverpackt-Ecke — Gang D</span><span class="step-time g">🌿</span></div>
+                            <div class="eco-route-step green"><span class="step-num g">3</span><span class="step-text">🥛 Bio-Milch Demeter — Gang F</span><span class="step-time g">🌿</span></div>
+                            <div class="eco-summary green">🌍 Du sparst: <strong>0,8 kg CO₂</strong></div>
                         </div>
                     </div>
                 </div>
-                <div class="nf-block-visual eco-map-wrap">
-                    <!-- Store map using the canonical layout -->
-                    <div class="eco-map">
-                        <div class="store-map-grid">
-                            <div class="sm-cell a" id="sm-a">A<span>Obst &amp; Gemüse</span></div>
-                            <div class="sm-cell b" id="sm-b">B<span>Brot &amp; Back&shy;waren</span></div>
-                            <div class="sm-cell c" id="sm-c">C<span>Getränke</span></div>
-                            <div class="sm-cell d" id="sm-d">D<span>Cerealien &amp; Konserven</span></div>
-                            <div class="sm-cell e" id="sm-e">E<span>Pflege &amp; Drogerie</span></div>
-                            <div class="sm-cell f" id="sm-f">F<span>Kühlregal</span></div>
-                            <div class="sm-cell kasse-cell" id="sm-kasse">🛒 Kasse</div>
-                            <div class="sm-cell eingang-cell">🚪 Eingang</div>
+                <div class="nf-block-visual">
+                    <!-- Store map: simple, clean, shows route clearly -->
+                    <div class="store-map-card" id="store-map-eco">
+                        <div class="smc-header">🏪 REWE · Musterstraße</div>
+                        <div class="smc-grid">
+                            <div class="smc-cell" id="smc-a">A<span>Obst &amp; Gemüse</span></div>
+                            <div class="smc-cell" id="smc-b">B<span>Brot &amp; Backwaren</span></div>
+                            <div class="smc-cell" id="smc-c">C<span>Getränke</span></div>
+                            <div class="smc-cell" id="smc-d">D<span>Cerealien</span></div>
+                            <div class="smc-cell" id="smc-e">E<span>Drogerie</span></div>
+                            <div class="smc-cell" id="smc-f">F<span>Kühlregal</span></div>
                         </div>
-                        <svg class="map-path" viewBox="0 0 220 240" preserveAspectRatio="none">
-                            <!-- Fast path: Eingang→E→B→F→Kasse -->
-                            <path id="path-fast" d="M 110 230 L 110 200 L 165 200 L 165 120 L 55 120 L 55 60 L 165 60 L 165 10 L 195 10" stroke="#3498db" stroke-width="2.5" fill="none" stroke-dasharray="6,3" stroke-linecap="round"/>
-                            <!-- Green path: Eingang→B→D(unverpackt)→F→Kasse -->
-                            <path id="path-green" d="M 110 230 L 110 200 L 55 200 L 55 120 L 110 120 L 110 60 L 165 60 L 165 10 L 195 10" stroke="#27ae60" stroke-width="2.5" fill="none" stroke-dasharray="6,3" stroke-linecap="round" style="display:none"/>
-                            <circle cx="110" cy="230" r="5" fill="#e74c3c"/>
-                            <circle cx="195" cy="10" r="5" fill="#f39c12"/>
-                        </svg>
+                        <div class="smc-footer">
+                            <span class="smc-entry">🚪 Eingang</span>
+                            <span id="smc-arrow-1" class="smc-arrow" style="display:none;"></span>
+                            <span id="smc-stop-1" class="smc-stop"></span>
+                            <span id="smc-arrow-2" class="smc-arrow" style="display:none;">→</span>
+                            <span id="smc-stop-2" class="smc-stop"></span>
+                            <span id="smc-arrow-3" class="smc-arrow" style="display:none;">→</span>
+                            <span id="smc-stop-3" class="smc-stop"></span>
+                            <span class="smc-kasse">→ 🛒 Kasse</span>
+                        </div>
+                        <div class="smc-route-label" id="smc-route-label">⚡ Route: Eingang → E → B → F → Kasse</div>
                     </div>
                 </div>
             </div>
@@ -308,74 +288,67 @@
             <!-- ══ 2. ALLERGIE-FILTER ══ -->
             <div class="nf-block reverse">
                 <div class="nf-block-visual">
-                    <!-- Real smartphone frame -->
-                    <div class="feature-phone fp-allergy">
-                        <div class="fp-notch"></div>
-                        <div class="fp-screen">
-                            <div class="fp-topbar" style="background:linear-gradient(135deg,#e74c3c,#c0392b);">
-                                <span>⚠️ Allergie-Filter</span>
-                                <span class="fp-badge-small">aktiv</span>
-                            </div>
-                            <div class="fp-body" id="fp-allergy-body">
-                                <div class="fp-section-label">Dein Einkaufszettel wird geprüft…</div>
-
-                                <div class="fp-allergy-item warn" id="ap-warn-item">
-                                    <div class="fp-ai-left">
-                                        <span class="fp-ai-icon">🥛</span>
-                                        <div>
-                                            <strong>Milch</strong>
-                                            <span class="fp-ai-sub">⚠️ Laktose erkannt</span>
+                    <div class="fphone-wrap">
+                        <div class="phone-pro-wrap" style="padding:1rem 0;">
+                            <div class="phone-glow glow-1" style="background:radial-gradient(circle,rgba(231,76,60,0.3),transparent 70%);"></div>
+                            <div class="phone-glow glow-2" style="background:radial-gradient(circle,rgba(52,152,219,0.2),transparent 70%);"></div>
+                            <div class="phone-pro">
+                                <div class="phone-btn-vol-up"></div>
+                                <div class="phone-btn-vol-down"></div>
+                                <div class="phone-btn-power"></div>
+                                <div class="phone-face">
+                                    <div class="dynamic-island"></div>
+                                    <div class="phone-status-bar">
+                                        <span class="psb-time">9:41</span>
+                                        <div class="psb-icons"><span class="psb-signal">▐▐▐</span><span class="psb-wifi">WiFi</span><span class="psb-battery">▓▓▓</span></div>
+                                    </div>
+                                    <div class="phone-screen-area">
+                                        <div class="app-topbar" style="background:linear-gradient(135deg,#e74c3c,#c0392b);">
+                                            <div class="atb-logo"><span class="atb-icon">⚠️</span><span class="atb-name">Allergie-Filter</span></div>
+                                            <div class="atb-badge">aktiv</div>
+                                        </div>
+                                        <div class="phone-app-screen" style="padding:10px;gap:6px;justify-content:flex-start;">
+                                            <p style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin:0;">Zettel wird geprüft…</p>
+                                            <div class="fp-item warn" id="fp-warn">
+                                                <span style="font-size:16px;">🥛</span>
+                                                <div style="flex:1;"><strong style="font-size:11px;display:block;">Milch</strong><span style="font-size:9px;color:#e74c3c;">⚠️ Laktose erkannt</span></div>
+                                                <span style="width:18px;height:18px;background:#e74c3c;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;">!</span>
+                                            </div>
+                                            <div class="fp-item ok" id="fp-ok" style="display:none;">
+                                                <span style="font-size:16px;">🌾</span>
+                                                <div style="flex:1;"><strong style="font-size:11px;display:block;">Haferdrink Oatly</strong><span style="font-size:9px;color:#27ae60;">✅ Gang D, Regal 2</span></div>
+                                                <span style="width:18px;height:18px;background:#27ae60;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700;">✓</span>
+                                            </div>
+                                            <div class="fp-sugg-box" id="fp-sugg">
+                                                <span style="font-size:9px;font-weight:700;color:#3498db;display:block;margin-bottom:4px;">💡 Alternative verfügbar</span>
+                                                <div style="display:flex;align-items:center;justify-content:space-between;">
+                                                    <span style="font-size:11px;">🌾 Haferdrink Oatly</span>
+                                                    <button onclick="doAllergySwap()" style="background:#27ae60;color:#fff;border:none;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;cursor:pointer;">Tauschen</button>
+                                                </div>
+                                            </div>
+                                            <div id="fp-reroute" style="display:none;background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.2);border-radius:8px;padding:6px 8px;font-size:10px;font-weight:600;color:#1e8449;">🔄 Route angepasst: Gang D, R2</div>
+                                            <div style="height:1px;background:rgba(0,0,0,.07);margin:2px 0;"></div>
+                                            <p style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999;margin:0;">Weitere Produkte ✅</p>
+                                            <div style="font-size:10px;color:#333;padding:2px 0;">🍎 Äpfel — Gang A, R4</div>
+                                            <div style="font-size:10px;color:#333;padding:2px 0;">🍞 Brot — Gang B, R1</div>
+                                            <div style="display:flex;flex-wrap:wrap;gap:3px;margin-top:2px;">
+                                                <span style="background:rgba(231,76,60,.1);color:#e74c3c;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:600;">Laktose</span>
+                                                <span style="background:#f0f0f0;color:#555;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:600;">Gluten</span>
+                                                <span style="background:#f0f0f0;color:#555;font-size:9px;padding:2px 7px;border-radius:10px;font-weight:600;">Nüsse</span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <span class="fp-ai-badge warn">!</span>
-                                </div>
-
-                                <div class="fp-allergy-item ok" id="ap-ok-item" style="display:none;">
-                                    <div class="fp-ai-left">
-                                        <span class="fp-ai-icon">🌾</span>
-                                        <div>
-                                            <strong>Haferdrink Oatly</strong>
-                                            <span class="fp-ai-sub">✅ Passend · Gang D, R2</span>
-                                        </div>
-                                    </div>
-                                    <span class="fp-ai-badge ok">✓</span>
-                                </div>
-
-                                <div class="fp-suggestion" id="ap-sugg">
-                                    <div class="fp-sugg-label">💡 Alternative vorgeschlagen</div>
-                                    <div class="fp-sugg-row">
-                                        <span>🌾 Haferdrink Oatly</span>
-                                        <button class="fp-swap-btn" onclick="doAllergySwap()">Tauschen</button>
-                                    </div>
-                                </div>
-
-                                <div class="fp-reroute-note" id="ap-reroute" style="display:none;">
-                                    🔄 Route angepasst: Gang D, Regal 2
-                                </div>
-
-                                <div class="fp-divider"></div>
-                                <div class="fp-section-label">Weiteres auf deiner Liste ✅</div>
-                                <div class="fp-ok-row">🍎 Äpfel — Gang A, R4</div>
-                                <div class="fp-ok-row">🍞 Brot — Gang B, R1</div>
-
-                                <div class="fp-divider"></div>
-                                <div class="fp-section-label">Dein Profil</div>
-                                <div class="fp-profile-tags">
-                                    <span class="fp-ptag active">Laktose</span>
-                                    <span class="fp-ptag">Gluten</span>
-                                    <span class="fp-ptag">Nüsse</span>
-                                    <span class="fp-ptag add">+ Hinzufügen</span>
+                                    <div class="phone-home-bar"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="fp-homekey"></div>
                     </div>
                 </div>
                 <div class="nf-block-text">
                     <div class="nf-icon-wrap allergy">⚠️</div>
                     <span class="nf-tag allergy">Allergie-Filter</span>
                     <h3>KI schützt deinen Einkauf.</h3>
-                    <p>Hinterlege einmal deine Unverträglichkeiten — ShopGuide scannt deinen Zettel und warnt sofort bei kritischen Produkten. Die KI schlägt passende Alternativen vor und passt deine Route im selben Zug an.</p>
+                    <p>Hinterlege einmal deine Unverträglichkeiten — ShopGuide scannt deinen Zettel und warnt sofort bei kritischen Produkten. Die KI schlägt passende Alternativen vor und passt deine Route automatisch an.</p>
                     <ul class="nf-list">
                         <li>✅ Echtzeit-Scan beim Zettel einlesen</li>
                         <li>✅ Warnung vor versteckten Allergenen</li>
@@ -394,11 +367,11 @@
                     <h3>Nie wieder vor dem leeren Regal stehen.</h3>
                     <p>ShopGuide prüft in Echtzeit ob ein Produkt vorrätig ist. Ist ein Regal leer, bekommst du sofort eine Alternative — noch bevor du in die Nähe des leeren Regals kommst.</p>
                     <div class="live-demo">
-                        <div class="live-item" id="live-kokos">
+                        <div class="live-item">
                             <div class="live-dot red pulse"></div>
                             <span class="live-name">Kokosmilch Bio</span>
                             <span class="live-status red">Ausverkauft · Gang D</span>
-                            <button class="live-alt-btn" onclick="showLiveAlt()">Alternative →</button>
+                            <button class="live-alt-btn" id="live-alt-btn" onclick="showLiveAlt()">Alternative →</button>
                         </div>
                         <div class="live-alt-box" id="live-alt" style="display:none;">
                             <div class="live-item">
@@ -406,7 +379,7 @@
                                 <span class="live-name">Kokosmilch Alnatura</span>
                                 <span class="live-status green">Verfügbar · Gang D, R4</span>
                             </div>
-                            <div class="live-reroute">🔄 Route automatisch auf Gang D, R4 angepasst</div>
+                            <div class="live-reroute">🔄 Route auf Gang D, R4 angepasst</div>
                         </div>
                         <div class="live-item">
                             <div class="live-dot green"></div>
@@ -421,58 +394,68 @@
                     </div>
                 </div>
                 <div class="nf-block-visual">
-                    <!-- Smartphone showing real-time store status -->
-                    <div class="feature-phone fp-live">
-                        <div class="fp-notch"></div>
-                        <div class="fp-screen">
-                            <div class="fp-topbar" style="background:linear-gradient(135deg,#2980b9,#1a5276);">
-                                <span>📡 Live-Inventar</span>
-                                <span class="fp-badge-small live-pulse-badge">● Live</span>
-                            </div>
-                            <div class="fp-body">
-                                <div class="fp-store-map-mini">
-                                    <div class="fsmm-row">
-                                        <div class="fsmm-cell green">A<br><small>✓ Obst</small></div>
-                                        <div class="fsmm-cell green">B<br><small>✓ Brot</small></div>
-                                        <div class="fsmm-cell green">C<br><small>✓ Getränke</small></div>
+                    <div class="fphone-wrap">
+                        <div class="phone-pro-wrap" style="padding:1rem 0;">
+                            <div class="phone-glow glow-1" style="background:radial-gradient(circle,rgba(52,152,219,0.3),transparent 70%);"></div>
+                            <div class="phone-glow glow-2" style="background:radial-gradient(circle,rgba(39,174,96,0.2),transparent 70%);"></div>
+                            <div class="phone-pro">
+                                <div class="phone-btn-vol-up"></div>
+                                <div class="phone-btn-vol-down"></div>
+                                <div class="phone-btn-power"></div>
+                                <div class="phone-face">
+                                    <div class="dynamic-island"></div>
+                                    <div class="phone-status-bar">
+                                        <span class="psb-time">9:41</span>
+                                        <div class="psb-icons"><span class="psb-signal">▐▐▐</span><span class="psb-wifi">WiFi</span><span class="psb-battery">▓▓▓</span></div>
                                     </div>
-                                    <div class="fsmm-row">
-                                        <div class="fsmm-cell red">D<br><small>✗ Kokos</small></div>
-                                        <div class="fsmm-cell green">E<br><small>✓ Pflege</small></div>
-                                        <div class="fsmm-cell green">F<br><small>✓ Kühl</small></div>
+                                    <div class="phone-screen-area">
+                                        <div class="app-topbar" style="background:linear-gradient(135deg,#2980b9,#1a5276);">
+                                            <div class="atb-logo"><span class="atb-icon">📡</span><span class="atb-name">Live-Inventar</span></div>
+                                            <div class="atb-badge" style="animation:livePulse2 1.5s infinite;">● Live</div>
+                                        </div>
+                                        <div class="phone-app-screen" style="padding:10px;gap:5px;justify-content:flex-start;">
+                                            <!-- Mini store status grid -->
+                                            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;width:100%;margin-bottom:4px;">
+                                                <div style="background:rgba(39,174,96,.12);color:#1e8449;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">A ✓<br><span style="font-size:7px;font-weight:400;">Obst</span></div>
+                                                <div style="background:rgba(39,174,96,.12);color:#1e8449;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">B ✓<br><span style="font-size:7px;font-weight:400;">Brot</span></div>
+                                                <div style="background:rgba(39,174,96,.12);color:#1e8449;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">C ✓<br><span style="font-size:7px;font-weight:400;">Getränke</span></div>
+                                                <div style="background:rgba(231,76,60,.12);color:#c0392b;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">D ✗<br><span style="font-size:7px;font-weight:400;">Kokos</span></div>
+                                                <div style="background:rgba(39,174,96,.12);color:#1e8449;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">E ✓<br><span style="font-size:7px;font-weight:400;">Pflege</span></div>
+                                                <div style="background:rgba(39,174,96,.12);color:#1e8449;border-radius:6px;padding:4px;text-align:center;font-size:9px;font-weight:700;">F ✓<br><span style="font-size:7px;font-weight:400;">Kühl</span></div>
+                                            </div>
+                                            <div style="height:1px;background:rgba(0,0,0,.07);margin:2px 0;"></div>
+                                            <div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:10px;">
+                                                <span style="width:7px;height:7px;border-radius:50%;background:#27ae60;display:block;flex-shrink:0;"></span>
+                                                <span style="flex:1;color:#333;font-weight:500;">Haferflocken</span>
+                                                <span style="font-size:9px;color:#888;font-weight:700;">D · R1</span>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;font-size:10px;background:rgba(231,76,60,.06);border-radius:7px;">
+                                                <span style="width:7px;height:7px;border-radius:50%;background:#e74c3c;display:block;flex-shrink:0;animation:livePulse2 1.5s infinite;"></span>
+                                                <span style="flex:1;color:#333;font-weight:500;">Kokosmilch Bio</span>
+                                                <span style="font-size:9px;color:#e74c3c;font-weight:700;">ausverkauft</span>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;font-size:10px;background:rgba(39,174,96,.06);border-radius:7px;">
+                                                <span style="width:7px;height:7px;border-radius:50%;background:#27ae60;display:block;flex-shrink:0;"></span>
+                                                <span style="flex:1;color:#333;font-weight:500;">Kokosmilch Alnat.</span>
+                                                <span style="font-size:9px;color:#27ae60;font-weight:700;">D · R4</span>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:10px;">
+                                                <span style="width:7px;height:7px;border-radius:50%;background:#f39c12;display:block;flex-shrink:0;animation:livePulse2 1.5s infinite;"></span>
+                                                <span style="flex:1;color:#333;font-weight:500;">Avocado (reif)</span>
+                                                <span style="font-size:9px;color:#f39c12;font-weight:700;">letzte 3</span>
+                                            </div>
+                                            <div style="display:flex;align-items:center;gap:6px;padding:4px 0;font-size:10px;">
+                                                <span style="width:7px;height:7px;border-radius:50%;background:#27ae60;display:block;flex-shrink:0;"></span>
+                                                <span style="flex:1;color:#333;font-weight:500;">Joghurt</span>
+                                                <span style="font-size:9px;color:#888;font-weight:700;">F · R2</span>
+                                            </div>
+                                            <div style="font-size:8px;color:#aaa;text-align:center;margin-top:auto;padding-top:4px;">Zuletzt aktualisiert: gerade eben</div>
+                                        </div>
                                     </div>
+                                    <div class="phone-home-bar"></div>
                                 </div>
-                                <div class="fp-live-list">
-                                    <div class="fp-live-row green">
-                                        <span class="fpl-dot green"></span>
-                                        <span class="fpl-name">Haferflocken</span>
-                                        <span class="fpl-loc">D · R1</span>
-                                    </div>
-                                    <div class="fp-live-row red">
-                                        <span class="fpl-dot red"></span>
-                                        <span class="fpl-name">Kokosmilch Bio</span>
-                                        <span class="fpl-loc">ausverkauft</span>
-                                    </div>
-                                    <div class="fp-live-row green">
-                                        <span class="fpl-dot green"></span>
-                                        <span class="fpl-name">Kokosmilch Alnat.</span>
-                                        <span class="fpl-loc">D · R4</span>
-                                    </div>
-                                    <div class="fp-live-row orange">
-                                        <span class="fpl-dot orange"></span>
-                                        <span class="fpl-name">Avocado (reif)</span>
-                                        <span class="fpl-loc">A · letzte 3</span>
-                                    </div>
-                                    <div class="fp-live-row green">
-                                        <span class="fpl-dot green"></span>
-                                        <span class="fpl-name">Joghurt</span>
-                                        <span class="fpl-loc">F · R2</span>
-                                    </div>
-                                </div>
-                                <div class="fp-updated">Zuletzt aktualisiert: gerade eben</div>
                             </div>
                         </div>
-                        <div class="fp-homekey"></div>
                     </div>
                 </div>
             </div>
@@ -480,65 +463,48 @@
             <!-- ══ 4. COMMUNITY HEATMAP ══ -->
             <div class="nf-block reverse">
                 <div class="nf-block-visual">
-                    <div class="feature-phone fp-heat">
-                        <div class="fp-notch"></div>
-                        <div class="fp-screen">
-                            <div class="fp-topbar" style="background:linear-gradient(135deg,#e67e22,#d35400);">
-                                <span>👥 Auslastung</span>
-                                <span class="fp-badge-small">Jetzt</span>
-                            </div>
-                            <div class="fp-body">
-                                <div class="fp-heatmap">
-                                    <div class="fhm-title">Live-Karte · Dein REWE</div>
-                                    <!-- Canonical store gangs as heatmap -->
-                                    <div class="fhm-grid">
-                                        <div class="fhm-cell cold">
-                                            <span class="fhm-label">A</span>
-                                            <span class="fhm-name">Obst &amp; Gem.</span>
-                                            <span class="fhm-status">😌 Ruhig</span>
+                    <div class="fphone-wrap">
+                        <div class="phone-pro-wrap" style="padding:1rem 0;">
+                            <div class="phone-glow glow-1" style="background:radial-gradient(circle,rgba(243,156,18,0.3),transparent 70%);"></div>
+                            <div class="phone-glow glow-2" style="background:radial-gradient(circle,rgba(231,76,60,0.2),transparent 70%);"></div>
+                            <div class="phone-pro">
+                                <div class="phone-btn-vol-up"></div>
+                                <div class="phone-btn-vol-down"></div>
+                                <div class="phone-btn-power"></div>
+                                <div class="phone-face">
+                                    <div class="dynamic-island"></div>
+                                    <div class="phone-status-bar">
+                                        <span class="psb-time">9:41</span>
+                                        <div class="psb-icons"><span class="psb-signal">▐▐▐</span><span class="psb-wifi">WiFi</span><span class="psb-battery">▓▓▓</span></div>
+                                    </div>
+                                    <div class="phone-screen-area">
+                                        <div class="app-topbar" style="background:linear-gradient(135deg,#e67e22,#d35400);">
+                                            <div class="atb-logo"><span class="atb-icon">👥</span><span class="atb-name">Auslastung</span></div>
+                                            <div class="atb-badge">Jetzt</div>
                                         </div>
-                                        <div class="fhm-cell hot">
-                                            <span class="fhm-label">B</span>
-                                            <span class="fhm-name">Brot &amp; Back</span>
-                                            <span class="fhm-status">🔴 Voll</span>
-                                        </div>
-                                        <div class="fhm-cell cold">
-                                            <span class="fhm-label">C</span>
-                                            <span class="fhm-name">Getränke</span>
-                                            <span class="fhm-status">😌 Ruhig</span>
-                                        </div>
-                                        <div class="fhm-cell warm">
-                                            <span class="fhm-label">D</span>
-                                            <span class="fhm-name">Cerealien</span>
-                                            <span class="fhm-status">🟡 Mittel</span>
-                                        </div>
-                                        <div class="fhm-cell cold">
-                                            <span class="fhm-label">E</span>
-                                            <span class="fhm-name">Drogerie</span>
-                                            <span class="fhm-status">😌 Ruhig</span>
-                                        </div>
-                                        <div class="fhm-cell warm">
-                                            <span class="fhm-label">F</span>
-                                            <span class="fhm-name">Kühlregal</span>
-                                            <span class="fhm-status">🟡 Mittel</span>
+                                        <div class="phone-app-screen" style="padding:10px;gap:5px;justify-content:flex-start;">
+                                            <p style="font-size:9px;color:#999;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:0;">Live-Karte · Dein REWE</p>
+                                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;width:100%;">
+                                                <div style="background:rgba(39,174,96,.1);color:#1e8449;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">A</div><div style="font-size:8px;font-weight:500;opacity:.8;">Obst &amp; Gem.</div><div style="font-size:8px;font-weight:700;">😌 Ruhig</div></div>
+                                                <div style="background:rgba(231,76,60,.1);color:#c0392b;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">B</div><div style="font-size:8px;font-weight:500;opacity:.8;">Brot &amp; Back</div><div style="font-size:8px;font-weight:700;">🔴 Voll</div></div>
+                                                <div style="background:rgba(39,174,96,.1);color:#1e8449;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">C</div><div style="font-size:8px;font-weight:500;opacity:.8;">Getränke</div><div style="font-size:8px;font-weight:700;">😌 Ruhig</div></div>
+                                                <div style="background:rgba(243,156,18,.1);color:#d68910;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">D</div><div style="font-size:8px;font-weight:500;opacity:.8;">Cerealien</div><div style="font-size:8px;font-weight:700;">🟡 Mittel</div></div>
+                                                <div style="background:rgba(39,174,96,.1);color:#1e8449;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">E</div><div style="font-size:8px;font-weight:500;opacity:.8;">Drogerie</div><div style="font-size:8px;font-weight:700;">😌 Ruhig</div></div>
+                                                <div style="background:rgba(243,156,18,.1);color:#d68910;border-radius:8px;padding:7px 6px;text-align:center;"><div style="font-size:13px;font-weight:800;">F</div><div style="font-size:8px;font-weight:500;opacity:.8;">Kühlregal</div><div style="font-size:8px;font-weight:700;">🟡 Mittel</div></div>
+                                            </div>
+                                            <div style="background:rgba(231,76,60,.1);color:#c0392b;border-radius:8px;padding:6px 8px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:700;width:100%;box-sizing:border-box;">
+                                                <span>🛒 Kasse</span>
+                                                <span style="font-size:9px;">🔴 Schlange — 4 Pers.</span>
+                                            </div>
+                                            <div style="background:rgba(243,156,18,.08);border:1px solid rgba(243,156,18,.2);border-radius:7px;padding:5px 7px;font-size:9px;font-weight:600;color:#d68910;width:100%;box-sizing:border-box;">
+                                                💡 Tipp: Erst Gang B meiden, dann zurück
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="fhm-kasse hot-kasse">
-                                        <span>🛒 Kasse</span>
-                                        <span class="fhm-kasse-status">🔴 Schlange — 4 Personen</span>
-                                    </div>
-                                    <div class="fhm-tip">
-                                        💡 KI-Tipp: Erst Gang B meiden, dann zurück
-                                    </div>
-                                </div>
-                                <div class="fhm-legend">
-                                    <span class="fhl cold">Ruhig</span>
-                                    <span class="fhl warm">Mittel</span>
-                                    <span class="fhl hot">Voll</span>
+                                    <div class="phone-home-bar"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="fp-homekey"></div>
                     </div>
                 </div>
                 <div class="nf-block-text">
@@ -574,40 +540,56 @@
                     </div>
                 </div>
                 <div class="nf-block-visual">
-                    <div class="feature-phone fp-voice">
-                        <div class="fp-notch"></div>
-                        <div class="fp-screen">
-                            <div class="fp-topbar" style="background:linear-gradient(135deg,#8e44ad,#6c3483);">
-                                <span>🎙️ Voice-Guide</span>
-                                <span class="fp-badge-small">Spricht…</span>
-                            </div>
-                            <div class="fp-body fp-voice-body">
-                                <div class="fp-voice-status">
-                                    <div class="vp-bars">
-                                        <div class="vb"></div><div class="vb"></div><div class="vb"></div>
-                                        <div class="vb"></div><div class="vb"></div>
+                    <div class="fphone-wrap">
+                        <div class="phone-pro-wrap" style="padding:1rem 0;">
+                            <div class="phone-glow glow-1" style="background:radial-gradient(circle,rgba(155,89,182,0.3),transparent 70%);"></div>
+                            <div class="phone-glow glow-2" style="background:radial-gradient(circle,rgba(142,68,173,0.2),transparent 70%);"></div>
+                            <div class="phone-pro">
+                                <div class="phone-btn-vol-up"></div>
+                                <div class="phone-btn-vol-down"></div>
+                                <div class="phone-btn-power"></div>
+                                <div class="phone-face">
+                                    <div class="dynamic-island"></div>
+                                    <div class="phone-status-bar">
+                                        <span class="psb-time">9:41</span>
+                                        <div class="psb-icons"><span class="psb-signal">▐▐▐</span><span class="psb-wifi">WiFi</span><span class="psb-battery">▓▓▓</span></div>
                                     </div>
-                                    <span class="fp-voice-label">Sprachausgabe aktiv</span>
-                                </div>
-                                <div class="fp-voice-direction">
-                                    <div class="fp-arrow-big">↗</div>
-                                    <div class="fp-dir-text">Gang E · 12m</div>
-                                    <div class="fp-dir-sub">Drogerie &amp; Pflege</div>
-                                </div>
-                                <div class="fp-voice-next">
-                                    <span class="fp-vn-label">Danach →</span>
-                                    <span>🥛 Milch · Gang F</span>
-                                </div>
-                                <div class="fp-progress-bar">
-                                    <div class="fp-progress-fill" style="width:60%"></div>
-                                </div>
-                                <div class="fp-progress-label">3 von 5 Produkten erledigt</div>
-                                <div class="fp-voice-acc">
-                                    <span>👴 Senioren-Modus</span> · <span>♿ Barrierefrei</span>
+                                    <div class="phone-screen-area">
+                                        <div class="app-topbar" style="background:linear-gradient(135deg,#8e44ad,#6c3483);">
+                                            <div class="atb-logo"><span class="atb-icon">🎙️</span><span class="atb-name">Voice-Guide</span></div>
+                                            <div class="atb-badge">Spricht…</div>
+                                        </div>
+                                        <div class="phone-app-screen" style="padding:12px;gap:8px;justify-content:flex-start;">
+                                            <div style="display:flex;align-items:center;gap:6px;">
+                                                <div style="display:flex;align-items:flex-end;gap:3px;height:18px;">
+                                                    <div style="width:4px;height:8px;border-radius:2px;background:#9b59b6;animation:vpBar 1s ease-in-out infinite;"></div>
+                                                    <div style="width:4px;height:14px;border-radius:2px;background:#9b59b6;animation:vpBar 1s ease-in-out infinite;animation-delay:.15s;"></div>
+                                                    <div style="width:4px;height:18px;border-radius:2px;background:#9b59b6;animation:vpBar 1s ease-in-out infinite;animation-delay:.3s;"></div>
+                                                    <div style="width:4px;height:14px;border-radius:2px;background:#9b59b6;animation:vpBar 1s ease-in-out infinite;animation-delay:.15s;"></div>
+                                                    <div style="width:4px;height:8px;border-radius:2px;background:#9b59b6;animation:vpBar 1s ease-in-out infinite;"></div>
+                                                </div>
+                                                <span style="font-size:10px;font-weight:700;color:#8e44ad;">Sprachausgabe aktiv</span>
+                                            </div>
+                                            <div style="background:linear-gradient(135deg,#f3e5f5,#e8d5f5);border-radius:14px;text-align:center;padding:14px 10px;">
+                                                <div style="font-size:2rem;color:#8e44ad;line-height:1;">↗</div>
+                                                <div style="font-size:13px;font-weight:800;color:#8e44ad;margin-top:4px;">Gang E · 12m</div>
+                                                <div style="font-size:10px;color:#555;margin-top:2px;">Drogerie &amp; Pflege</div>
+                                            </div>
+                                            <div style="background:#f7f7f7;border-radius:8px;padding:6px 8px;font-size:10px;color:#333;display:flex;align-items:center;gap:6px;">
+                                                <span style="font-weight:700;opacity:.5;">Danach →</span>
+                                                <span>🥛 Milch · Gang F</span>
+                                            </div>
+                                            <div style="height:5px;background:rgba(0,0,0,.08);border-radius:3px;overflow:hidden;width:100%;">
+                                                <div style="height:100%;width:60%;background:linear-gradient(90deg,#9b59b6,#8e44ad);border-radius:3px;"></div>
+                                            </div>
+                                            <div style="font-size:9px;color:#aaa;text-align:center;">3 von 5 Produkten erledigt</div>
+                                            <div style="font-size:9px;color:#aaa;text-align:center;border-top:1px solid rgba(0,0,0,.07);padding-top:5px;">👴 Senioren-Modus · ♿ Barrierefrei</div>
+                                        </div>
+                                    </div>
+                                    <div class="phone-home-bar"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="fp-homekey"></div>
                     </div>
                 </div>
             </div>
@@ -616,318 +598,7 @@
     </section>
 
     <style>
-    /* ═══════════════════════════════════════════
-       STORE LEGEND
-    ═══════════════════════════════════════════ */
-    .store-legend {
-        background: var(--white);
-        border-radius: 16px;
-        padding: 1.4rem 1.8rem;
-        margin-bottom: 3rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        border: 1px solid rgba(39,174,96,0.15);
-    }
-    body.dark-mode .store-legend { background: #1e1e1e; border-color: rgba(39,174,96,0.2); }
-    .sl-title { font-size: .82rem; font-weight: 700; color: var(--primary); margin-bottom: .9rem; }
-    .sl-grid {
-        display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .7rem;
-    }
-    .sl-cell {
-        padding: .4rem .85rem; border-radius: 8px;
-        font-size: .78rem; font-weight: 700; color: #fff;
-        display: flex; align-items: center; gap: .4rem;
-    }
-    .sl-cell span { font-weight: 400; font-size: .72rem; opacity: .9; }
-    .sl-cell.a { background: #27ae60; }
-    .sl-cell.b { background: #e67e22; }
-    .sl-cell.c { background: #3498db; }
-    .sl-cell.d { background: #9b59b6; }
-    .sl-cell.e { background: #e74c3c; }
-    .sl-cell.f { background: #1abc9c; }
-    .sl-cell.kasse { background: #2c3e50; }
-    .sl-hint { font-size: .72rem; color: var(--dark); opacity: .45; margin: 0; }
-
-    /* ═══════════════════════════════════════════
-       ECO MAP — canonical store grid
-    ═══════════════════════════════════════════ */
-    .nf-block.nf-eco { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
-    .eco-map-wrap { height: 280px; position: relative; }
-    .eco-map { width: 100%; height: 100%; position: relative; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,.07); background: var(--light); }
-    body.dark-mode .eco-map { background: #1a1a1a; border-color: rgba(255,255,255,.08); }
-    .store-map-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr 1fr auto;
-        width: 100%; height: 100%;
-        gap: 4px; padding: 4px;
-    }
-    .sm-cell {
-        border-radius: 7px;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        font-size: .65rem; font-weight: 800; text-align: center; color: #fff;
-        line-height: 1.25; padding: .2rem;
-        transition: transform .2s, box-shadow .2s;
-    }
-    .sm-cell span { font-size: .55rem; font-weight: 400; opacity: .85; margin-top: 1px; }
-    .sm-cell.a { background: rgba(39,174,96,.75); }
-    .sm-cell.b { background: rgba(230,126,34,.75); }
-    .sm-cell.c { background: rgba(52,152,219,.75); }
-    .sm-cell.d { background: rgba(155,89,182,.75); }
-    .sm-cell.e { background: rgba(231,76,60,.75); }
-    .sm-cell.f { background: rgba(26,188,156,.75); grid-column: 1 / 3; }
-    .sm-cell.kasse-cell { background: rgba(44,62,80,.75); }
-    .sm-cell.eingang-cell { background: rgba(0,0,0,.15); color: var(--dark); font-weight: 600; }
-    body.dark-mode .sm-cell.eingang-cell { color: #aaa; }
-    .sm-cell.highlight { transform: scale(1.05); box-shadow: 0 0 0 2px #fff, 0 0 12px rgba(39,174,96,.5); z-index: 2; }
-    .map-path { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-
-    /* ═══════════════════════════════════════════
-       ECO ROUTING STYLES
-    ═══════════════════════════════════════════ */
-    .eco-toggle-demo { display: flex; gap: .6rem; margin: 1.2rem 0 1rem; flex-wrap: wrap; }
-    .eco-btn { padding: .6rem 1.2rem; border-radius: 50px; border: 2px solid rgba(39,174,96,.3); background: transparent; color: var(--dark); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .25s; }
-    .eco-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-    .eco-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
-    .eco-route { display: flex; flex-direction: column; gap: .4rem; }
-    .eco-route-item { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; background: var(--light); border-radius: 8px; font-size: .83rem; color: var(--dark); }
-    body.dark-mode .eco-route-item { background: #2a2a2a; }
-    .eco-route-item.eco-hi { background: rgba(39,174,96,.08); }
-    body.dark-mode .eco-route-item.eco-hi { background: rgba(46,204,113,.1); }
-    .rno { width: 22px; height: 22px; background: #3498db; color: #fff; border-radius: 50%; font-size: .72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .rno.g { background: var(--primary); }
-    .eco-route-item .rtag { margin-left: auto; font-size: .73rem; color: #3498db; font-weight: 600; flex-shrink: 0; }
-    .eco-route-item .rtag.g { color: var(--primary); }
-    .eco-time { margin-top: .4rem; font-size: .82rem; font-weight: 600; padding: .4rem .7rem; border-radius: 6px; color: #3498db; background: rgba(52,152,219,.08); }
-    .eco-save { margin-top: .4rem; font-size: .82rem; font-weight: 600; padding: .4rem .7rem; border-radius: 6px; color: var(--primary); background: rgba(39,174,96,.1); }
-    .eco-result { margin-top: .2rem; }
-
-    /* ═══════════════════════════════════════════
-       FEATURE PHONE — Universal Smartphone Frame
-    ═══════════════════════════════════════════ */
-    .feature-phone {
-        width: 230px;
-        background: #1c1c1e;
-        border-radius: 32px;
-        padding: 12px;
-        box-shadow:
-            0 0 0 1px rgba(255,255,255,0.1),
-            0 0 0 2px rgba(0,0,0,0.7),
-            0 20px 60px rgba(0,0,0,0.35);
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        position: relative;
-    }
-    .fp-notch {
-        width: 60px; height: 18px;
-        background: #000;
-        border-radius: 10px;
-        margin: 0 auto 8px;
-    }
-    .fp-screen {
-        background: #fff;
-        border-radius: 20px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        min-height: 360px;
-    }
-    body.dark-mode .fp-screen { background: #111; }
-    .fp-topbar {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 9px 12px;
-        font-size: 11px; font-weight: 700; color: #fff;
-        flex-shrink: 0;
-    }
-    .fp-badge-small {
-        font-size: 9px; font-weight: 700;
-        background: rgba(255,255,255,0.25);
-        padding: 2px 7px; border-radius: 8px;
-    }
-    .live-pulse-badge { animation: livePulse 1.5s infinite; }
-    .fp-body {
-        flex: 1; padding: 10px 10px 8px;
-        overflow-y: auto; overflow-x: hidden;
-        display: flex; flex-direction: column;
-        gap: 6px;
-    }
-    .fp-homekey {
-        width: 50px; height: 4px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 2px;
-        margin: 8px auto 0;
-    }
-    .fp-section-label {
-        font-size: 9px; font-weight: 700; text-transform: uppercase;
-        letter-spacing: 1px; color: var(--dark); opacity: .45;
-        margin-top: 4px;
-    }
-    body.dark-mode .fp-section-label { color: #888; opacity: 1; }
-    .fp-divider { height: 1px; background: rgba(0,0,0,.08); margin: 2px 0; }
-    body.dark-mode .fp-divider { background: rgba(255,255,255,.08); }
-
-    /* Allergy phone */
-    .fp-allergy-item {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 7px 8px; border-radius: 9px;
-        gap: 7px;
-    }
-    .fp-allergy-item.warn { background: rgba(231,76,60,.08); border: 1px solid rgba(231,76,60,.2); }
-    .fp-allergy-item.ok  { background: rgba(39,174,96,.08);  border: 1px solid rgba(39,174,96,.2); }
-    .fp-ai-left { display: flex; align-items: center; gap: 7px; flex: 1; }
-    .fp-ai-icon { font-size: 18px; flex-shrink: 0; }
-    .fp-ai-left div { display: flex; flex-direction: column; }
-    .fp-ai-left strong { font-size: 12px; color: var(--dark); }
-    .fp-ai-sub { font-size: 10px; color: var(--dark); opacity: .55; }
-    .fp-ai-badge { width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .fp-ai-badge.warn { background: #e74c3c; color: #fff; }
-    .fp-ai-badge.ok   { background: #27ae60; color: #fff; }
-    .fp-suggestion {
-        background: rgba(52,152,219,.07); border: 1px solid rgba(52,152,219,.2);
-        border-radius: 9px; padding: 7px 8px;
-    }
-    .fp-sugg-label { font-size: 9px; font-weight: 700; color: #3498db; margin-bottom: 5px; display: block; }
-    .fp-sugg-row { display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: var(--dark); }
-    .fp-swap-btn {
-        background: var(--primary); color: #fff; border: none; border-radius: 6px;
-        padding: 3px 9px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all .2s;
-    }
-    .fp-swap-btn:hover { background: #229954; transform: scale(1.05); }
-    .fp-reroute-note {
-        background: rgba(39,174,96,.1); border: 1px solid rgba(39,174,96,.2);
-        border-radius: 8px; padding: 6px 8px;
-        font-size: 10px; font-weight: 600; color: #1e8449;
-    }
-    body.dark-mode .fp-reroute-note { color: #2ecc71; }
-    .fp-ok-row { font-size: 11px; color: var(--dark); padding: 3px 0; }
-    body.dark-mode .fp-ok-row { color: #ccc; }
-    .fp-profile-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-    .fp-ptag {
-        font-size: 10px; padding: 2px 8px; border-radius: 10px;
-        background: var(--light); color: var(--dark); font-weight: 600;
-    }
-    body.dark-mode .fp-ptag { background: #2a2a2a; color: #ccc; }
-    .fp-ptag.active { background: rgba(231,76,60,.12); color: #e74c3c; }
-    body.dark-mode .fp-ptag.active { background: rgba(255,107,107,.15); color: #ff6b6b; }
-    .fp-ptag.add { background: rgba(52,152,219,.1); color: #3498db; }
-
-    .nf-reset-btn {
-        margin-top: 1rem; background: transparent; border: 1.5px solid rgba(0,0,0,.15);
-        color: var(--dark); border-radius: 8px; padding: .4rem .9rem;
-        font-size: .8rem; font-weight: 600; cursor: pointer; transition: all .2s;
-        display: inline-block;
-    }
-    body.dark-mode .nf-reset-btn { border-color: rgba(255,255,255,.2); color: #ccc; }
-    .nf-reset-btn:hover { border-color: var(--primary); color: var(--primary); }
-
-    /* Live phone */
-    .fp-store-map-mini { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; }
-    .fsmm-row { display: flex; gap: 3px; }
-    .fsmm-cell {
-        flex: 1; padding: 4px 2px; border-radius: 6px; text-align: center;
-        font-size: 10px; font-weight: 700; line-height: 1.3;
-    }
-    .fsmm-cell small { font-size: 8px; font-weight: 400; display: block; }
-    .fsmm-cell.green { background: rgba(39,174,96,.15); color: #1e8449; }
-    .fsmm-cell.red   { background: rgba(231,76,60,.15); color: #c0392b; }
-    body.dark-mode .fsmm-cell.green { background: rgba(46,204,113,.15); color: #2ecc71; }
-    body.dark-mode .fsmm-cell.red   { background: rgba(231,76,60,.15);  color: #ff6b6b; }
-    .fp-live-list { display: flex; flex-direction: column; gap: 4px; }
-    .fp-live-row {
-        display: flex; align-items: center; gap: 6px;
-        padding: 5px 7px; border-radius: 7px; font-size: 10px;
-    }
-    .fp-live-row.green  { background: rgba(39,174,96,.08); }
-    .fp-live-row.red    { background: rgba(231,76,60,.08); }
-    .fp-live-row.orange { background: rgba(243,156,18,.08); }
-    .fpl-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-    .fpl-dot.green  { background: #27ae60; }
-    .fpl-dot.red    { background: #e74c3c; animation: livePulse 1.5s infinite; }
-    .fpl-dot.orange { background: #f39c12; animation: livePulse 1.5s infinite; }
-    .fpl-name { flex: 1; color: var(--dark); font-weight: 500; }
-    body.dark-mode .fpl-name { color: #ccc; }
-    .fpl-loc { font-size: 9px; font-weight: 700; color: var(--dark); opacity: .5; white-space: nowrap; }
-    body.dark-mode .fpl-loc { color: #888; opacity: 1; }
-    .fp-updated { font-size: 9px; color: var(--dark); opacity: .35; text-align: center; }
-    body.dark-mode .fp-updated { color: #888; opacity: 1; }
-
-    /* Heatmap phone */
-    .fp-heatmap { display: flex; flex-direction: column; gap: 6px; }
-    .fhm-title { font-size: 10px; font-weight: 700; color: var(--dark); text-align: center; opacity: .7; }
-    body.dark-mode .fhm-title { color: #ccc; opacity: 1; }
-    .fhm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-    .fhm-cell {
-        padding: 7px 6px; border-radius: 9px;
-        display: flex; flex-direction: column; align-items: center;
-        text-align: center; cursor: default; transition: transform .2s;
-    }
-    .fhm-cell:hover { transform: scale(1.04); }
-    .fhm-label { font-size: 13px; font-weight: 800; line-height: 1; }
-    .fhm-name  { font-size: 8.5px; font-weight: 500; opacity: .75; margin: 1px 0; }
-    .fhm-status{ font-size: 8.5px; font-weight: 700; }
-    .fhm-cell.cold { background: rgba(39,174,96,.12); color: #1e8449; }
-    .fhm-cell.warm { background: rgba(243,156,18,.12); color: #d68910; }
-    .fhm-cell.hot  { background: rgba(231,76,60,.12);  color: #c0392b; }
-    body.dark-mode .fhm-cell.cold { background: rgba(46,204,113,.15); color: #2ecc71; }
-    body.dark-mode .fhm-cell.warm { background: rgba(243,156,18,.15); color: #f39c12; }
-    body.dark-mode .fhm-cell.hot  { background: rgba(231,76,60,.15);  color: #ff6b6b; }
-    .fhm-kasse {
-        padding: 6px 8px; border-radius: 9px;
-        display: flex; justify-content: space-between; align-items: center;
-        font-size: 10px; font-weight: 700;
-    }
-    .fhm-kasse.hot-kasse { background: rgba(231,76,60,.12); color: #c0392b; }
-    body.dark-mode .fhm-kasse.hot-kasse { background: rgba(231,76,60,.15); color: #ff6b6b; }
-    .fhm-kasse-status { font-size: 9px; font-weight: 600; }
-    .fhm-tip {
-        background: rgba(243,156,18,.1); border: 1px solid rgba(243,156,18,.2);
-        border-radius: 7px; padding: 5px 7px;
-        font-size: 9px; font-weight: 600; color: #d68910;
-    }
-    body.dark-mode .fhm-tip { color: #f39c12; }
-    .fhm-legend { display: flex; gap: 5px; justify-content: center; }
-    .fhl { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; }
-    .fhl.cold { background: rgba(39,174,96,.12); color: #1e8449; }
-    .fhl.warm { background: rgba(243,156,18,.12); color: #d68910; }
-    .fhl.hot  { background: rgba(231,76,60,.12);  color: #c0392b; }
-
-    /* Voice phone */
-    .fp-voice-body { justify-content: space-between; }
-    .fp-voice-status { display: flex; align-items: center; gap: 6px; padding: 6px 0; }
-    .fp-voice-label { font-size: 10px; font-weight: 700; color: #8e44ad; }
-    body.dark-mode .fp-voice-label { color: #c39bd3; }
-    .vp-bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
-    .vb { width: 4px; border-radius: 2px; background: #9b59b6; animation: vpBar 1s ease-in-out infinite; }
-    .vb:nth-child(1){height:8px;animation-delay:0s}
-    .vb:nth-child(2){height:14px;animation-delay:.15s}
-    .vb:nth-child(3){height:18px;animation-delay:.3s}
-    .vb:nth-child(4){height:14px;animation-delay:.15s}
-    .vb:nth-child(5){height:8px;animation-delay:0s}
-    @keyframes vpBar { 0%,100%{opacity:.5;transform:scaleY(.6)} 50%{opacity:1;transform:scaleY(1)} }
-    .fp-voice-direction {
-        background: linear-gradient(135deg, #f3e5f5, #e8d5f5);
-        border-radius: 14px; text-align: center; padding: 14px 10px;
-    }
-    body.dark-mode .fp-voice-direction { background: rgba(155,89,182,.15); }
-    .fp-arrow-big { font-size: 2rem; color: #8e44ad; line-height: 1; }
-    .fp-dir-text  { font-size: 13px; font-weight: 800; color: #8e44ad; margin-top: 4px; }
-    .fp-dir-sub   { font-size: 10px; color: var(--dark); opacity: .55; margin-top: 2px; }
-    body.dark-mode .fp-dir-sub { color: #999; opacity: 1; }
-    .fp-voice-next {
-        background: var(--light); border-radius: 8px; padding: 6px 8px;
-        font-size: 10px; color: var(--dark); display: flex; align-items: center; gap: 6px;
-    }
-    body.dark-mode .fp-voice-next { background: #1a1a1a; color: #ccc; }
-    .fp-vn-label { font-weight: 700; opacity: .5; }
-    .fp-progress-bar { height: 5px; background: rgba(0,0,0,.08); border-radius: 3px; overflow: hidden; }
-    body.dark-mode .fp-progress-bar { background: rgba(255,255,255,.1); }
-    .fp-progress-fill { height: 100%; background: linear-gradient(90deg, #9b59b6, #8e44ad); border-radius: 3px; }
-    .fp-progress-label { font-size: 9px; color: var(--dark); opacity: .5; text-align: center; margin-top: -2px; }
-    body.dark-mode .fp-progress-label { color: #888; opacity: 1; }
-    .fp-voice-acc { font-size: 9px; color: var(--dark); opacity: .4; text-align: center; border-top: 1px solid rgba(0,0,0,.07); padding-top: 5px; }
-    body.dark-mode .fp-voice-acc { color: #666; opacity: 1; border-color: rgba(255,255,255,.08); }
-
-    /* NF Block core (kept here for inline style isolation) */
+    /* ═══ NF SECTION — Core ═══ */
     .nf-section { background: var(--light); padding: 5rem 0 4rem; margin-top: 3rem; }
     body.dark-mode .nf-section { background: #111; }
     .nf-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
@@ -940,7 +611,7 @@
     body.dark-mode .nf-block { background: #1e1e1e; box-shadow: 0 4px 24px rgba(0,0,0,.3); }
     body.dark-mode .nf-block:hover { box-shadow: 0 12px 40px rgba(0,0,0,.5); }
     .nf-block.reverse .nf-block-visual { order: -1; }
-    @media (max-width: 768px) { .nf-block, .nf-block.nf-eco { grid-template-columns: 1fr; } .nf-block.reverse .nf-block-visual { order: 0; } }
+    @media (max-width: 768px) { .nf-block { grid-template-columns: 1fr; } .nf-block.reverse .nf-block-visual { order: 0; } }
     .nf-icon-wrap { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem; }
     .nf-icon-wrap.eco   { background: rgba(39,174,96,.12); }
     .nf-icon-wrap.allergy { background: rgba(231,76,60,.1); }
@@ -950,7 +621,6 @@
     .nf-tag { display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: .5rem; }
     .nf-tag.eco   { color: var(--primary); }
     .nf-tag.allergy { color: #e74c3c; }
-    body.dark-mode .nf-tag.allergy { color: #ff6b6b; }
     .nf-tag.live  { color: #3498db; }
     .nf-tag.heat  { color: #f39c12; }
     .nf-tag.voice { color: #9b59b6; }
@@ -959,8 +629,54 @@
     .nf-list { list-style: none; padding: 0; margin: 0; }
     .nf-list li { font-size: .88rem; color: var(--dark); padding: .3rem 0; border-bottom: 1px solid rgba(0,0,0,.05); }
     body.dark-mode .nf-list li { border-bottom-color: rgba(255,255,255,.06); }
+    .nf-reset-btn { margin-top: 1rem; background: transparent; border: 1.5px solid rgba(0,0,0,.15); color: var(--dark); border-radius: 8px; padding: .4rem .9rem; font-size: .8rem; font-weight: 600; cursor: pointer; transition: all .2s; display: inline-block; }
+    body.dark-mode .nf-reset-btn { border-color: rgba(255,255,255,.2); color: #ccc; }
+    .nf-reset-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-    /* Live demo inline */
+    /* ═══ ECO ROUTING ═══ */
+    .eco-toggle-demo { display: flex; gap: .6rem; margin: 1.2rem 0 1rem; flex-wrap: wrap; }
+    .eco-btn { padding: .6rem 1.2rem; border-radius: 50px; border: 2px solid rgba(39,174,96,.3); background: transparent; color: var(--dark); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .25s; }
+    .eco-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .eco-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+    .eco-route { display: flex; flex-direction: column; gap: .4rem; }
+    .eco-route-step { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; background: var(--light); border-radius: 8px; font-size: .83rem; color: var(--dark); }
+    .eco-route-step.green { background: rgba(39,174,96,.08); }
+    body.dark-mode .eco-route-step { background: #2a2a2a; }
+    body.dark-mode .eco-route-step.green { background: rgba(46,204,113,.1); }
+    .step-num { width: 22px; height: 22px; background: #3498db; color: #fff; border-radius: 50%; font-size: .72rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-num.g { background: var(--primary); }
+    .step-text { flex: 1; }
+    .step-time { margin-left: auto; font-size: .73rem; color: #3498db; font-weight: 600; flex-shrink: 0; }
+    .step-time.g { color: var(--primary); }
+    .eco-summary { margin-top: .4rem; font-size: .82rem; font-weight: 600; padding: .4rem .7rem; border-radius: 6px; }
+    .eco-summary.blue { color: #3498db; background: rgba(52,152,219,.08); }
+    .eco-summary.green { color: var(--primary); background: rgba(39,174,96,.1); }
+
+    /* ═══ STORE MAP CARD (Eco-Route visual) ═══ */
+    .store-map-card { background: var(--light); border-radius: 16px; padding: 1.2rem; box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+    body.dark-mode .store-map-card { background: #1a1a1a; }
+    .smc-header { font-size: .8rem; font-weight: 700; color: var(--primary); margin-bottom: .9rem; }
+    .smc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; margin-bottom: .9rem; }
+    .smc-cell { padding: .55rem .4rem; border-radius: 10px; background: rgba(0,0,0,.04); border: 2px solid transparent; text-align: center; font-size: .8rem; font-weight: 800; color: var(--dark); transition: all .3s; cursor: default; }
+    body.dark-mode .smc-cell { background: rgba(255,255,255,.04); color: #ccc; }
+    .smc-cell span { display: block; font-size: .65rem; font-weight: 400; opacity: .65; margin-top: 2px; }
+    .smc-cell.active-fast { background: rgba(52,152,219,.12); border-color: #3498db; color: #2471a3; }
+    .smc-cell.active-green { background: rgba(39,174,96,.12); border-color: var(--primary); color: #1e8449; }
+    .smc-footer { display: flex; align-items: center; gap: .3rem; font-size: .78rem; flex-wrap: wrap; margin-bottom: .7rem; }
+    .smc-entry { color: var(--dark); opacity: .5; font-size: .75rem; }
+    .smc-kasse { color: var(--dark); opacity: .5; font-size: .75rem; }
+    .smc-arrow { color: var(--dark); opacity: .4; }
+    .smc-stop { font-size: .75rem; font-weight: 700; }
+    .smc-route-label { font-size: .75rem; color: var(--dark); opacity: .5; border-top: 1px solid rgba(0,0,0,.07); padding-top: .6rem; font-style: italic; }
+    body.dark-mode .smc-route-label { color: #888; opacity: 1; border-color: rgba(255,255,255,.07); }
+
+    /* ═══ ALLERGIE PHONE ITEMS ═══ */
+    .fp-item { display: flex; align-items: center; gap: 7px; padding: 7px 8px; border-radius: 9px; }
+    .fp-item.warn { background: rgba(231,76,60,.08); border: 1px solid rgba(231,76,60,.2); }
+    .fp-item.ok  { background: rgba(39,174,96,.08);  border: 1px solid rgba(39,174,96,.2); }
+    .fp-sugg-box { background: rgba(52,152,219,.07); border: 1px solid rgba(52,152,219,.2); border-radius: 9px; padding: 7px 8px; }
+
+    /* ═══ LIVE INVENTAR ═══ */
     .live-demo { display: flex; flex-direction: column; gap: .5rem; margin-top: 1.2rem; }
     .live-item { display: flex; align-items: center; gap: .7rem; padding: .6rem .8rem; background: var(--light); border-radius: 9px; font-size: .85rem; flex-wrap: wrap; }
     body.dark-mode .live-item { background: #2a2a2a; }
@@ -968,8 +684,8 @@
     .live-dot.green  { background: #27ae60; }
     .live-dot.red    { background: #e74c3c; }
     .live-dot.orange { background: #f39c12; }
-    .live-dot.pulse  { animation: livePulse 1.5s infinite; }
-    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.3)} }
+    .live-dot.pulse  { animation: livePulse2 1.5s infinite; }
+    @keyframes livePulse2 { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.3)} }
     .live-name { flex: 1; color: var(--dark); font-weight: 500; }
     body.dark-mode .live-name { color: #ccc; }
     .live-status { font-size: .76rem; font-weight: 600; }
@@ -982,7 +698,7 @@
     @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
     .live-reroute { font-size: .78rem; color: var(--primary); font-weight: 600; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(39,174,96,.15); }
 
-    /* Voice demo inline */
+    /* ═══ VOICE ═══ */
     .voice-demo { margin-top: 1.2rem; background: var(--light); border-radius: 14px; padding: 1.2rem; }
     body.dark-mode .voice-demo { background: #1a1a1a; }
     .voice-wave { display: flex; align-items: center; gap: 4px; height: 32px; margin-bottom: .8rem; }
@@ -1002,48 +718,123 @@
     .voice-btn:hover { background: #8e44ad; transform: translateY(-2px); }
     .voice-mode { font-size: .78rem; color: var(--dark); opacity: .55; }
     body.dark-mode .voice-mode { color: #888; opacity: 1; }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes vpBar { 0%,100%{opacity:.5;transform:scaleY(.6)} 50%{opacity:1;transform:scaleY(1)} }
+
+    /* Smaller phone for features */
+    .fphone-wrap .phone-pro-wrap { width: 220px; animation: none; }
+    .fphone-wrap .phone-pro { width: 200px; height: 440px; }
+    .fphone-wrap .phone-btn-vol-up  { top: 80px;  height: 26px; }
+    .fphone-wrap .phone-btn-vol-down{ top: 116px; height: 26px; }
+    .fphone-wrap .phone-btn-power   { top: 96px;  height: 36px; }
+    .fphone-wrap .phone-glow.glow-1 { width: 150px; height: 150px; left: -25%; }
+    .fphone-wrap .phone-glow.glow-2 { width: 120px; height: 120px; right: -15%; }
+
+    /* ═══ DARK MODE — Phone screens & inline content ═══ */
+    body.dark-mode .fphone-wrap .phone-screen-area { background: #0f0f0f !important; }
+
+    /* Text colors inside phone screens */
+    body.dark-mode .fphone-wrap .phone-app-screen p,
+    body.dark-mode .fphone-wrap .phone-app-screen div,
+    body.dark-mode .fphone-wrap .phone-app-screen span { color: inherit; }
+
+    /* Phone screen label rows */
+    body.dark-mode .fp-item strong { color: #e0e0e0; }
+    body.dark-mode .fp-sugg-box { background: rgba(52,152,219,.12); border-color: rgba(52,152,219,.3); }
+
+    /* Live inventar phone — text items */
+    body.dark-mode .fphone-wrap [style*="color:#333"] { color: #ccc !important; }
+    body.dark-mode .fphone-wrap [style*="color:#555"] { color: #aaa !important; }
+    body.dark-mode .fphone-wrap [style*="color:#999"] { color: #666 !important; }
+    body.dark-mode .fphone-wrap [style*="color:#aaa"] { color: #666 !important; }
+
+    /* Background overrides inside phone */
+    body.dark-mode .fphone-wrap [style*="background:#f0f0f0"] { background: #2a2a2a !important; color: #bbb !important; }
+    body.dark-mode .fphone-wrap [style*="background:#f7f7f7"] { background: #1e1e1e !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(39,174,96,.12)"] { background: rgba(39,174,96,.18) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(231,76,60,.12)"] { background: rgba(231,76,60,.18) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(243,156,18,.12)"] { background: rgba(243,156,18,.18) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(243,156,18,.1)"] { background: rgba(243,156,18,.15) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(39,174,96,.1)"] { background: rgba(39,174,96,.15) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(231,76,60,.1)"] { background: rgba(231,76,60,.15) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(39,174,96,.06)"] { background: rgba(39,174,96,.1) !important; }
+    body.dark-mode .fphone-wrap [style*="background:rgba(231,76,60,.06)"] { background: rgba(231,76,60,.1) !important; }
+
+    /* Heatmap/Kasse in phone */
+    body.dark-mode .fphone-wrap [style*="background:rgba(231,76,60,.1);color:#c0392b"] { color: #ff6b6b !important; }
+    body.dark-mode .fphone-wrap [style*="color:#c0392b"] { color: #ff6b6b !important; }
+    body.dark-mode .fphone-wrap [style*="color:#1e8449"] { color: #2ecc71 !important; }
+    body.dark-mode .fphone-wrap [style*="color:#d68910"] { color: #f39c12 !important; }
+
+    /* Voice phone direction box */
+    body.dark-mode .fphone-wrap [style*="background:linear-gradient(135deg,#f3e5f5"] { background: rgba(155,89,182,.2) !important; }
+    body.dark-mode .fphone-wrap [style*="color:#8e44ad"] { color: #c39bd3 !important; }
+
+    /* Store map card grid cells */
+    body.dark-mode .smc-cell.active-fast { background: rgba(52,152,219,.2); color: #5dade2; }
+    body.dark-mode .smc-cell.active-green { background: rgba(39,174,96,.2); color: #2ecc71; }
+
+    /* Border/divider lines inside phones */
+    body.dark-mode .fphone-wrap [style*="border-top:1px solid rgba(0,0,0,.07)"] { border-top-color: rgba(255,255,255,.08) !important; }
+    body.dark-mode .fphone-wrap [style*="height:1px;background:rgba(0,0,0,.07)"] { background: rgba(255,255,255,.08) !important; }
+
+    /* Nf-block-text paragraph */
+    body.dark-mode .nf-block-text p { color: #bbb; opacity: 1; }
     </style>
 
     <script>
     /* ── ECO ROUTING ── */
+    const ecoFastCells  = ['smc-e','smc-b','smc-f'];
+    const ecoGreenCells = ['smc-b','smc-d','smc-f'];
+
     function setEcoMode(mode) {
         document.getElementById('eco-fast').classList.toggle('active', mode === 'fast');
         document.getElementById('eco-green').classList.toggle('active', mode === 'green');
         document.getElementById('eco-route-fast').style.display = mode === 'fast' ? 'flex' : 'none';
         document.getElementById('eco-route-green').style.display = mode === 'green' ? 'flex' : 'none';
-        document.getElementById('path-fast').style.display = mode === 'fast' ? '' : 'none';
-        document.getElementById('path-green').style.display = mode === 'green' ? '' : 'none';
-        // Highlight relevant map cells
-        const fastCells  = ['sm-e','sm-b','sm-f'];
-        const greenCells = ['sm-b','sm-d','sm-f'];
-        document.querySelectorAll('.sm-cell').forEach(c => c.classList.remove('highlight'));
-        (mode === 'fast' ? fastCells : greenCells).forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.classList.add('highlight');
+
+        // Update cell highlights
+        document.querySelectorAll('.smc-cell').forEach(c => {
+            c.classList.remove('active-fast','active-green');
         });
+        const cells = mode === 'fast' ? ecoFastCells : ecoGreenCells;
+        const cls   = mode === 'fast' ? 'active-fast' : 'active-green';
+        cells.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.classList.add(cls);
+        });
+
+        // Update route label
+        const label = document.getElementById('smc-route-label');
+        if (mode === 'fast') {
+            label.textContent = '⚡ Route: Eingang → E → B → F → Kasse';
+            label.style.color = '#2980b9';
+        } else {
+            label.textContent = '🌿 Route: Eingang → B → D → F → Kasse';
+            label.style.color = '#27ae60';
+        }
     }
-    // Init highlight on load
     document.addEventListener('DOMContentLoaded', () => setEcoMode('fast'));
 
     /* ── ALLERGIE ── */
     function doAllergySwap() {
-        document.getElementById('ap-warn-item').style.display = 'none';
-        document.getElementById('ap-sugg').style.display = 'none';
-        document.getElementById('ap-ok-item').style.display = 'flex';
-        document.getElementById('ap-reroute').style.display = 'block';
+        document.getElementById('fp-warn').style.display = 'none';
+        document.getElementById('fp-sugg').style.display = 'none';
+        document.getElementById('fp-ok').style.display = 'flex';
+        document.getElementById('fp-reroute').style.display = 'block';
     }
     function resetAllergyDemo() {
-        document.getElementById('ap-warn-item').style.display = 'flex';
-        document.getElementById('ap-sugg').style.display = 'block';
-        document.getElementById('ap-ok-item').style.display = 'none';
-        document.getElementById('ap-reroute').style.display = 'none';
+        document.getElementById('fp-warn').style.display = 'flex';
+        document.getElementById('fp-sugg').style.display = 'block';
+        document.getElementById('fp-ok').style.display = 'none';
+        document.getElementById('fp-reroute').style.display = 'none';
     }
 
     /* ── LIVE INVENTAR ── */
     function showLiveAlt() {
         document.getElementById('live-alt').style.display = 'block';
-        const btn = document.getElementById('live-kokos').querySelector('.live-alt-btn');
-        if (btn) btn.style.display = 'none';
+        document.getElementById('live-alt-btn').style.display = 'none';
     }
 
     /* ── VOICE ── */
