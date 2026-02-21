@@ -6,6 +6,13 @@
     --accent: #f39c12;
     --blue: #3498db;
 }
+::-webkit-scrollbar {
+    display: none;
+}
+
+* {
+    scrollbar-width: none;
+}
 
 /* Dark Mode Variables */
 body.dark-mode {
