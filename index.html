@@ -134,6 +134,205 @@
             <div class="logo-cloud-caption">Partnerschaftsverhandlungen und Pilotveranstaltungen laufen</div>
         </section>
 
+        <!-- ANIMIERTE MAP VORSCHAU -->
+        <section class="map-preview-section">
+            <div class="mp-inner">
+                <div class="mp-text">
+                    <span class="mp-badge">Live-Navigation</span>
+                    <h2>Sieh, wie ShopGuide navigiert.</h2>
+                    <p>Eine KI bewegt sich in Echtzeit durch den Supermarkt — von Produkt zu Produkt, immer auf der optimalen Route.</p>
+                    <div class="mp-features">
+                        <div class="mp-feat"><span class="mp-feat-dot eco"></span>Eco-Route aktiv</div>
+                        <div class="mp-feat"><span class="mp-feat-dot live"></span>Live-Inventar OK</div>
+                        <div class="mp-feat"><span class="mp-feat-dot heat"></span>Gang 2 voll — Umweg</div>
+                    </div>
+                    <a href="customer-verify.html" class="mp-cta">Demo ausprobieren →</a>
+                </div>
+                <div class="mp-map-wrap">
+                    <div class="mp-map" id="mp-map">
+                        <!-- Regale -->
+                        <div class="mp-shelf" style="left:5%;top:8%;width:40%;height:12%;">🥦 Obst & Gemüse</div>
+                        <div class="mp-shelf" style="left:55%;top:8%;width:40%;height:12%;">🥩 Fleisch & Fisch</div>
+                        <div class="mp-shelf" style="left:5%;top:28%;width:40%;height:12%;">🌾 Bio-Produkte</div>
+                        <div class="mp-shelf" style="left:55%;top:28%;width:40%;height:12%;" id="shelf-crowd">👥 Gang 2 <span class="mp-crowd">voll</span></div>
+                        <div class="mp-shelf" style="left:5%;top:48%;width:40%;height:12%;">🧴 Drogerie</div>
+                        <div class="mp-shelf" style="left:55%;top:48%;width:40%;height:12%;">🫙 Unverpackt</div>
+                        <div class="mp-shelf" style="left:5%;top:68%;width:90%;height:12%;">❄️ Kühlregal · Milch · Joghurt · Käse</div>
+                        <div class="mp-shelf" style="left:5%;top:88%;width:40%;height:10%;">🍞 Backwaren</div>
+                        <div class="mp-shelf kasse" style="left:55%;top:88%;width:40%;height:10%;">🏁 Kasse</div>
+                        <!-- Animierter Punkt -->
+                        <div class="mp-dot" id="mp-dot">
+                            <div class="mp-dot-ring"></div>
+                        </div>
+                        <!-- Produkt-Label -->
+                        <div class="mp-label" id="mp-label">Obst & Gemüse</div>
+                    </div>
+                    <div class="mp-status" id="mp-status">📍 Navigiere zu: <strong>Obst & Gemüse</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <style>
+        .map-preview-section {
+            padding: 5rem 5%;
+            background: var(--light);
+        }
+        body.dark-mode .map-preview-section { background: #111; }
+
+        .mp-inner {
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1.4fr;
+            gap: clamp(2rem,5vw,4rem); align-items: center;
+        }
+        @media (max-width: 768px) { .mp-inner { grid-template-columns: 1fr; } }
+
+        .mp-badge {
+            display: inline-block;
+            background: rgba(39,174,96,.12); color: var(--primary);
+            border: 1px solid rgba(39,174,96,.25);
+            padding: .3rem 1rem; border-radius: 50px;
+            font-size: .75rem; font-weight: 700;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .mp-text h2 {
+            font-size: clamp(1.5rem,3vw,2.2rem);
+            font-weight: 800; color: var(--dark); margin: 0 0 .8rem;
+        }
+        .mp-text p { color: var(--dark); opacity: .6; font-size: .95rem; line-height: 1.7; margin-bottom: 1.4rem; }
+        .mp-features { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1.6rem; }
+        .mp-feat { display: flex; align-items: center; gap: .6rem; font-size: .85rem; color: var(--dark); }
+        .mp-feat-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .mp-feat-dot.eco  { background: #27ae60; }
+        .mp-feat-dot.live { background: #3498db; }
+        .mp-feat-dot.heat { background: #e74c3c; animation: livePulse 1.5s infinite; }
+        .mp-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), #27ae60);
+            color: #fff; text-decoration: none;
+            padding: .7rem 1.6rem; border-radius: 50px;
+            font-weight: 700; font-size: .9rem;
+            box-shadow: 0 4px 16px rgba(39,174,96,.3);
+            transition: all .25s;
+        }
+        .mp-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(39,174,96,.42); }
+
+        .mp-map-wrap {
+            display: flex; flex-direction: column; gap: .8rem;
+        }
+        .mp-map {
+            position: relative;
+            width: 100%; padding-bottom: 75%;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.08);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,.06);
+        }
+        body.dark-mode .mp-map { background: #1e1e1e; border-color: rgba(255,255,255,.07); box-shadow: 0 8px 32px rgba(0,0,0,.35); }
+
+        .mp-shelf {
+            position: absolute;
+            background: var(--light);
+            border-radius: 7px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(.55rem,.9vw,.72rem);
+            font-weight: 600; color: var(--dark);
+            text-align: center; line-height: 1.3;
+            border: 1px solid rgba(0,0,0,.06);
+            transition: background .4s;
+        }
+        body.dark-mode .mp-shelf { background: #2a2a2a; border-color: rgba(255,255,255,.07); }
+        .mp-shelf.kasse { background: rgba(39,174,96,.1); border-color: rgba(39,174,96,.25); }
+        body.dark-mode .mp-shelf.kasse { background: rgba(46,204,113,.12); }
+        .mp-crowd {
+            margin-left: .3rem;
+            font-size: .6rem; background: #e74c3c; color: #fff;
+            padding: .1rem .35rem; border-radius: 50px; font-weight: 700;
+        }
+
+        .mp-dot {
+            position: absolute;
+            width: 18px; height: 18px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 10px rgba(39,174,96,.5);
+            z-index: 10;
+            transition: left .9s cubic-bezier(.4,0,.2,1), top .9s cubic-bezier(.4,0,.2,1);
+            transform: translate(-50%, -50%);
+        }
+        body.dark-mode .mp-dot { border-color: #1e1e1e; }
+        .mp-dot-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            opacity: .4;
+            animation: mpRing 1.8s ease-in-out infinite;
+        }
+        @keyframes mpRing { 0%{transform:scale(1);opacity:.4} 100%{transform:scale(2.2);opacity:0} }
+
+        .mp-label {
+            position: absolute;
+            background: var(--primary);
+            color: #fff;
+            font-size: .65rem; font-weight: 700;
+            padding: .2rem .55rem; border-radius: 50px;
+            white-space: nowrap;
+            transform: translate(-50%, -220%);
+            z-index: 11;
+            pointer-events: none;
+            transition: left .9s cubic-bezier(.4,0,.2,1), top .9s cubic-bezier(.4,0,.2,1);
+            box-shadow: 0 2px 8px rgba(0,0,0,.2);
+        }
+
+        .mp-status {
+            background: var(--white);
+            border-radius: 10px;
+            padding: .65rem 1rem;
+            font-size: .82rem;
+            color: var(--dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,.05);
+            border: 1px solid rgba(0,0,0,.05);
+            transition: all .3s;
+        }
+        body.dark-mode .mp-status { background: #1e1e1e; border-color: rgba(255,255,255,.07); }
+        </style>
+
+        <script>
+        // Animierter Marker der durch die Map wandert
+        (function() {
+            const stops = [
+                { left: '25%', top: '14%', label: 'Obst & Gemüse',  status: '🥦 Navigiere zu: Obst & Gemüse' },
+                { left: '75%', top: '14%', label: 'Fleisch & Fisch', status: '🥩 Navigiere zu: Fleisch & Fisch' },
+                { left: '25%', top: '34%', label: 'Bio-Produkte',    status: '🌾 Eco-Route: Bio-Produkte' },
+                { left: '25%', top: '54%', label: 'Drogerie',        status: '🧴 Navigiere zu: Drogerie (Gang 2 umgangen!)' },
+                { left: '75%', top: '54%', label: 'Unverpackt',      status: '🫙 Eco-Route: Unverpackt-Station' },
+                { left: '50%', top: '74%', label: 'Kühlregal',       status: '❄️ Letzte Stops: Kühlregal' },
+                { left: '25%', top: '93%', label: 'Backwaren',       status: '🍞 Fast fertig: Backwaren' },
+                { left: '75%', top: '93%', label: 'Kasse 🎉',        status: '🏁 Fertig! Einkauf in 6 Min. ✅' },
+            ];
+            let idx = 0;
+            function move() {
+                const dot = document.getElementById('mp-dot');
+                const lbl = document.getElementById('mp-label');
+                const sts = document.getElementById('mp-status');
+                if (!dot) return;
+                const s = stops[idx];
+                dot.style.left = s.left;
+                dot.style.top  = s.top;
+                lbl.style.left = s.left;
+                lbl.style.top  = s.top;
+                lbl.textContent = s.label;
+                sts.innerHTML = '📍 ' + s.status;
+                idx = (idx + 1) % stops.length;
+            }
+            // Init position
+            document.addEventListener('DOMContentLoaded', () => { move(); setInterval(move, 2200); });
+        })();
+        </script>
+
         <footer style="margin-top: 4rem;">
             <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a
                     href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html"

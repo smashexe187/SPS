@@ -192,6 +192,489 @@
     </div>
     </div>
 
+    <!-- ═══════════════════════════════════════════
+         SMARTE FEATURES SEKTION
+    ═══════════════════════════════════════════ -->
+    <section class="nf-section">
+        <div class="nf-inner">
+            <div class="nf-header">
+                <span class="nf-badge">Smarte Features</span>
+                <h2>Mehr als nur Navigation</h2>
+                <p>ShopGuide denkt mit — für einen Einkauf, der wirklich zu dir passt.</p>
+            </div>
+
+            <!-- ── ECO-ROUTING ── -->
+            <div class="nf-block nf-eco">
+                <div class="nf-block-text">
+                    <div class="nf-icon-wrap eco">🌿</div>
+                    <span class="nf-tag eco">Eco-Routing</span>
+                    <h3>Dein Weg. Deine Werte.</h3>
+                    <p>Wähle zwischen dem <strong>schnellsten</strong> oder dem <strong>nachhaltigsten</strong> Weg durch den Laden. Der Eco-Modus führt dich bevorzugt an regionalen Produkten, Bio-Artikeln und Unverpackt-Stationen vorbei.</p>
+                    <div class="eco-toggle-demo">
+                        <button class="eco-btn active" id="eco-fast" onclick="setEcoMode('fast')">⚡ Schnellster Weg</button>
+                        <button class="eco-btn" id="eco-green" onclick="setEcoMode('green')">🌿 Nachhaltigster Weg</button>
+                    </div>
+                    <div class="eco-result">
+                        <div class="eco-route" id="eco-route-fast">
+                            <div class="eco-route-item"><span class="rno">1</span><span>🧴 Shampoo — Gang 3</span><span class="rtag">2m</span></div>
+                            <div class="eco-route-item"><span class="rno">2</span><span>🥛 Milch — Kühlregal</span><span class="rtag">3m</span></div>
+                            <div class="eco-route-item"><span class="rno">3</span><span>🍞 Brot — Backwaren</span><span class="rtag">1m</span></div>
+                            <div class="eco-time">⚡ Gesamtzeit: <strong>6 Min</strong></div>
+                        </div>
+                        <div class="eco-route" id="eco-route-green" style="display:none;">
+                            <div class="eco-route-item eco-hi"><span class="rno g">1</span><span>🌾 Bio-Brot (regional) — Backwaren</span><span class="rtag g">🌿</span></div>
+                            <div class="eco-route-item eco-hi"><span class="rno g">2</span><span>🫙 Unverpackt-Station — Gang 2</span><span class="rtag g">🌿</span></div>
+                            <div class="eco-route-item eco-hi"><span class="rno g">3</span><span>🥛 Bio-Milch Demeter — Kühlregal</span><span class="rtag g">🌿</span></div>
+                            <div class="eco-save">🌍 Du sparst heute: <strong>0,8 kg CO₂</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nf-block-visual eco-map-wrap">
+                    <div class="eco-map">
+                        <div class="map-grid">
+                            <div class="map-shelf" style="grid-column:1/3;grid-row:1;">Gang 1 · Drogerie</div>
+                            <div class="map-shelf" style="grid-column:3/5;grid-row:1;">Gang 2 · Unverpackt</div>
+                            <div class="map-shelf" style="grid-column:1/3;grid-row:2;">Gang 3 · Pflege</div>
+                            <div class="map-shelf" style="grid-column:3/5;grid-row:2;">Gang 4 · Getränke</div>
+                            <div class="map-shelf" style="grid-column:1/5;grid-row:3;">Kühlregal · Frische</div>
+                            <div class="map-shelf" style="grid-column:1/3;grid-row:4;">Backwaren</div>
+                            <div class="map-shelf" style="grid-column:3/5;grid-row:4;">Kasse</div>
+                        </div>
+                        <svg class="map-path" viewBox="0 0 200 200" preserveAspectRatio="none">
+                            <path id="path-fast" d="M 25 185 L 25 140 L 25 100 L 25 55 L 100 55 L 100 185" stroke="#3498db" stroke-width="3" fill="none" stroke-dasharray="6,3" stroke-linecap="round"/>
+                            <path id="path-green" d="M 25 185 L 140 185 L 140 130 L 140 100 L 100 55 L 25 55" stroke="#27ae60" stroke-width="3" fill="none" stroke-dasharray="6,3" stroke-linecap="round" style="display:none"/>
+                            <circle cx="25" cy="185" r="6" fill="#e74c3c"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── ALLERGIE-FILTER ── -->
+            <div class="nf-block reverse">
+                <div class="nf-block-visual">
+                    <div class="allergy-phone">
+                        <div class="ap-header">⚠️ Allergie-Warnung erkannt</div>
+                        <div class="ap-item warning" id="ap-warn-item">
+                            <div class="ap-icon">🥛</div>
+                            <div class="ap-text">
+                                <strong>Milch</strong> auf deiner Liste
+                                <span class="ap-sub">Dein Profil: Laktoseintoleranz</span>
+                            </div>
+                            <span class="ap-badge">!</span>
+                        </div>
+                        <div class="ap-suggestion" id="ap-sugg">
+                            <span class="ap-sugg-label">💡 Alternative gefunden:</span>
+                            <div class="ap-alt-item">
+                                <span>🌾 Haferdrink Oatly</span>
+                                <button class="ap-swap-btn" onclick="doAllergySwap()">Tauschen</button>
+                            </div>
+                        </div>
+                        <div class="ap-item ok" id="ap-ok" style="display:none;">
+                            <div class="ap-icon">✅</div>
+                            <div class="ap-text">
+                                <strong>Haferdrink</strong> — passt zu deinem Profil
+                                <span class="ap-sub">Regal C4 · Route angepasst</span>
+                            </div>
+                        </div>
+                        <div class="ap-divider"></div>
+                        <div class="ap-profile-label">Dein Profil</div>
+                        <div class="ap-tags">
+                            <span class="ap-tag active">Laktose</span>
+                            <span class="ap-tag">Gluten</span>
+                            <span class="ap-tag">Nüsse</span>
+                            <span class="ap-tag">+ hinzufügen</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nf-block-text">
+                    <div class="nf-icon-wrap allergy">⚠️</div>
+                    <span class="nf-tag allergy">Allergie-Filter</span>
+                    <h3>KI schützt deinen Einkauf.</h3>
+                    <p>Hinterlege einmal deine Unverträglichkeiten — ShopGuide scannt deinen Zettel und warnt sofort bei kritischen Produkten. Gleichzeitig schlägt die KI passende Alternativen vor und passt deine Route automatisch an.</p>
+                    <ul class="nf-list">
+                        <li>✅ Echtzeit-Scan beim Zettel einlesen</li>
+                        <li>✅ Warnung vor versteckten Allergenen</li>
+                        <li>✅ Sofortiger Alternativvorschlag</li>
+                        <li>✅ Route wird automatisch angepasst</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ── LIVE INVENTAR ── -->
+            <div class="nf-block">
+                <div class="nf-block-text">
+                    <div class="nf-icon-wrap live">📡</div>
+                    <span class="nf-tag live">Live-Inventar</span>
+                    <h3>Nie wieder vor dem leeren Regal stehen.</h3>
+                    <p>ShopGuide fragt das Warenwirtschaftssystem in Echtzeit ab. Ist ein Produkt ausverkauft, bekommst du sofort eine Alternative und eine angepasste Route — noch bevor du überhaupt in die Nähe des leeren Regals kommst.</p>
+                    <div class="live-demo">
+                        <div class="live-item" id="live-kokos">
+                            <div class="live-dot red pulse"></div>
+                            <span class="live-name">Kokosmilch (Bio)</span>
+                            <span class="live-status red">Ausverkauft</span>
+                            <button class="live-alt-btn" onclick="showLiveAlt()">→ Alternative</button>
+                        </div>
+                        <div class="live-alt-box" id="live-alt" style="display:none;">
+                            <div class="live-item">
+                                <div class="live-dot green"></div>
+                                <span class="live-name">Kokosmilch (Alnatura)</span>
+                                <span class="live-status green">Verfügbar · Gang 5</span>
+                            </div>
+                            <div class="live-reroute">🔄 Route automatisch angepasst</div>
+                        </div>
+                        <div class="live-item">
+                            <div class="live-dot green"></div>
+                            <span class="live-name">Haferflocken</span>
+                            <span class="live-status green">Verfügbar · Gang 2</span>
+                        </div>
+                        <div class="live-item">
+                            <div class="live-dot orange pulse"></div>
+                            <span class="live-name">Avocado (reif)</span>
+                            <span class="live-status orange">Letzte 3 Stück</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nf-block-visual">
+                    <div class="live-store">
+                        <div class="ls-header">🏪 Echtzeit-Verfügbarkeit</div>
+                        <div class="ls-grid">
+                            <div class="ls-cell green"><span>✓</span>Haferflocken</div>
+                            <div class="ls-cell red"><span>✗</span>Kokosmilch Bio</div>
+                            <div class="ls-cell green"><span>✓</span>Haferdrink</div>
+                            <div class="ls-cell orange"><span>!</span>Avocado</div>
+                            <div class="ls-cell green"><span>✓</span>Tomaten</div>
+                            <div class="ls-cell green"><span>✓</span>Joghurt</div>
+                        </div>
+                        <div class="ls-footer">Zuletzt aktualisiert: gerade eben</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── COMMUNITY HEATMAP ── -->
+            <div class="nf-block reverse">
+                <div class="nf-block-visual">
+                    <div class="heat-map-container">
+                        <div class="hm-title">🔴 Live-Auslastung jetzt</div>
+                        <div class="heat-grid">
+                            <div class="hm-cell cold">Gang 1<br><small>Ruhig</small></div>
+                            <div class="hm-cell hot">Gang 2<br><small>🔴 Voll</small></div>
+                            <div class="hm-cell warm">Gang 3<br><small>🟡 Mittel</small></div>
+                            <div class="hm-cell cold">Gang 4<br><small>Ruhig</small></div>
+                            <div class="hm-cell hot">Kasse<br><small>🔴 Schlange</small></div>
+                            <div class="hm-cell warm">Frische<br><small>🟡 Mittel</small></div>
+                            <div class="hm-cell cold">Bio<br><small>Ruhig</small></div>
+                            <div class="hm-cell cold">Backwaren<br><small>Ruhig</small></div>
+                        </div>
+                        <div class="hm-legend">
+                            <span class="hml cold">Ruhig</span>
+                            <span class="hml warm">Mittel</span>
+                            <span class="hml hot">Voll</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nf-block-text">
+                    <div class="nf-icon-wrap heat">👥</div>
+                    <span class="nf-tag heat">Community-Heatmap</span>
+                    <h3>Anti-Stau im Supermarkt.</h3>
+                    <p>ShopGuide zeigt dir in Echtzeit, welche Gänge gerade überfüllt sind. Die KI berechnet eine Route, die die „Rush-Hour" im Laden gezielt umgeht — für ein entspanntes Einkaufserlebnis, auch wenn der Laden voll ist.</p>
+                    <ul class="nf-list">
+                        <li>✅ Anonyme Echtzeit-Daten aller Nutzer</li>
+                        <li>✅ KI berechnet automatisch Ausweichroute</li>
+                        <li>✅ Warteschlangenwarnung an der Kasse</li>
+                        <li>✅ 100% DSGVO-konform, keine Personendaten</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ── VOICE GUIDE ── -->
+            <div class="nf-block">
+                <div class="nf-block-text">
+                    <div class="nf-icon-wrap voice">🎙️</div>
+                    <span class="nf-tag voice">Voice-Guide</span>
+                    <h3>Hör einfach zu.</h3>
+                    <p>Der Audio-Guide führt dich per Sprache durch den Laden — ganz ohne auf dein Handy zu schauen. Besonders wertvoll für den Senioren-Modus und Menschen mit Sehbehinderungen. Inklusion als Standard, nicht als Zusatz.</p>
+                    <div class="voice-demo">
+                        <div class="voice-wave">
+                            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                        <div class="voice-text" id="voice-text">„Gehe geradeaus zu Gang 3 — Milchprodukte auf der linken Seite."</div>
+                        <div class="voice-controls">
+                            <button class="voice-btn" onclick="cycleVoice()">▶ Nächste Ansage</button>
+                            <span class="voice-mode">👴 Senioren-Modus aktiv</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="nf-block-visual">
+                    <div class="voice-phone">
+                        <div class="vp-top">
+                            <div class="vp-status">🎙️ Voice-Guide aktiv</div>
+                            <div class="vp-bars">
+                                <div class="vb"></div><div class="vb"></div><div class="vb"></div>
+                                <div class="vb"></div><div class="vb"></div>
+                            </div>
+                        </div>
+                        <div class="vp-direction">
+                            <div class="vp-arrow">↗</div>
+                            <div class="vp-dist">15m · Gang 3</div>
+                        </div>
+                        <div class="vp-next">
+                            <span class="vp-next-label">Danach:</span>
+                            <span>🥛 Milchprodukte · links</span>
+                        </div>
+                        <div class="vp-accessibility">
+                            <span>👴</span> Senioren-Modus &nbsp;
+                            <span>👁️</span> Barrierefreiheit
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+    /* ═══════════════════════════════════════════
+       SMARTE FEATURES — STYLES
+    ═══════════════════════════════════════════ */
+    .nf-section {
+        background: var(--light);
+        padding: 5rem 0 4rem;
+        margin-top: 3rem;
+    }
+    body.dark-mode .nf-section { background: #111; }
+
+    .nf-inner { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+
+    .nf-header { text-align: center; margin-bottom: 4rem; }
+    .nf-badge {
+        display: inline-block;
+        background: rgba(39,174,96,.12);
+        color: var(--primary);
+        border: 1px solid rgba(39,174,96,.25);
+        padding: .35rem 1.1rem; border-radius: 50px;
+        font-size: .78rem; font-weight: 700;
+        letter-spacing: 1.5px; text-transform: uppercase;
+        margin-bottom: .9rem;
+    }
+    .nf-header h2 {
+        font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+        font-weight: 800; color: var(--dark); margin: 0 0 .6rem;
+    }
+    .nf-header p { color: var(--dark); opacity: .6; font-size: 1rem; }
+
+    .nf-block {
+        display: grid; grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 4rem); align-items: center;
+        margin-bottom: 2.5rem; padding: 2.5rem;
+        background: var(--white); border-radius: 20px;
+        box-shadow: 0 4px 24px rgba(0,0,0,.06);
+        transition: transform .3s, box-shadow .3s;
+    }
+    .nf-block:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.1); }
+    body.dark-mode .nf-block { background: #1e1e1e; box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+    body.dark-mode .nf-block:hover { box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    .nf-block.reverse { direction: rtl; }
+    .nf-block.reverse > * { direction: ltr; }
+    @media (max-width: 768px) { .nf-block, .nf-block.reverse { grid-template-columns: 1fr; direction: ltr; } }
+
+    .nf-icon-wrap {
+        width: 48px; height: 48px; border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .nf-icon-wrap.eco   { background: rgba(39,174,96,.12); }
+    .nf-icon-wrap.allergy { background: rgba(231,76,60,.1); }
+    .nf-icon-wrap.live  { background: rgba(52,152,219,.1); }
+    .nf-icon-wrap.heat  { background: rgba(243,156,18,.1); }
+    .nf-icon-wrap.voice { background: rgba(155,89,182,.1); }
+
+    .nf-tag { display: inline-block; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: .5rem; }
+    .nf-tag.eco   { color: var(--primary); }
+    .nf-tag.allergy { color: #e74c3c; }
+    body.dark-mode .nf-tag.allergy { color: #ff6b6b; }
+    .nf-tag.live  { color: #3498db; }
+    .nf-tag.heat  { color: #f39c12; }
+    .nf-tag.voice { color: #9b59b6; }
+
+    .nf-block-text h3 { font-size: clamp(1.2rem,2.2vw,1.6rem); font-weight: 800; color: var(--dark); margin: 0 0 .8rem; line-height: 1.25; }
+    .nf-block-text p  { color: var(--dark); opacity: .65; font-size: .95rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    .nf-list { list-style: none; padding: 0; margin: 0; }
+    .nf-list li { font-size: .88rem; color: var(--dark); padding: .3rem 0; border-bottom: 1px solid rgba(0,0,0,.05); }
+    body.dark-mode .nf-list li { border-bottom-color: rgba(255,255,255,.06); }
+
+    /* ECO */
+    .eco-toggle-demo { display: flex; gap: .6rem; margin: 1.2rem 0 1rem; flex-wrap: wrap; }
+    .eco-btn { padding: .6rem 1.2rem; border-radius: 50px; border: 2px solid rgba(39,174,96,.3); background: transparent; color: var(--dark); font-size: .85rem; font-weight: 600; cursor: pointer; transition: all .25s; }
+    .eco-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .eco-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+    .eco-route { display: flex; flex-direction: column; gap: .4rem; }
+    .eco-route-item { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; background: var(--light); border-radius: 8px; font-size: .85rem; color: var(--dark); }
+    body.dark-mode .eco-route-item { background: #2a2a2a; }
+    .eco-route-item.eco-hi { background: rgba(39,174,96,.08); }
+    body.dark-mode .eco-route-item.eco-hi { background: rgba(46,204,113,.1); }
+    .rno { width: 22px; height: 22px; background: #3498db; color: #fff; border-radius: 50%; font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .rno.g { background: var(--primary); }
+    .eco-route-item .rtag { margin-left: auto; font-size: .75rem; color: #3498db; font-weight: 600; }
+    .eco-route-item .rtag.g { color: var(--primary); }
+    .eco-time { margin-top: .4rem; font-size: .82rem; font-weight: 600; padding: .4rem .7rem; border-radius: 6px; color: #3498db; background: rgba(52,152,219,.08); }
+    .eco-save { margin-top: .4rem; font-size: .82rem; font-weight: 600; padding: .4rem .7rem; border-radius: 6px; color: var(--primary); background: rgba(39,174,96,.1); }
+    .eco-map-wrap { height: 280px; position: relative; }
+    .eco-map { width: 100%; height: 100%; position: relative; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,.07); background: var(--light); }
+    body.dark-mode .eco-map { background: #1a1a1a; border-color: rgba(255,255,255,.08); }
+    .map-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: repeat(4,1fr); width: 100%; height: 100%; gap: 3px; padding: 3px; }
+    .map-shelf { background: var(--white); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: .58rem; font-weight: 600; color: var(--dark); opacity: .7; text-align: center; line-height: 1.3; padding: .2rem; }
+    body.dark-mode .map-shelf { background: #2c2c2c; }
+    .map-path { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+    /* ALLERGY */
+    .allergy-phone { background: var(--white); border-radius: 18px; padding: 1.4rem; box-shadow: 0 8px 30px rgba(0,0,0,.1); max-width: 280px; margin: 0 auto; }
+    body.dark-mode .allergy-phone { background: #252525; box-shadow: 0 8px 30px rgba(0,0,0,.4); }
+    .ap-header { font-size: .8rem; font-weight: 700; color: #e74c3c; margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid rgba(231,76,60,.15); }
+    body.dark-mode .ap-header { color: #ff6b6b; }
+    .ap-item { display: flex; align-items: center; gap: .7rem; padding: .7rem; border-radius: 10px; margin-bottom: .6rem; }
+    .ap-item.warning { background: rgba(231,76,60,.07); border: 1px solid rgba(231,76,60,.18); }
+    .ap-item.ok { background: rgba(39,174,96,.07); border: 1px solid rgba(39,174,96,.18); }
+    .ap-icon { font-size: 1.4rem; }
+    .ap-text { display: flex; flex-direction: column; flex: 1; }
+    .ap-text strong { font-size: .85rem; color: var(--dark); }
+    .ap-sub { font-size: .72rem; color: var(--dark); opacity: .55; margin-top: .1rem; }
+    .ap-badge { width: 22px; height: 22px; border-radius: 50%; background: #e74c3c; color: #fff; font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ap-suggestion { background: rgba(52,152,219,.07); border: 1px solid rgba(52,152,219,.18); border-radius: 10px; padding: .7rem; margin-bottom: .6rem; }
+    .ap-sugg-label { font-size: .72rem; color: #3498db; font-weight: 600; display: block; margin-bottom: .4rem; }
+    .ap-alt-item { display: flex; align-items: center; justify-content: space-between; font-size: .83rem; color: var(--dark); }
+    .ap-swap-btn { background: var(--primary); color: #fff; border: none; border-radius: 6px; padding: .3rem .7rem; font-size: .75rem; font-weight: 600; cursor: pointer; transition: all .2s; }
+    .ap-swap-btn:hover { background: #229954; transform: scale(1.05); }
+    .ap-divider { height: 1px; background: rgba(0,0,0,.07); margin: .7rem 0; }
+    body.dark-mode .ap-divider { background: rgba(255,255,255,.08); }
+    .ap-profile-label { font-size: .72rem; font-weight: 600; color: var(--dark); opacity: .5; display: block; margin-bottom: .5rem; }
+    .ap-tags { display: flex; flex-wrap: wrap; gap: .3rem; }
+    .ap-tag { font-size: .7rem; padding: .2rem .6rem; border-radius: 50px; background: var(--light); color: var(--dark); font-weight: 600; }
+    body.dark-mode .ap-tag { background: #333; }
+    .ap-tag.active { background: rgba(231,76,60,.12); color: #e74c3c; }
+    body.dark-mode .ap-tag.active { background: rgba(255,107,107,.15); color: #ff6b6b; }
+
+    /* LIVE */
+    .live-demo { display: flex; flex-direction: column; gap: .5rem; margin-top: 1.2rem; }
+    .live-item { display: flex; align-items: center; gap: .7rem; padding: .6rem .8rem; background: var(--light); border-radius: 9px; font-size: .85rem; }
+    body.dark-mode .live-item { background: #2a2a2a; }
+    .live-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .live-dot.green { background: #27ae60; }
+    .live-dot.red { background: #e74c3c; }
+    .live-dot.orange { background: #f39c12; }
+    .live-dot.pulse { animation: livePulse 1.5s infinite; }
+    @keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.3)} }
+    .live-name { flex: 1; color: var(--dark); font-weight: 500; }
+    .live-status { font-size: .76rem; font-weight: 600; }
+    .live-status.green { color: #27ae60; }
+    .live-status.red { color: #e74c3c; }
+    .live-status.orange { color: #f39c12; }
+    .live-alt-btn { background: #3498db; color: #fff; border: none; border-radius: 6px; padding: .25rem .6rem; font-size: .75rem; font-weight: 600; cursor: pointer; transition: all .2s; margin-left: auto; }
+    .live-alt-btn:hover { background: #2980b9; }
+    .live-alt-box { background: rgba(39,174,96,.06); border: 1px solid rgba(39,174,96,.18); border-radius: 10px; padding: .7rem; animation: slideDown .3s ease; }
+    @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+    .live-reroute { font-size: .78rem; color: var(--primary); font-weight: 600; margin-top: .4rem; padding-top: .4rem; border-top: 1px solid rgba(39,174,96,.15); }
+    .live-store { background: var(--white); border-radius: 16px; padding: 1.4rem; box-shadow: 0 6px 24px rgba(0,0,0,.08); max-width: 280px; margin: 0 auto; }
+    body.dark-mode .live-store { background: #252525; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+    .ls-header { font-size: .8rem; font-weight: 700; color: var(--dark); margin-bottom: 1rem; text-align: center; }
+    .ls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .ls-cell { padding: .6rem .5rem; border-radius: 8px; font-size: .75rem; font-weight: 600; text-align: center; display: flex; flex-direction: column; align-items: center; gap: .2rem; }
+    .ls-cell span { font-size: 1rem; }
+    .ls-cell.green { background: rgba(39,174,96,.1); color: #27ae60; }
+    .ls-cell.red { background: rgba(231,76,60,.08); color: #e74c3c; text-decoration: line-through; opacity: .7; }
+    .ls-cell.orange { background: rgba(243,156,18,.1); color: #f39c12; }
+    .ls-footer { font-size: .7rem; color: var(--dark); opacity: .4; text-align: center; margin-top: .8rem; }
+
+    /* HEATMAP */
+    .heat-map-container { background: var(--white); border-radius: 16px; padding: 1.4rem; box-shadow: 0 6px 24px rgba(0,0,0,.08); max-width: 300px; margin: 0 auto; }
+    body.dark-mode .heat-map-container { background: #252525; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+    .hm-title { font-size: .8rem; font-weight: 700; color: var(--dark); margin-bottom: .9rem; text-align: center; }
+    .heat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
+    .hm-cell { padding: .65rem .5rem; border-radius: 9px; font-size: .72rem; font-weight: 600; text-align: center; line-height: 1.4; transition: transform .2s; cursor: default; }
+    .hm-cell:hover { transform: scale(1.04); }
+    .hm-cell small { font-size: .65rem; font-weight: 400; display: block; }
+    .hm-cell.cold { background: rgba(39,174,96,.12); color: #27ae60; }
+    .hm-cell.warm { background: rgba(243,156,18,.12); color: #d68910; }
+    .hm-cell.hot  { background: rgba(231,76,60,.12); color: #e74c3c; }
+    body.dark-mode .hm-cell.cold { background: rgba(46,204,113,.15); color: #2ecc71; }
+    body.dark-mode .hm-cell.warm { background: rgba(243,156,18,.15); color: #f39c12; }
+    body.dark-mode .hm-cell.hot  { background: rgba(231,76,60,.15); color: #ff6b6b; }
+    .hm-legend { display: flex; gap: .6rem; justify-content: center; margin-top: .8rem; }
+    .hml { font-size: .67rem; font-weight: 700; padding: .18rem .55rem; border-radius: 50px; }
+    .hml.cold { background: rgba(39,174,96,.12); color: #27ae60; }
+    .hml.warm { background: rgba(243,156,18,.12); color: #d68910; }
+    .hml.hot  { background: rgba(231,76,60,.12); color: #e74c3c; }
+
+    /* VOICE */
+    .voice-demo { margin-top: 1.2rem; background: var(--light); border-radius: 14px; padding: 1.2rem; }
+    body.dark-mode .voice-demo { background: #1a1a1a; }
+    .voice-wave { display: flex; align-items: center; gap: 4px; height: 32px; margin-bottom: .8rem; }
+    .voice-wave span { display: block; width: 4px; border-radius: 2px; background: #9b59b6; animation: voiceBar 1.2s ease-in-out infinite; }
+    .voice-wave span:nth-child(1){height:12px;animation-delay:0s}
+    .voice-wave span:nth-child(2){height:22px;animation-delay:.1s}
+    .voice-wave span:nth-child(3){height:28px;animation-delay:.2s}
+    .voice-wave span:nth-child(4){height:18px;animation-delay:.3s}
+    .voice-wave span:nth-child(5){height:28px;animation-delay:.2s}
+    .voice-wave span:nth-child(6){height:22px;animation-delay:.1s}
+    .voice-wave span:nth-child(7){height:12px;animation-delay:0s}
+    @keyframes voiceBar { 0%,100%{transform:scaleY(1);opacity:.6} 50%{transform:scaleY(1.6);opacity:1} }
+    .voice-text { font-size: .88rem; color: var(--dark); font-style: italic; line-height: 1.5; margin-bottom: .9rem; transition: opacity .2s; }
+    .voice-controls { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+    .voice-btn { background: #9b59b6; color: #fff; border: none; border-radius: 50px; padding: .5rem 1.1rem; font-size: .82rem; font-weight: 600; cursor: pointer; transition: all .2s; }
+    .voice-btn:hover { background: #8e44ad; transform: translateY(-2px); }
+    .voice-mode { font-size: .78rem; color: var(--dark); opacity: .55; }
+    .voice-phone { background: linear-gradient(145deg,#1a0a2e,#2d1b4e); border-radius: 20px; padding: 1.4rem; max-width: 240px; margin: 0 auto; box-shadow: 0 12px 40px rgba(155,89,182,.25); }
+    .vp-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .vp-status { font-size: .72rem; color: #c39bd3; font-weight: 600; }
+    .vp-bars { display: flex; align-items: flex-end; gap: 3px; height: 18px; }
+    .vb { width: 4px; border-radius: 2px; background: #9b59b6; animation: vpBar 1s ease-in-out infinite; }
+    .vb:nth-child(1){height:8px;animation-delay:0s}
+    .vb:nth-child(2){height:14px;animation-delay:.15s}
+    .vb:nth-child(3){height:18px;animation-delay:.3s}
+    .vb:nth-child(4){height:14px;animation-delay:.15s}
+    .vb:nth-child(5){height:8px;animation-delay:0s}
+    @keyframes vpBar { 0%,100%{opacity:.5;transform:scaleY(.6)} 50%{opacity:1;transform:scaleY(1)} }
+    .vp-direction { text-align: center; margin-bottom: 1rem; padding: 1rem; background: rgba(155,89,182,.2); border-radius: 14px; border: 1px solid rgba(155,89,182,.3); }
+    .vp-arrow { font-size: 2.5rem; color: #9b59b6; line-height: 1; }
+    .vp-dist { font-size: .85rem; color: rgba(255,255,255,.7); margin-top: .3rem; }
+    .vp-next { font-size: .75rem; color: rgba(255,255,255,.5); margin-bottom: .8rem; padding: .5rem; background: rgba(255,255,255,.05); border-radius: 8px; }
+    .vp-next-label { font-weight: 700; color: rgba(255,255,255,.4); margin-right: .4rem; }
+    .vp-accessibility { font-size: .72rem; color: rgba(255,255,255,.35); text-align: center; padding-top: .8rem; border-top: 1px solid rgba(255,255,255,.08); }
+    </style>
+
+    <script>
+    function setEcoMode(mode) {
+        document.getElementById('eco-fast').classList.toggle('active', mode === 'fast');
+        document.getElementById('eco-green').classList.toggle('active', mode === 'green');
+        document.getElementById('eco-route-fast').style.display = mode === 'fast' ? 'flex' : 'none';
+        document.getElementById('eco-route-green').style.display = mode === 'green' ? 'flex' : 'none';
+        document.getElementById('path-fast').style.display = mode === 'fast' ? '' : 'none';
+        document.getElementById('path-green').style.display = mode === 'green' ? '' : 'none';
+    }
+    function doAllergySwap() {
+        document.getElementById('ap-warn-item').style.display = 'none';
+        document.getElementById('ap-sugg').style.display = 'none';
+        document.getElementById('ap-ok').style.display = 'flex';
+    }
+    function showLiveAlt() {
+        document.getElementById('live-alt').style.display = 'block';
+        document.getElementById('live-kokos').querySelector('.live-alt-btn').style.display = 'none';
+    }
+    const voiceLines = [
+        '„Gehe geradeaus zu Gang 3 — Milchprodukte auf der linken Seite."',
+        '„In 5 Metern rechts abbiegen — Bio-Abteilung, Regal B2."',
+        '„Du hast alle Produkte in Gang 2 erledigt. Weiter zur Frischetheke."',
+        '„Achtung: Gang 4 ist gerade etwas voll. Ich führe dich über Gang 5."',
+        '„Letztes Produkt: Brot in der Backwarenabteilung — fast geschafft! 🎉"'
+    ];
+    let voiceIdx = 0;
+    function cycleVoice() {
+        voiceIdx = (voiceIdx + 1) % voiceLines.length;
+        const el = document.getElementById('voice-text');
+        el.style.opacity = 0;
+        setTimeout(() => { el.textContent = voiceLines[voiceIdx]; el.style.opacity = 1; }, 200);
+    }
+    </script>
+
     <footer style="margin-top: 4rem;">
         <p>&copy; 2026 ShopGuide GmbH i.G. | <a href="impressum.html" style="color: white;">Impressum</a> | <a
                     href="datenschutz.html" style="color: white;">Datenschutz</a> | <a href="about.html"
