@@ -27,6 +27,10 @@ body.dark-mode nav {
     box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
+body.dark-mode {
+    padding-top: 64px;
+}
+
 body.dark-mode header {
     background-image: url('hero-background.png');
     background-size: cover;
@@ -385,9 +389,16 @@ nav {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 100;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 64px; /* matches nav height so content isn't hidden under fixed nav */
 }
 
 .logo {
@@ -1185,8 +1196,7 @@ body.dark-mode #customer-screen-result h3 {
    ======================================== */
 
 .page {
-    display: flex;
-    flex-direction: column;
+    display: block;
     min-height: 100vh;
 }
 
@@ -2166,3 +2176,162 @@ html {scroll-behavior:smooth;}
 .feature-card:hover::before { left:120%; transition: all .5s;}
 
 /* ... alles andere wie gehabt... */
+
+/* ========================================
+   GLOBAL RESPONSIVE CENTERING FIX
+   ======================================== */
+
+/* Ensure all page sections are centered and don't overflow */
+.container,
+.page > section,
+.page > div:not(.glass-bg):not(#settings-panel):not(#settings-overlay) {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Universal max-width containers */
+section > .container,
+.content-wrapper {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Prevent horizontal overflow globally */
+body {
+    overflow-x: hidden;
+}
+
+/* Images always responsive */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Ensure all grids collapse properly */
+@media (max-width: 600px) {
+    .stats-grid,
+    .features-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    header h1 {
+        font-size: clamp(1.6rem, 7vw, 2.5rem) !important;
+    }
+
+    .role-card {
+        max-width: 100% !important;
+    }
+    
+    nav {
+        padding: 0.8rem 4% !important;
+    }
+
+    .container {
+        padding-left: 4% !important;
+        padding-right: 4% !important;
+    }
+    
+    footer {
+        padding: 1.5rem 4% !important;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+    header h1 {
+        font-size: clamp(2rem, 4vw, 3rem);
+    }
+}
+
+/* Touch device: remove hover-dependent experiences */
+@media (hover: none) {
+    .feature-card:hover,
+    .role-card:hover,
+    .cta-button:hover {
+        transform: none;
+    }
+}
+
+
+/* ========================================
+   GLOBALE RESPONSIVE FIXES
+   Sicherstellt dass Inhalte auf allen
+   Bildschirmgroessen zentriert & korrekt
+   dargestellt werden
+   ======================================== */
+
+/* Bilder immer responsiv */
+img { max-width: 100%; height: auto; }
+
+/* Kein horizontaler Overflow */
+html, body { overflow-x: hidden; }
+
+/* Alle direkte Section-Kinder maximal zentriert */
+section, .container, .page > header {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sehr kleine Bildschirme (< 400px) */
+@media (max-width: 400px) {
+    nav {
+        padding: 0.75rem 4% !important;
+    }
+
+    header h1 {
+        font-size: clamp(1.5rem, 8vw, 2rem) !important;
+    }
+
+    header p {
+        font-size: 0.92rem !important;
+    }
+
+    .role-card {
+        padding: 1.2rem !important;
+    }
+
+    footer {
+        padding: 1.2rem 4% !important;
+        font-size: 0.82rem !important;
+    }
+
+    .cta-button {
+        padding: 9px 18px !important;
+        font-size: 0.9rem !important;
+    }
+
+    .stats-grid,
+    .features-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Mittlere Bildschirme (Tablets) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    header h1 {
+        font-size: clamp(2rem, 4.5vw, 3rem);
+    }
+
+    .role-selector {
+        gap: 1rem;
+    }
+}
+
+/* Landscape Mobil */
+@media (max-width: 812px) and (orientation: landscape) {
+    header {
+        min-height: auto !important;
+        padding: 2rem 5% !important;
+    }
+
+    #homepage header {
+        min-height: auto !important;
+    }
+}
+
+/* Touch-Geraete: hover-Effekte entfernen die UX stören */
+@media (hover: none) and (pointer: coarse) {
+    .glass-bg { display: none; }
+}

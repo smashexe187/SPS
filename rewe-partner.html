@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="style.css">
 
     <style>
+        /* am Anfang des <style>-Blocks */
+html { font-size: 18px; }
         /*
          * Dark-Mode-Strategie: Alle Text-/Hintergrundfarben
          * nutzen CSS-Variablen aus style.css:
@@ -158,7 +160,7 @@
             color: var(--dark); margin: 0 0 .6rem;
         }
         .rp-lead {
-            font-size: clamp(.86rem,1.5vw,.96rem); line-height: 1.72;
+            font-size: clamp(0.9rem,1.5vw,1rem); line-height: 1.72;
             color: var(--dark); opacity: .62; max-width: 500px;
         }
 
@@ -178,7 +180,7 @@
         body.dark-mode .rp-card.red { border-left-color: #e05555; }
         .rp-card + .rp-card { margin-top: .75rem; }
         .rp-card h4 { margin: 0 0 .25rem; font-size: .9rem; font-weight: 700; color: var(--dark); }
-        .rp-card p  { margin: 0; font-size: .82rem; color: var(--dark); opacity: .62; line-height: 1.58; }
+        .rp-card p  { margin: 0; font-size: 0.875rem;; color: var(--dark); opacity: .62; line-height: 1.58; }
 
         /* ── NOTE ───────────────────────────────── */
         .rp-note {
@@ -219,7 +221,7 @@
         .rp-tc:hover { transform: translateY(-3px); }
         body.dark-mode .rp-tc { box-shadow: 0 2px 8px rgba(0,0,0,.3); }
         .rp-tc h4 { margin: 0 0 .25rem; font-size: .85rem; font-weight: 700; color: var(--dark); }
-        .rp-tc p  { margin: 0; font-size: .77rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+        .rp-tc p  { margin: 0; font-size: 0.85rem; color: var(--dark); opacity: .58; line-height: 1.5; }
         .rp-chip {
             display: inline-block; background: rgba(39,174,96,.1); color: var(--primary);
             font-size: .63rem; font-weight: 700; padding: .12rem .46rem;
@@ -244,7 +246,7 @@
         body.dark-mode .rp-step::before { border-color: #1a1a1a; }
         .step-lbl { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--primary); margin-bottom: .14rem; }
         .rp-step h4 { margin: 0 0 .2rem; font-size: .88rem; font-weight: 700; color: var(--dark); }
-        .rp-step p  { margin: 0; font-size: .8rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+        .rp-step p  { margin: 0; font-size: 0.875rem; color: var(--dark); opacity: .58; line-height: 1.5; }
 
         /* ── PILLARS ────────────────────────────── */
         .rp-pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(185px,1fr)); gap: .85rem; margin-top: 1.8rem; }
@@ -261,7 +263,7 @@
         body.dark-mode .rp-pillar.hl { background: rgba(46,204,113,.08); border-color: rgba(46,204,113,.22); }
         .pdot { width: 9px; height: 9px; border-radius: 50%; background: var(--primary); margin-bottom: .65rem; }
         .rp-pillar h4 { margin: 0 0 .26rem; font-size: .86rem; font-weight: 700; color: var(--dark); }
-        .rp-pillar p  { margin: 0; font-size: .78rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+        .rp-pillar p  { margin: 0; font-size: 0.875rem; color: var(--dark); opacity: .58; line-height: 1.5; }
 
         /* ── ROI ────────────────────────────────── */
         .rp-roi { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem,3vw,2.2rem); align-items: start; margin-top: 1.8rem; }
@@ -712,15 +714,15 @@
         <div class="settings-content">
             <div class="panel-nav-section">
                 <h4 style="margin-bottom:1rem;color:var(--primary);">Navigation</h4>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='index.html';toggleSettingsPanel();return false;">🏠 Home</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='customer-verify.html';toggleSettingsPanel();return false;">🛒 Für Kunden</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='merchant-verify.html';toggleSettingsPanel();return false;">🏪 Für Händler</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='so-funktioniert-es.html';toggleSettingsPanel();return false;">🔍 So funktioniert's</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='about.html';toggleSettingsPanel();return false;">ℹ️ Über uns</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='impressum.html';toggleSettingsPanel();return false;">📄 Impressum</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='datenschutz.html';toggleSettingsPanel();return false;">🔒 Datenschutz</a>
-                <a href="#" class="panel-nav-link" onclick="window.location.href='faq.html';toggleSettingsPanel();return false;">❓ FAQ</a>
-                <a href="#" class="panel-nav-link" style="color:var(--primary);font-weight:600;" onclick="window.location.href='rewe-partner.html';toggleSettingsPanel();return false;">REWE Partnership</a>
+                <a href="#" class="panel-nav-link" data-page="homepage" onclick="window.location.href='index.html';toggleSettingsPanel();return false;">🏠 Home</a>
+<a href="#" class="panel-nav-link" data-page="customer-verify" onclick="window.location.href='customer-verify.html';toggleSettingsPanel();return false;">🛒 Für Kunden</a>
+<a href="#" class="panel-nav-link" data-page="merchant-verify" onclick="window.location.href='merchant-verify.html';toggleSettingsPanel();return false;">🏪 Für Händler</a>
+<a href="#" class="panel-nav-link" data-page="how-it-works" onclick="window.location.href='so-funktioniert-es.html';toggleSettingsPanel();return false;">🔍 So funktioniert's</a>
+<a href="#" class="panel-nav-link" data-page="about" onclick="window.location.href='about.html';toggleSettingsPanel();return false;">ℹ️ Über uns</a>
+<a href="#" class="panel-nav-link" data-page="impressum" onclick="window.location.href='impressum.html';toggleSettingsPanel();return false;">📄 Impressum</a>
+<a href="#" class="panel-nav-link" data-page="datenschutz" onclick="window.location.href='datenschutz.html';toggleSettingsPanel();return false;">🔒 Datenschutz</a>
+<a href="#" class="panel-nav-link" data-page="faq" onclick="window.location.href='faq.html';toggleSettingsPanel();return false;">❓ FAQ</a>
+<a href="#" class="panel-nav-link active" data-page="rewe-partner" style="color:var(--primary);font-weight:600;" onclick="window.location.href='rewe-partner.html';toggleSettingsPanel();return false;">REWE Partnership</a>
             </div>
             <div class="settings-divider"></div>
             <div class="setting-item">

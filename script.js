@@ -1779,7 +1779,8 @@ function highlightActivePage() {
         'about.html': 'about',
         'impressum.html': 'impressum',
         'datenschutz.html': 'datenschutz',
-        'faq.html': 'faq'
+        'faq.html': 'faq',
+        'rewe-partner.html': 'rewe-partner'
     };
     
     const activePageId = pageMapping[currentPage] || 'homepage';
