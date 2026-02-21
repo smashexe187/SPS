@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopGuide × REWE – Research &amp; Innovation</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon-180x180.png">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /*
+         * Dark-Mode-Strategie: Alle Text-/Hintergrundfarben
+         * nutzen CSS-Variablen aus style.css:
+         *   --white  = #fff  (dark: #2c2c2c)
+         *   --light  = #ecf0f1 (dark: #1a1a1a)
+         *   --dark   = #2c3e50 (dark: #ecf0f1)
+         * Kein einziges hardcoded #666/#777 in Inhaltselementen.
+         */
+
+        /* ── HERO ──────────────────────────────── */
+        .rp-hero {
+            background: linear-gradient(155deg, #071a0e 0%, #070707 60%, #140202 100%);
+            text-align: center;
+            padding: clamp(4.5rem, 10vw, 7.5rem) 5% clamp(3.5rem, 7vw, 5.5rem);
+            position: relative;
+            overflow: hidden;
+        }
+        .rp-hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 22% 65%, rgba(39,174,96,.13) 0%, transparent 50%),
+                radial-gradient(ellipse at 78% 35%, rgba(150,0,0,.09) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        .rp-hero > * { position: relative; z-index: 1; }
+
+        .rp-eyebrow {
+            display: inline-flex; align-items: center; gap: .55rem;
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 50px;
+            padding: .35rem 1rem;
+            font-size: .7rem; letter-spacing: 1.2px; text-transform: uppercase;
+            color: rgba(255,255,255,.5);
+            margin-bottom: 1.8rem;
+        }
+        .rp-eyebrow .dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--primary);
+            animation: rp-blink 2s infinite;
+        }
+        @keyframes rp-blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+        .rp-brands {
+            display: flex; align-items: center; justify-content: center;
+            gap: clamp(.8rem,3vw,2rem); margin-bottom: 1.6rem; flex-wrap: wrap;
+        }
+        .rp-brand {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            padding: .5rem 1.4rem;
+            font-size: clamp(1rem,3vw,1.8rem); font-weight: 700;
+        }
+        .rp-brand.sg { color: var(--primary); }
+        .rp-brand.rw { color: #d94f4f; }
+        .rp-x { font-size: clamp(.9rem,2.5vw,1.5rem); color: rgba(255,255,255,.15); }
+
+        .rp-hero h1 {
+            font-size: clamp(1.6rem,4.2vw,3rem); font-weight: 800; line-height: 1.2;
+            margin: 0 auto 1rem; max-width: 680px; color: #ecf0f1;
+        }
+        .rp-hero h1 .ag { color: var(--primary); }
+
+        .rp-hero p {
+            font-size: clamp(.88rem,1.8vw,1.02rem);
+            color: rgba(255,255,255,.5);
+            max-width: 480px; margin: 0 auto 2.4rem; line-height: 1.75;
+        }
+
+        .rp-btns { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+        .btn-rp {
+            padding: .75rem 1.8rem; border-radius: 50px;
+            text-decoration: none; font-weight: 600; font-size: .9rem;
+            transition: all .25s; display: inline-block; border: none; cursor: pointer;
+        }
+        .btn-rp.primary {
+            background: linear-gradient(135deg, var(--primary), #27ae60);
+            color: #fff; box-shadow: 0 4px 16px rgba(39,174,96,.3);
+        }
+        .btn-rp.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(39,174,96,.42); }
+        .btn-rp.ghost {
+            background: transparent; color: rgba(255,255,255,.72);
+            border: 1px solid rgba(255,255,255,.2);
+        }
+        .btn-rp.ghost:hover { border-color: rgba(255,255,255,.48); background: rgba(255,255,255,.05); }
+
+        /* ── SUBNAV ─────────────────────────────── */
+        .rp-subnav {
+            background: var(--white);
+            border-bottom: 1px solid rgba(0,0,0,.07);
+            position: sticky; top: 64px; z-index: 90;
+            display: flex; justify-content: center; flex-wrap: wrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,.04);
+        }
+        body.dark-mode .rp-subnav {
+            background: #2c2c2c;
+            border-bottom-color: rgba(255,255,255,.07);
+            box-shadow: 0 2px 6px rgba(0,0,0,.4);
+        }
+        .rp-subnav a {
+            display: inline-block; padding: .78rem 1.1rem;
+            font-size: .78rem; font-weight: 600; letter-spacing: .3px;
+            color: #999; text-decoration: none;
+            border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap;
+        }
+        body.dark-mode .rp-subnav a { color: #666; }
+        .rp-subnav a:hover, .rp-subnav a.active {
+            color: var(--primary); border-bottom-color: var(--primary);
+        }
+
+        /* ── KPI BAR ────────────────────────────── */
+        .rp-kpi { background: #141f16; padding: clamp(1.8rem,4vw,3rem) 5%; }
+        body.dark-mode .rp-kpi { background: #0c0c0c; }
+
+        .rp-kpi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr));
+            gap: 1.5rem 2rem; max-width: 860px; margin: 0 auto; text-align: center;
+        }
+        .kn { font-size: clamp(1.9rem,4vw,3rem); font-weight: 800; line-height: 1; margin-bottom: .4rem; }
+        .kn.g { color: var(--primary); }
+        .kn.r { color: #d94f4f; }
+        .kn.a { color: #d4921e; }
+        .kl { font-size: .76rem; color: rgba(255,255,255,.42); line-height: 1.4; }
+
+        /* ── SECTION COMMON ─────────────────────── */
+        .rp-sec { padding: clamp(2.8rem,6vw,4.5rem) 5%; }
+        .rp-inner { max-width: 1020px; margin: 0 auto; }
+
+        .rp-hdr { margin-bottom: clamp(1.8rem,4vw,2.6rem); }
+        .rp-hdr.c { text-align: center; }
+        .rp-hdr.c .rp-lead { margin: 0 auto; }
+
+        .rp-tag {
+            display: inline-block; font-size: .67rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2.5px;
+            color: var(--primary); margin-bottom: .5rem;
+        }
+        .rp-tag.red { color: #c0392b; }
+        body.dark-mode .rp-tag.red { color: #e05555; }
+
+        /* Use var(--dark) so dark mode flips it to #ecf0f1 automatically */
+        .rp-sec h2 {
+            font-size: clamp(1.3rem,2.8vw,2.1rem); font-weight: 800; line-height: 1.22;
+            color: var(--dark); margin: 0 0 .6rem;
+        }
+        .rp-lead {
+            font-size: clamp(.86rem,1.5vw,.96rem); line-height: 1.72;
+            color: var(--dark); opacity: .62; max-width: 500px;
+        }
+
+        /* ── TWO-COL ────────────────────────────── */
+        .rp-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.8rem,4vw,3rem); align-items: start; }
+        @media (max-width:720px) { .rp-cols { grid-template-columns: 1fr; } }
+
+        /* ── CARDS ──────────────────────────────── */
+        .rp-card {
+            background: var(--white);
+            border-left: 3px solid var(--primary);
+            border-radius: 11px; padding: 1.15rem 1.35rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,.06);
+        }
+        body.dark-mode .rp-card { box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+        .rp-card.red { border-left-color: #c0392b; }
+        body.dark-mode .rp-card.red { border-left-color: #e05555; }
+        .rp-card + .rp-card { margin-top: .75rem; }
+        .rp-card h4 { margin: 0 0 .25rem; font-size: .9rem; font-weight: 700; color: var(--dark); }
+        .rp-card p  { margin: 0; font-size: .82rem; color: var(--dark); opacity: .62; line-height: 1.58; }
+
+        /* ── NOTE ───────────────────────────────── */
+        .rp-note {
+            background: rgba(39,174,96,.05);
+            border: 1px solid rgba(39,174,96,.15);
+            border-left: 3px solid var(--primary);
+            border-radius: 0 10px 10px 0;
+            padding: .85rem 1.15rem; margin-top: 1rem;
+        }
+        body.dark-mode .rp-note {
+            background: rgba(46,204,113,.08);
+            border-color: rgba(46,204,113,.2);
+            border-left-color: var(--primary);
+        }
+        .rp-note p { margin: 0; font-size: .82rem; color: var(--dark); opacity: .65; line-height: 1.6; }
+        .rp-note strong { color: var(--primary); opacity: 1; }
+
+        /* ── DARK PANEL ─────────────────────────── */
+        .rp-dark {
+            background: linear-gradient(145deg,#0a1f12,#0d2b1a);
+            border-radius: 15px; padding: clamp(1.5rem,3.5vw,2.1rem);
+        }
+        .rp-dark h3 { margin: 0 0 .6rem; font-size: .97rem; font-weight: 700; color: var(--primary); }
+        .rp-dark p  { margin: 0; font-size: .84rem; color: rgba(255,255,255,.58); line-height: 1.65; }
+
+        .rp-stats { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: 1.1rem; }
+        .rp-stat { background: rgba(255,255,255,.07); border-radius: 8px; padding: .8rem .7rem; text-align: center; }
+        .rp-stat .sn { font-size: 1.45rem; font-weight: 800; color: var(--primary); line-height: 1; }
+        .rp-stat .sl { font-size: .69rem; color: rgba(255,255,255,.38); margin-top: .2rem; line-height: 1.3; }
+
+        /* ── TECH GRID ──────────────────────────── */
+        .rp-tech { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: .85rem; margin-top: 1.8rem; }
+        .rp-tc {
+            background: var(--white); border-top: 3px solid var(--primary);
+            border-radius: 10px; padding: 1.05rem 1.15rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: transform .22s;
+        }
+        .rp-tc:hover { transform: translateY(-3px); }
+        body.dark-mode .rp-tc { box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+        .rp-tc h4 { margin: 0 0 .25rem; font-size: .85rem; font-weight: 700; color: var(--dark); }
+        .rp-tc p  { margin: 0; font-size: .77rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+        .rp-chip {
+            display: inline-block; background: rgba(39,174,96,.1); color: var(--primary);
+            font-size: .63rem; font-weight: 700; padding: .12rem .46rem;
+            border-radius: 50px; margin-top: .5rem;
+        }
+        body.dark-mode .rp-chip { background: rgba(46,204,113,.15); }
+
+        /* ── STEPS ──────────────────────────────── */
+        .rp-steps { position: relative; padding-left: 1.8rem; margin-top: 1.6rem; }
+        .rp-steps::before {
+            content: ''; position: absolute; left: 7px; top: 5px; bottom: 5px;
+            width: 2px; background: linear-gradient(to bottom, var(--primary), rgba(39,174,96,.1));
+        }
+        .rp-step { position: relative; padding-bottom: 1.4rem; }
+        .rp-step:last-child { padding-bottom: 0; }
+        .rp-step::before {
+            content: ''; position: absolute; left: -1.8rem; top: 4px;
+            width: 11px; height: 11px; border-radius: 50%;
+            background: var(--primary); border: 2.5px solid #ecf0f1;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        body.dark-mode .rp-step::before { border-color: #1a1a1a; }
+        .step-lbl { font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.4px; color: var(--primary); margin-bottom: .14rem; }
+        .rp-step h4 { margin: 0 0 .2rem; font-size: .88rem; font-weight: 700; color: var(--dark); }
+        .rp-step p  { margin: 0; font-size: .8rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+
+        /* ── PILLARS ────────────────────────────── */
+        .rp-pillars { display: grid; grid-template-columns: repeat(auto-fit,minmax(185px,1fr)); gap: .85rem; margin-top: 1.8rem; }
+        .rp-pillar {
+            background: var(--white); border-radius: 11px; padding: 1.2rem 1.1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,.05); transition: transform .22s;
+        }
+        .rp-pillar:hover { transform: translateY(-3px); }
+        body.dark-mode .rp-pillar { box-shadow: 0 2px 8px rgba(0,0,0,.3); }
+        .rp-pillar.hl {
+            border: 2px solid rgba(39,174,96,.28);
+            background: rgba(39,174,96,.03);
+        }
+        body.dark-mode .rp-pillar.hl { background: rgba(46,204,113,.08); border-color: rgba(46,204,113,.22); }
+        .pdot { width: 9px; height: 9px; border-radius: 50%; background: var(--primary); margin-bottom: .65rem; }
+        .rp-pillar h4 { margin: 0 0 .26rem; font-size: .86rem; font-weight: 700; color: var(--dark); }
+        .rp-pillar p  { margin: 0; font-size: .78rem; color: var(--dark); opacity: .58; line-height: 1.5; }
+
+        /* ── ROI ────────────────────────────────── */
+        .rp-roi { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem,3vw,2.2rem); align-items: start; margin-top: 1.8rem; }
+        @media (max-width:720px) { .rp-roi { grid-template-columns: 1fr; } }
+
+        .rp-calc {
+            background: var(--white); border-radius: 14px; padding: 1.55rem;
+            box-shadow: 0 4px 18px rgba(0,0,0,.06);
+        }
+        body.dark-mode .rp-calc { box-shadow: 0 4px 18px rgba(0,0,0,.3); }
+        .rp-calc h3 { margin: 0 0 1.1rem; font-size: .9rem; font-weight: 700; color: var(--dark); }
+
+        .rg { margin-bottom: .9rem; }
+        .rg label { display: block; font-size: .77rem; font-weight: 600; color: var(--dark); opacity: .65; margin-bottom: .2rem; }
+        .rg input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+        .rrow { display: flex; justify-content: space-between; font-size: .78rem; margin-top: .1rem; }
+        .rrow .rl { color: var(--dark); opacity: .4; }
+        .rrow .rv { font-weight: 700; color: var(--primary); }
+
+        .rp-result {
+            background: linear-gradient(135deg,#091a0f,#0b2412);
+            border-radius: 10px; padding: 1.1rem; text-align: center; margin-top: 1rem;
+        }
+        .rp-result .rn { font-size: clamp(1.7rem,3.5vw,2.3rem); font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: .25rem; }
+        .rp-result p { margin: 0; color: rgba(255,255,255,.44); font-size: .75rem; }
+
+        .rp-bks { display: flex; flex-direction: column; gap: .7rem; }
+        .rp-bk {
+            background: var(--white); border-radius: 10px; padding: .9rem 1.05rem;
+            box-shadow: 0 2px 7px rgba(0,0,0,.05);
+        }
+        body.dark-mode .rp-bk { box-shadow: 0 2px 7px rgba(0,0,0,.3); }
+        .rp-bk.hl { background: rgba(39,174,96,.05); border: 1px solid rgba(39,174,96,.14); }
+        body.dark-mode .rp-bk.hl { background: rgba(46,204,113,.09); border-color: rgba(46,204,113,.18); }
+
+        .bt { display: flex; justify-content: space-between; align-items: center; margin-bottom: .45rem; }
+        .bt .bl { font-size: .77rem; color: var(--dark); opacity: .55; }
+        .bt .ba { font-weight: 700; font-size: .92rem; }
+        .ba.g { color: var(--primary); }
+        .ba.r { color: #c0392b; }
+        body.dark-mode .ba.r { color: #e05555; }
+
+        .bar { height: 3px; background: var(--white); filter: brightness(.9); border-radius: 2px; overflow: hidden; }
+        body.dark-mode .bar { background: #3a3a3a; filter: none; }
+        .fill { height: 100%; border-radius: 2px; transition: width .4s ease; }
+        .fill.g { background: var(--primary); }
+        .fill.r { background: #c0392b; }
+        .bnote { font-size: .7rem; color: var(--dark); opacity: .42; margin: .32rem 0 0; }
+
+        .bkc { text-align: center; padding: .15rem 0; }
+        .bkc .cn { font-size: 1.5rem; font-weight: 800; color: var(--primary); line-height: 1; }
+        .bkc .cl { font-size: .71rem; color: var(--dark); opacity: .42; margin-top: .2rem; }
+
+        /* ── PRICING ────────────────────────────── */
+        .rp-prices { display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: .95rem; margin-top: 1.8rem; align-items: start; }
+        .rp-pc {
+            background: var(--white); border-radius: 14px; padding: 1.55rem 1.35rem;
+            box-shadow: 0 3px 13px rgba(0,0,0,.06); text-align: center; position: relative;
+        }
+        body.dark-mode .rp-pc { box-shadow: 0 3px 13px rgba(0,0,0,.3); }
+        .rp-pc.feat {
+            background: linear-gradient(145deg,#0a1f12,#0e2e1a);
+            transform: scale(1.03); box-shadow: 0 8px 26px rgba(39,174,96,.2);
+        }
+        body.dark-mode .rp-pc.feat { background: linear-gradient(145deg,#0a1f12,#0e2e1a); }
+        .pc-badge {
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            background: #d4921e; color: #fff;
+            font-size: .62rem; font-weight: 700; padding: .2rem .78rem; border-radius: 50px; white-space: nowrap;
+        }
+        .rp-pc h3 { margin: 0 0 .3rem; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--dark); opacity: .45; }
+        .rp-pc.feat h3 { color: rgba(255,255,255,.45); opacity: 1; }
+        .rp-pc .pn { font-size: clamp(1.8rem,3.8vw,2.4rem); font-weight: 800; line-height: 1; margin: .6rem 0 .15rem; color: var(--dark); }
+        .rp-pc.feat .pn { color: var(--primary); }
+        .rp-pc .pp { font-size: .73rem; color: var(--dark); opacity: .4; margin-bottom: 1.1rem; }
+        .rp-pc.feat .pp { color: rgba(255,255,255,.35); opacity: 1; }
+        .rp-pc ul { list-style: none; padding: 0; margin: 0 0 1.1rem; text-align: left; }
+        .rp-pc ul li {
+            padding: .32rem 0; font-size: .79rem;
+            border-bottom: 1px solid rgba(0,0,0,.05);
+            display: flex; align-items: center; gap: .4rem; color: var(--dark);
+        }
+        body.dark-mode .rp-pc ul li { border-bottom-color: rgba(255,255,255,.06); }
+        .rp-pc.feat ul li { border-bottom-color: rgba(255,255,255,.07); color: rgba(255,255,255,.78); }
+        .ck { color: var(--primary); font-weight: 700; flex-shrink: 0; }
+        .pbtn {
+            display: block; padding: .68rem 1.1rem; border-radius: 50px;
+            text-decoration: none; font-weight: 600; font-size: .83rem; transition: all .22s;
+        }
+        .pbtn.solid { background: linear-gradient(135deg,var(--primary),#27ae60); color: #fff; box-shadow: 0 3px 10px rgba(39,174,96,.22); }
+        .pbtn.solid:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(39,174,96,.33); }
+        .pbtn.ghost { background: rgba(255,255,255,.09); color: #fff; border: 1px solid rgba(255,255,255,.18); }
+        .pbtn.ghost:hover { background: rgba(255,255,255,.15); }
+        .pbtn.out { background: var(--light); color: var(--dark); }
+        body.dark-mode .pbtn.out { background: #3a3a3a; }
+
+        /* ── BG VARIANTS ────────────────────────── */
+        .bg-alt  { background: var(--light); }
+        .bg-tint { background: rgba(39,174,96,.03); }
+        body.dark-mode .bg-tint { background: rgba(46,204,113,.04); }
+
+        /* ── QUOTE ──────────────────────────────── */
+        .rp-quote { background: linear-gradient(145deg,#040d06,#060606); padding: clamp(3rem,7vw,5rem) 5%; text-align: center; }
+        .rp-quote blockquote {
+            font-size: clamp(1rem,2.4vw,1.5rem); font-weight: 600; font-style: italic;
+            line-height: 1.55; color: rgba(255,255,255,.76);
+            max-width: 620px; margin: 0 auto 1.4rem;
+        }
+        .qwho { display: flex; align-items: center; gap: .7rem; justify-content: center; }
+        .qav  { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg,var(--primary),#a83232); display: flex; align-items: center; justify-content: center; font-size: .64rem; font-weight: 700; color: #fff; letter-spacing: .5px; flex-shrink: 0; }
+        .qname { font-weight: 700; font-size: .83rem; color: #ecf0f1; margin: 0; }
+        .qrole { font-size: .72rem; color: rgba(255,255,255,.32); margin: 0; }
+
+        /* ── CTA ────────────────────────────────── */
+        .rp-cta { padding: clamp(3.5rem,8vw,5.5rem) 5%; text-align: center; background: var(--light); }
+        .rp-cta-in { max-width: 520px; margin: 0 auto; }
+        .rp-cta-in h2 { font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 800; margin: 0 0 .85rem; line-height: 1.2; color: var(--dark); }
+        .rp-cta-in > p { color: var(--dark); opacity: .6; font-size: .93rem; line-height: 1.72; margin-bottom: 1.55rem; }
+        .cta-row { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+        .rp-contact {
+            margin-top: 1.4rem; background: var(--white); border-radius: 10px;
+            padding: .8rem 1.4rem; display: inline-flex; gap: 1.2rem; flex-wrap: wrap;
+            justify-content: center; box-shadow: 0 2px 7px rgba(0,0,0,.05);
+        }
+        body.dark-mode .rp-contact { box-shadow: 0 2px 7px rgba(0,0,0,.3); }
+        .rp-ci { font-size: .8rem; color: var(--dark); opacity: .55; }
+        .rp-ci a { color: var(--primary); opacity: 1; text-decoration: none; font-weight: 600; }
+
+        /* ── FADE ───────────────────────────────── */
+        .fade-up { opacity: 0; transform: translateY(15px); transition: opacity .5s ease, transform .5s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ─────────────────────────── */
+        @media (max-width:600px) {
+            .rp-pc.feat { transform: scale(1); }
+            .rp-kpi-grid { grid-template-columns: 1fr 1fr; }
+            .rp-subnav { top: 60px; }
+            .rp-subnav a { padding: .62rem .7rem; font-size: .72rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glass-bg" aria-hidden="true">
+        <div class="glass-circle circle1"></div>
+        <div class="glass-circle circle2"></div>
+        <div class="glass-circle circle3"></div>
+    </div>
+    <div id="scroll-progress"></div>
+    <button id="back-to-top" class="back-to-top" onclick="scrollToTop()"><span>↑</span></button>
+
+    <nav>
+        <div class="logo" onclick="window.location.href='index.html'">ShopGuide</div>
+        <div class="settings-icon" onclick="toggleSettingsPanel()">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="rp-hero">
+        <div class="rp-eyebrow"><span class="dot"></span>REWE Research &amp; Innovation · Vertraulich</div>
+        <div class="rp-brands">
+            <div class="rp-brand sg">ShopGuide</div>
+            <span class="rp-x">&times;</span>
+            <div class="rp-brand rw">REWE</div>
+        </div>
+        <h1>KI-gestützte Indoor-Navigation<br>für den <span class="ag">stationären Handel</span></h1>
+        <p>White-Label-Plugin für die REWE-App — ohne Beacons, ohne Umbau. Bereit für die Start-up Lounge.</p>
+        <div class="rp-btns">
+            <a href="#case" class="btn-rp primary">Den Case ansehen</a>
+            <a href="#pilot" class="btn-rp ghost">Pilotprojekt starten</a>
+        </div>
+    </section>
+
+    <!-- SUBNAV -->
+    <nav class="rp-subnav">
+        <a href="#case">01 · Der Case</a>
+        <a href="#tech">02 · Technologie</a>
+        <a href="#nachhaltigkeit">03 · Nachhaltigkeit</a>
+        <a href="#roi">04 · ROI</a>
+        <a href="#pilot">05 · Pilot</a>
+    </nav>
+
+    <!-- KPI -->
+    <div class="rp-kpi">
+        <div class="rp-kpi-grid">
+            <div class="fade-up"><div class="kn r">33%</div><div class="kl">Kaufabbrüche wegen nicht gefundener Produkte</div></div>
+            <div class="fade-up"><div class="kn a">15 Min</div><div class="kl">Suchzeit pro Einkauf</div></div>
+            <div class="fade-up"><div class="kn g">30–40%</div><div class="kl">Zeitersparnis mit ShopGuide</div></div>
+            <div class="fade-up"><div class="kn g">0 €</div><div class="kl">Hardware-Investitionen nötig</div></div>
+        </div>
+    </div>
+
+    <!-- 01 · DER CASE -->
+    <section class="rp-sec" id="case">
+        <div class="rp-inner">
+            <div class="rp-cols">
+                <div>
+                    <div class="rp-hdr fade-up">
+                        <span class="rp-tag red">01 · Der Case für REWE</span>
+                        <h2>Effizienz und Personalentlastung</h2>
+                        <p class="rp-lead">Drei konkrete Kostentreiber, täglich in jeder Filiale.</p>
+                    </div>
+                    <div class="fade-up">
+                        <div class="rp-card red">
+                            <h4>Kaufabbrüche reduzieren</h4>
+                            <p>Jeder dritte Kunde bricht ab, weil er Produkte nicht findet. Direkte Navigation eliminiert diese Abbrüche.</p>
+                        </div>
+                        <div class="rp-card red">
+                            <h4>Personal entlasten</h4>
+                            <p>Mitarbeiter verlieren täglich Zeit durch Suchanfragen. ShopGuide beantwortet diese automatisch.</p>
+                        </div>
+                        <div class="rp-card red">
+                            <h4>Impulskäufe steigern</h4>
+                            <p>Optimierte Laufwege erhöhen den Produktkontakt und damit den Durchschnittsbon.</p>
+                        </div>
+                        <div class="rp-note">
+                            <p><strong>Catch × REWE:</strong> ShopGuide ist die Software-Erweiterung — Catch bringt den Screen ins Regal, ShopGuide bringt den Kunden dorthin.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="rp-dark fade-up">
+                    <h3>Bereit für die REWE Start-up Lounge</h3>
+                    <p>Skalierbare SaaS-Architektur, DSGVO-konform, kein Infrastrukturaufwand, messbarer Nutzen ab Tag 1.</p>
+                    <div class="rp-stats">
+                        <div class="rp-stat"><div class="sn">2–4</div><div class="sl">Wochen bis Live</div></div>
+                        <div class="rp-stat"><div class="sn">0</div><div class="sl">Infrastruktur­änderungen</div></div>
+                        <div class="rp-stat"><div class="sn">100%</div><div class="sl">White-Label REWE</div></div>
+                        <div class="rp-stat"><div class="sn">3</div><div class="sl">Pilotfilialen zum Start</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 · TECHNOLOGIE -->
+    <section class="rp-sec bg-tint" id="tech">
+        <div class="rp-inner">
+            <div class="rp-hdr c fade-up">
+                <span class="rp-tag">02 · Technologische Integration</span>
+                <h2>Schnittstelle zur Warenwirtschaft</h2>
+                <p class="rp-lead">Genau die Bereiche, in denen REWE Research &amp; Innovation nach Partnern sucht.</p>
+            </div>
+            <div class="rp-tech">
+                <div class="rp-tc fade-up"><h4>Computer Vision</h4><p>KI erkennt handgeschriebene Einkaufszettel per Scan.</p><span class="rp-chip">Gemini API</span></div>
+                <div class="rp-tc fade-up"><h4>Inventory API</h4><p>Live-Abgleich mit dem REWE-Warenwirtschaftssystem.</p><span class="rp-chip">REST · Echtzeit</span></div>
+                <div class="rp-tc fade-up"><h4>Koordinatensystem</h4><p>Indoor-Mapping ohne Beacons — rein softwarebasiert.</p><span class="rp-chip">Proprietär</span></div>
+                <div class="rp-tc fade-up"><h4>White-Label Plugin</h4><p>Nativ in der REWE-App. Kein separater Download.</p><span class="rp-chip">iOS &amp; Android</span></div>
+                <div class="rp-tc fade-up"><h4>DSGVO-Hosting</h4><p>Alle Daten auf Hetzner-Servern in Deutschland.</p><span class="rp-chip">Hetzner DE</span></div>
+                <div class="rp-tc fade-up"><h4>Analytics</h4><p>Laufwege, Kaufabbrüche, Filial-Heatmaps für REWE.</p><span class="rp-chip">Dashboard</span></div>
+            </div>
+            <div class="rp-cols" style="margin-top:2.2rem;">
+                <div class="fade-up">
+                    <span class="rp-tag">Integration</span>
+                    <h3 style="font-size:clamp(1rem,2vw,1.3rem);font-weight:700;color:var(--dark);margin:.35rem 0 0;">Von Grundriss bis Live in 4 Wochen</h3>
+                    <div class="rp-steps">
+                        <div class="rp-step"><div class="step-lbl">Woche 1–2</div><h4>Filial-Digitalisierung</h4><p>Koordinatensystem aus Grundrissdaten — kein Umbau.</p></div>
+                        <div class="rp-step"><div class="step-lbl">Woche 2–3</div><h4>Inventory API Anbindung</h4><p>Integration in die REWE-Warenwirtschaft.</p></div>
+                        <div class="rp-step"><div class="step-lbl">Woche 3–4</div><h4>Plugin-Integration</h4><p>Einbindung in die REWE-App im REWE-Design.</p></div>
+                        <div class="rp-step"><div class="step-lbl">Ab Woche 4</div><h4>Live &amp; Monitoring</h4><p>Rollout und iterative Optimierung.</p></div>
+                    </div>
+                </div>
+                <div class="rp-dark fade-up" style="align-self:start;">
+                    <h3>REWE Research &amp; Innovation</h3>
+                    <p>ShopGuide adressiert die Kernbereiche:</p>
+                    <div style="display:flex;flex-direction:column;gap:.4rem;margin-top:.85rem;">
+                        <div style="display:flex;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.65);align-items:flex-start;"><span style="color:var(--primary);font-weight:700;flex-shrink:0;">—</span>Computer Vision zur Produkterkennung</div>
+                        <div style="display:flex;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.65);align-items:flex-start;"><span style="color:var(--primary);font-weight:700;flex-shrink:0;">—</span>KI-gestützte Sortierung für Einkaufsprozesse</div>
+                        <div style="display:flex;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.65);align-items:flex-start;"><span style="color:var(--primary);font-weight:700;flex-shrink:0;">—</span>Neugestaltung des Einkaufs ohne Hardware-Lock-in</div>
+                        <div style="display:flex;gap:.5rem;font-size:.8rem;color:rgba(255,255,255,.65);align-items:flex-start;"><span style="color:var(--primary);font-weight:700;flex-shrink:0;">—</span>Filial-Insights durch Laufweganalyse</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 · NACHHALTIGKEIT -->
+    <section class="rp-sec" id="nachhaltigkeit">
+        <div class="rp-inner">
+            <div class="rp-hdr c fade-up">
+                <span class="rp-tag">03 · Nachhaltigkeits-Impact</span>
+                <h2>Beitrag zu den vier REWE-Säulen</h2>
+                <p class="rp-lead">Grüne Produkte, Energie &amp; Klima, Mitarbeitende, Gesellschaft.</p>
+            </div>
+            <div class="rp-pillars">
+                <div class="rp-pillar fade-up"><div class="pdot"></div><h4>Grüne Produkte</h4><p>Nachhaltige Produkte in der Routenführung priorisieren.</p></div>
+                <div class="rp-pillar fade-up"><div class="pdot"></div><h4>Energie &amp; Klima</h4><p>Optimierte Laufwege reduzieren Verweildauer und Energieverbrauch.</p></div>
+                <div class="rp-pillar fade-up"><div class="pdot"></div><h4>Mitarbeitende</h4><p>Weniger Suchanfragen — mehr Zeit für wertschöpfende Aufgaben.</p></div>
+                <div class="rp-pillar hl fade-up"><div class="pdot"></div><h4>Gesellschaft &amp; Inklusion</h4><p>Senioren-Modus: größere Schrift, einfachere UI, Sprachausgabe. Inklusion als Standard.</p></div>
+            </div>
+            <div class="rp-note fade-up" style="margin-top:1.4rem;">
+                <p>Über 21 Mio. Menschen in Deutschland sind 65+. ShopGuide macht den Wocheneinkauf selbstständiger — messbarer Beitrag zur sozialen Nachhaltigkeit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 · ROI -->
+    <section class="rp-sec bg-tint" id="roi">
+        <div class="rp-inner">
+            <div class="rp-hdr fade-up">
+                <span class="rp-tag">04 · Business Case &amp; ROI</span>
+                <h2>Kalkulieren Sie selbst</h2>
+                <p class="rp-lead">Passen Sie Ihr Filialnetz an — Mehrumsatz live berechnet.</p>
+            </div>
+            <div class="rp-roi">
+                <div class="rp-calc fade-up">
+                    <h3>ROI-Rechner</h3>
+                    <div class="rg">
+                        <label>Anzahl Filialen</label>
+                        <input type="range" id="filialen" min="1" max="200" value="10" oninput="calcROI()">
+                        <div class="rrow"><span class="rl">Filialen</span><span class="rv" id="filialen-val">10</span></div>
+                    </div>
+                    <div class="rg">
+                        <label>Kunden / Filiale / Tag</label>
+                        <input type="range" id="kunden" min="100" max="3000" step="50" value="600" oninput="calcROI()">
+                        <div class="rrow"><span class="rl">Kunden/Tag</span><span class="rv" id="kunden-val">600</span></div>
+                    </div>
+                    <div class="rg">
+                        <label>Ø Warenkorb</label>
+                        <input type="range" id="warenkorb" min="20" max="150" step="5" value="55" oninput="calcROI()">
+                        <div class="rrow"><span class="rl">Warenkorb</span><span class="rv" id="warenkorb-val">55 €</span></div>
+                    </div>
+                    <div class="rp-result">
+                        <div class="rn" id="roi-num">+ 266.904 €</div>
+                        <p>Geschätzter Mehrumsatz / Monat</p>
+                    </div>
+                </div>
+                <div class="rp-bks fade-up">
+                    <div class="rp-bk">
+                        <div class="bt"><span class="bl">Mehrumsatz / Monat</span><span class="ba g" id="b-umsatz">+ 266.904 €</span></div>
+                        <div class="bar"><div class="fill g" id="bar-u" style="width:65%"></div></div>
+                        <p class="bnote">+8% Konversionsrate durch reduzierte Kaufabbrüche</p>
+                    </div>
+                    <div class="rp-bk">
+                        <div class="bt"><span class="bl">Kosten / Monat</span><span class="ba r" id="b-kosten">− 4.000 €</span></div>
+                        <div class="bar"><div class="fill r" id="bar-k" style="width:4%"></div></div>
+                        <p class="bnote">400 € SaaS pro Filiale · Setup einmalig</p>
+                    </div>
+                    <div class="rp-bk hl">
+                        <div class="bt"><span class="bl" style="font-weight:700;">Netto-ROI / Monat</span><span class="ba g" id="b-netto" style="font-size:1.06rem;">+ 262.904 €</span></div>
+                        <div class="bar"><div class="fill g" style="width:95%"></div></div>
+                        <p class="bnote">ROI-Ratio ca. 66:1</p>
+                    </div>
+                    <div class="rp-bk"><div class="bkc"><div class="cn">3 Filialen</div><div class="cl">Break-Even · Fixkosten gedeckt</div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 · PILOT -->
+    <section class="rp-sec bg-alt" id="pilot">
+        <div class="rp-inner">
+            <div class="rp-hdr c fade-up">
+                <span class="rp-tag">05 · Pilotprojekt &amp; Investition</span>
+                <h2>Startklar in 4 Wochen</h2>
+                <p class="rp-lead">Drei Filialen genügen für einen validen Business Case.</p>
+            </div>
+            <div class="rp-prices">
+                <div class="rp-pc fade-up">
+                    <h3>Setup</h3>
+                    <div class="pn">3.000 €</div>
+                    <div class="pp">einmalig · pro Filiale</div>
+                    <ul>
+                        <li><span class="ck">✓</span> Koordinatenmapping</li>
+                        <li><span class="ck">✓</span> Inventory API-Integration</li>
+                        <li><span class="ck">✓</span> White-Label-Konfiguration</li>
+                        <li><span class="ck">✓</span> Onboarding &amp; Schulung</li>
+                    </ul>
+                    <a href="mailto:lerkjannik@gmail.com?subject=REWE Setup" class="pbtn out">Anfragen</a>
+                </div>
+                <div class="rp-pc feat fade-up">
+                    <div class="pc-badge">Start-up Lounge Ready</div>
+                    <h3>SaaS</h3>
+                    <div class="pn">400 €</div>
+                    <div class="pp">/ Monat · pro Filiale</div>
+                    <ul>
+                        <li><span class="ck">✓</span> Hosting &amp; 99,9% Uptime</li>
+                        <li><span class="ck">✓</span> Alle Updates inklusive</li>
+                        <li><span class="ck">✓</span> Analytics-Dashboard</li>
+                        <li><span class="ck">✓</span> Support auf Deutsch</li>
+                        <li><span class="ck">✓</span> DSGVO · Hetzner DE</li>
+                    </ul>
+                    <a href="mailto:lerkjannik@gmail.com?subject=REWE Pilotprojekt" class="pbtn ghost">Pilot vereinbaren</a>
+                </div>
+                <div class="rp-pc fade-up">
+                    <h3>Enterprise</h3>
+                    <div class="pn" style="font-size:1.7rem;">Individuell</div>
+                    <div class="pp">ab 50+ Filialen</div>
+                    <ul>
+                        <li><span class="ck">✓</span> Volumen-Konditionen</li>
+                        <li><span class="ck">✓</span> Account-Team</li>
+                        <li><span class="ck">✓</span> Custom Development</li>
+                        <li><span class="ck">✓</span> Exklusivitäts-Optionen</li>
+                    </ul>
+                    <a href="mailto:lerkjannik@gmail.com?subject=REWE Enterprise" class="pbtn out">Gespräch anfragen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="rp-quote">
+        <div class="fade-up" style="max-width:600px;margin:0 auto;">
+            <blockquote>„ShopGuide ist die fehlende Brücke zwischen dem digitalen Einkaufswagen und dem physischen Regal."</blockquote>
+            <div class="qwho">
+                <div class="qav">SPS</div>
+                <div>
+                    <p class="qname">Smart Path Solutions</p>
+                    <p class="qrole">ShopGuide · Indoor-Navigation für den stationären Handel</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="rp-cta">
+        <div class="rp-cta-in fade-up">
+            <span class="rp-tag" style="display:block;margin-bottom:.5rem;">Nächster Schritt</span>
+            <h2>Bereit für ein erstes Gespräch?</h2>
+            <p>15 Minuten — ShopGuide live in einer simulierten REWE-Filialansicht.</p>
+            <div class="cta-row">
+                <a href="mailto:lerkjannik@gmail.com?subject=REWE Demo-Anfrage" class="btn-rp primary">Demo-Termin buchen</a>
+                <a href="merchant-verify.html" class="cta-button" style="background:transparent;color:var(--dark);border:1.5px solid #ccc;">Händler-Dashboard</a>
+            </div>
+            <div class="rp-contact">
+                <div class="rp-ci"><a href="mailto:lerkjannik@gmail.com">lerkjannik@gmail.com</a></div>
+                <div class="rp-ci">DSGVO-konform · Made in Germany</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Smart Path Solutions GmbH &nbsp;&middot;&nbsp;
+            <a href="impressum.html">Impressum</a> &nbsp;&middot;&nbsp;
+            <a href="datenschutz.html">Datenschutz</a>
+        </p>
+    </footer>
+
+    <!-- Settings Panel -->
+    <div id="settings-overlay" class="settings-overlay"></div>
+    <div id="settings-panel" class="settings-panel">
+        <div class="settings-header">
+            <h3>Einstellungen</h3>
+            <span class="close-settings" onclick="toggleSettingsPanel()">&times;</span>
+        </div>
+        <div class="settings-content">
+            <div class="panel-nav-section">
+                <h4 style="margin-bottom:1rem;color:var(--primary);">Navigation</h4>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='index.html';toggleSettingsPanel();return false;">🏠 Home</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='customer-verify.html';toggleSettingsPanel();return false;">🛒 Für Kunden</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='merchant-verify.html';toggleSettingsPanel();return false;">🏪 Für Händler</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='so-funktioniert-es.html';toggleSettingsPanel();return false;">🔍 So funktioniert's</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='about.html';toggleSettingsPanel();return false;">ℹ️ Über uns</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='impressum.html';toggleSettingsPanel();return false;">📄 Impressum</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='datenschutz.html';toggleSettingsPanel();return false;">🔒 Datenschutz</a>
+                <a href="#" class="panel-nav-link" onclick="window.location.href='faq.html';toggleSettingsPanel();return false;">❓ FAQ</a>
+                <a href="#" class="panel-nav-link" style="color:var(--primary);font-weight:600;" onclick="window.location.href='rewe-partner.html';toggleSettingsPanel();return false;">REWE Partnership</a>
+            </div>
+            <div class="settings-divider"></div>
+            <div class="setting-item">
+                <div class="setting-label">
+                    <span id="dark-mode-icon">🌙</span>
+                    <span>Dark Mode</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="setting-description">Wechseln Sie zwischen hellem und dunklem Design.</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Fade
+        const obs = new IntersectionObserver(
+            e => e.forEach(x => { if (x.isIntersecting) x.target.classList.add('visible'); }),
+            { threshold: .1 }
+        );
+        document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+        // Subnav active
+        const navLinks = document.querySelectorAll('.rp-subnav a');
+        const secObs = new IntersectionObserver(e => {
+            e.forEach(x => {
+                if (x.isIntersecting) {
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    const a = document.querySelector(`.rp-subnav a[href="#${x.target.id}"]`);
+                    if (a) a.classList.add('active');
+                }
+            });
+        }, { threshold: .35 });
+        document.querySelectorAll('section[id]').forEach(s => secObs.observe(s));
+
+        // ROI
+        function calcROI() {
+            const f = +document.getElementById('filialen').value;
+            const k = +document.getElementById('kunden').value;
+            const w = +document.getElementById('warenkorb').value;
+            document.getElementById('filialen-val').textContent = f;
+            document.getElementById('kunden-val').textContent = k;
+            document.getElementById('warenkorb-val').textContent = w + '\u202F\u20AC';
+            const mehr = Math.round(f * k * w * .08 * 26);
+            const kost = f * 400;
+            const nett = mehr - kost;
+            const fmt  = n => '+ ' + n.toLocaleString('de-DE') + '\u202F\u20AC';
+            const fmtN = n => '\u2212\u202F' + n.toLocaleString('de-DE') + '\u202F\u20AC';
+            document.getElementById('roi-num').textContent = mehr >= 1e6
+                ? '+ ' + (mehr/1e6).toFixed(1).replace('.',',') + ' Mio \u20AC'
+                : '+ ' + mehr.toLocaleString('de-DE') + '\u202F\u20AC';
+            document.getElementById('b-umsatz').textContent = fmt(mehr);
+            document.getElementById('b-kosten').textContent = fmtN(kost);
+            document.getElementById('b-netto').textContent  = fmt(nett);
+            const mx = 200*3000*150*.08*26;
+            document.getElementById('bar-u').style.width = Math.min(95,(mehr/mx)*100) + '%';
+            document.getElementById('bar-k').style.width = mehr > 0 ? Math.min(35,(kost/mehr)*100) + '%' : '0%';
+        }
+        calcROI();
+    </script>
+</body>
+</html>
