@@ -1788,3 +1788,141 @@ function highlightActivePage() {
 
 // Rufe die Funktion beim Laden der Seite auf
 document.addEventListener('DOMContentLoaded', highlightActivePage);
+/* ========================================
+   PWA REGISTRATION + INSTALL BANNER
+   → Diesen Block ans Ende von script.js anhängen
+   ======================================== */
+
+// Service Worker registrieren
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+            .catch(err => console.log('SW registration failed:', err));
+    });
+}
+
+// Install-Banner Logic
+let deferredPrompt = null;
+const banner = document.getElementById('pwa-install-banner');
+
+// Android/Chrome: beforeinstallprompt abfangen
+window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Banner nur zeigen wenn noch nicht installiert & nicht weggeklickt
+    const dismissed = sessionStorage.getItem('pwa-banner-dismissed');
+    if (!dismissed && banner) {
+        banner.style.display = 'flex';
+    }
+});
+
+// "Hinzufügen"-Button
+function pwaInstall() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(result => {
+        deferredPrompt = null;
+        if (banner) banner.classList.add('hidden');
+    });
+}
+
+// "×"-Button
+function pwaDismiss() {
+    if (banner) banner.classList.add('hidden');
+    sessionStorage.setItem('pwa-banner-dismissed', '1');
+}
+
+// iOS Safari: kein beforeinstallprompt → manuellen Hinweis zeigen
+const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isInStandaloneMode = window.navigator.standalone === true;
+
+if (isIos && !isInStandaloneMode && banner) {
+    const dismissed = sessionStorage.getItem('pwa-banner-dismissed');
+    if (!dismissed) {
+        // iOS-spezifischen Text setzen
+        const textEl = banner.querySelector('.pwa-text span');
+        const btnEl  = banner.querySelector('.pwa-btn-install');
+        if (textEl) textEl.textContent = 'Tippe auf Teilen → "Zum Home-Bildschirm"';
+        if (btnEl)  { btnEl.textContent = 'OK'; btnEl.onclick = pwaDismiss; }
+        banner.style.display = 'flex';
+    }
+}
+/* ========================================
+   SHOPGUIDE SERVICE WORKER
+   Cached für Offline-Fähigkeit & schnellere Ladezeiten
+   ======================================== */
+
+const CACHE_NAME = 'shopguide-v1';
+
+// Diese Dateien werden sofort gecacht (App-Shell)
+const PRECACHE_URLS = [
+  '/index.html',
+  '/style.css',
+  '/script.js',
+  '/manifest.json',
+  '/favicon.png',
+  '/favicon-32x32.png',
+  '/favicon-180x180.png',
+  '/hero-background.png',
+  '/edeka.png',
+  '/rewe.png',
+  '/aldi.png',
+  '/lidl.png',
+  '/penny.png',
+  '/netto.png'
+];
+
+// Installation: App-Shell sofort cachen
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS))
+  );
+  self.skipWaiting();
+});
+
+// Aktivierung: alte Caches löschen
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch: Cache-first für Assets, Network-first für HTML-Seiten
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+
+  // Nur eigene Requests cachen (kein CDN, kein Analytics)
+  if (url.origin !== location.origin) return;
+
+  // HTML-Seiten: Network-first (immer aktuellen Inhalt zeigen)
+  if (event.request.destination === 'document') {
+    event.respondWith(
+      fetch(event.request)
+        .then(response => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          return response;
+        })
+        .catch(() => caches.match(event.request))
+    );
+    return;
+  }
+
+  // Assets (CSS, JS, Bilder): Cache-first für Geschwindigkeit
+  event.respondWith(
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+      return fetch(event.request).then(response => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+        return response;
+      });
+    })
+  );
+});
