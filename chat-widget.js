@@ -425,19 +425,19 @@
     {
       id: 'team',
       t: ['team','gründer','wer','über euch','über uns','company','firma','startup','unternehmen','gegründet','geschichte','hintergrund'],
-      r: `**Über ShopGuide:**\n\nEin deutsches Tech-Startup mit dem Ziel, den stationären Lebensmitteleinzelhandel zu digitalisieren — **ohne ihn zu komplizieren**.\n\n**Unsere Mission:**\nDen Einkauf für Millionen Menschen effizienter, angenehmer und nachhaltiger gestalten — und dem stationären Handel echten Mehrwert geben.\n\n**Warum dieser Markt?**\nLebensmittelhandel Deutschland: ~240 Mrd. € Jahresumsatz, über 38.000 Märkte — und trotzdem weit hinter anderen Branchen in der Digital-Experience. Das ist unsere Chance.\n\n📩 Mehr Infos: info@shopguide.de`,
+      r: `**Über ShopGuide:**\n\nEin deutsches Tech-Startup mit dem Ziel, den stationären Lebensmitteleinzelhandel zu digitalisieren — **ohne ihn zu komplizieren**.\n\n**Unsere Mission:**\nDen Einkauf für Millionen Menschen effizienter, angenehmer und nachhaltiger gestalten — und dem stationären Handel echten Mehrwert geben.\n\n**Warum dieser Markt?**\nLebensmittelhandel Deutschland: ~240 Mrd. € Jahresumsatz, über 38.000 Märkte — und trotzdem weit hinter anderen Branchen in der Digital-Experience. Das ist unsere Chance.\n\n📩 Mehr Infos: lerkjannik@gmail.com`,
       s: ['Was ist ShopGuide?','Investor werden','Kontakt','Team kennenlernen']
     },
     {
       id: 'goodbye',
       t: ['tschüss','bye','ciao','auf wiedersehen','bis dann','danke','thank you','thanks','vielen dank','super danke','hat geholfen','das wars','ok danke'],
-      r: `Sehr gerne! 😊 Falls du noch Fragen hast, bin ich immer hier.\n\n**Auf einen Blick:**\n🌐 shopguide.de — Demo & Infos\n📧 info@shopguide.de — Partnerships & Pilotprojekte\n\nViel Spaß beim nächsten Einkauf! 🛒`,
+      r: `Sehr gerne! 😊 Falls du noch Fragen hast, bin ich immer hier.\n\n**Auf einen Blick:**\n🌐 shopguide.de — Demo & Infos\n📧 lerkjannik@gmail.com — Partnerships & Pilotprojekte\n\nViel Spaß beim nächsten Einkauf! 🛒`,
       s: ['Nochmal von vorne','Demo ansehen','Kontakt aufnehmen']
     },
     {
       id: 'fallback',
       t: [],
-      r: `Gute Frage! 🤔 Dazu habe ich leider keine direkte Antwort parat.\n\n**Ich helfe gerne weiter bei:**\n• Was ShopGuide ist und wie es funktioniert\n• Infos für Händler und Kunden\n• Technologie, Datenschutz, Preise\n• Demo, Kontakt, Partnerships\n\nOder schreib uns direkt: **info@shopguide.de** — das Team antwortet innerhalb von 24 Stunden!`,
+      r: `Gute Frage! 🤔 Dazu habe ich leider keine direkte Antwort parat.\n\n**Ich helfe gerne weiter bei:**\n• Was ShopGuide ist und wie es funktioniert\n• Infos für Händler und Kunden\n• Technologie, Datenschutz, Preise\n• Demo, Kontakt, Partnerships\n\nOder schreib uns direkt: **lerkjannik@gmail.com** — das Team antwortet innerhalb von 24 Stunden!`,
       s: ['Was ist ShopGuide?','Für Händler','Kontakt aufnehmen','Demo testen']
     }
   ];
