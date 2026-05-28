@@ -371,19 +371,19 @@
     {
       id: 'contact',
       t: ['kontakt','schreiben','email','mail','anrufen','telefon','erreichbar','sprechen','meeting','termin','anfrage','nachricht','support'],
-      r: `**So erreichst du uns:**\n\n📧 **E-Mail:** info@shopguide.de\n\n**Schnellste Option für Händler und Partnerships:**\nSchreib direkt eine Mail oder nutze das Kontaktformular auf der Website. Wir antworten typischerweise **innerhalb von 24 Stunden**.\n\n**Was du erwähnen solltest:**\n• Händler, Investor oder Kunde?\n• Marktgröße / Filialanzahl (falls Händler)\n• Was interessiert dich konkret?\n\n🤝 **Pilotprojekt-Plätze** sind begrenzt — frühzeitig melden lohnt sich!`,
+      r: `**So erreichst du uns:**\n\n📧 **E-Mail:** lerkjannik@gmail.com\n\n**Schnellste Option für Händler und Partnerships:**\nSchreib direkt eine Mail oder nutze das Kontaktformular auf der Website. Wir antworten typischerweise **innerhalb von 24 Stunden**.\n\n**Was du erwähnen solltest:**\n• Händler, Investor oder Kunde?\n• Marktgröße / Filialanzahl (falls Händler)\n• Was interessiert dich konkret?\n\n🤝 **Pilotprojekt-Plätze** sind begrenzt — frühzeitig melden lohnt sich!`,
       s: ['Early Adopter werden','Investoren-Infos','Pilotprojekt anfragen','Newsletter abonnieren']
     },
     {
       id: 'waitlist',
       t: ['warteliste','waitlist','anmelden','newsletter','benachrichtigung','launch','wann','verfügbar','wann kommt','release','start','informiert'],
-      r: `**Launch & Verfügbarkeit:**\n\n📅 **Status:** MVP / Pilotphase — erste Live-Märkte starten **2025**.\n\n**So bleibst du informiert:**\n📧 Schreib eine kurze Mail an info@shopguide.de mit dem Betreff "Waitlist" — du wirst als Erstes informiert, wenn deine Region oder dein Markt live geht.\n\n**Warum früh dabei sein?**\n✅ Direkter Einfluss auf die Produktentwicklung\n✅ Günstigere Einstiegskonditionen\n✅ Exklusiver Support beim Onboarding\n✅ Wettbewerbsvorteil gegenüber der Konkurrenz`,
+      r: `**Launch & Verfügbarkeit:**\n\n📅 **Status:** MVP / Pilotphase — erste Live-Märkte starten **2025**.\n\n**So bleibst du informiert:**\n📧 Schreib eine kurze Mail an lerkjannik@gmail.com mit dem Betreff "Waitlist" — du wirst als Erstes informiert, wenn deine Region oder dein Markt live geht.\n\n**Warum früh dabei sein?**\n✅ Direkter Einfluss auf die Produktentwicklung\n✅ Günstigere Einstiegskonditionen\n✅ Exklusiver Support beim Onboarding\n✅ Wettbewerbsvorteil gegenüber der Konkurrenz`,
       s: ['Kontakt aufnehmen','Ich bin Händler','Ich bin Investor','Ich bin Kunde']
     },
     {
       id: 'investors',
       t: ['investor','investoren','investition','funding','finanzierung','kapital','vc','venture capital','pitch deck','business plan','beteiligung','anteile','seed'],
-      r: `**Für Investoren:**\n\nShopGuide ist in der **Seed-Phase** und offen für strategische Investoren.\n\n**Marktpotenzial:**\n• Lebensmitteleinzelhandel Deutschland: ~240 Mrd. €/Jahr\n• Über 38.000 Supermärkte in Deutschland\n• Wachsende Nachfrage nach digitalen Einkaufserlebnissen\n\n**Unsere Stärken:**\n✅ Kein Hardware-Capex für Händler → einfacher Vertrieb\n✅ Setup in 1–2 Tagen → schneller Go-To-Market\n✅ 3 Stakeholder-Gruppen: Kunden + Händler + Hersteller\n✅ 3 Revenue-Streams: SaaS + Placement-Fees + Daten-Insights\n\n📩 Pitch Deck anfordern: info@shopguide.de — Betreff "Investor"`,
+      r: `**Für Investoren:**\n\nShopGuide ist in der **Seed-Phase** und offen für strategische Investoren.\n\n**Marktpotenzial:**\n• Lebensmitteleinzelhandel Deutschland: ~240 Mrd. €/Jahr\n• Über 38.000 Supermärkte in Deutschland\n• Wachsende Nachfrage nach digitalen Einkaufserlebnissen\n\n**Unsere Stärken:**\n✅ Kein Hardware-Capex für Händler → einfacher Vertrieb\n✅ Setup in 1–2 Tagen → schneller Go-To-Market\n✅ 3 Stakeholder-Gruppen: Kunden + Händler + Hersteller\n✅ 3 Revenue-Streams: SaaS + Placement-Fees + Daten-Insights\n\n📩 Pitch Deck anfordern: lerkjannik@gmail.com — Betreff "Investor"`,
       s: ['Business Model erklärt','Kontakt aufnehmen','Marktgröße','Technologie']
     },
     {
