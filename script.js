@@ -31,11 +31,8 @@ function loadRandomVideo() {
             ></iframe>
         `;
         
-        console.log(`✅ Video geladen: ${randomVideo.title} (ID: ${randomVideo.id})`);
     }
 }
-
-document.addEventListener('DOMContentLoaded', loadRandomVideo);
 
 document.addEventListener('DOMContentLoaded', loadRandomVideo);
 /* ========================================
@@ -885,7 +882,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-console.log('✅ ShopGuide geladen - Alle Features aktiv!');
 
 /* ========================================
    14. LADENLAYOUT-PLANER LOGIK
@@ -1792,6 +1788,50 @@ document.addEventListener('DOMContentLoaded', highlightActivePage);
    PWA REGISTRATION + INSTALL BANNER
    → Diesen Block ans Ende von script.js anhängen
    ======================================== */
+
+/* ========================================
+   ROUTE TEILEN (WhatsApp)
+   ======================================== */
+
+function shareRoute() {
+    const produkte = window.aktuelleProdukte;
+    if (!produkte || produkte.length === 0) return;
+
+    const sorted = [...produkte].sort((a, b) => {
+        if (a.gang !== b.gang) return a.gang.localeCompare(b.gang);
+        return a.regal.localeCompare(b.regal);
+    });
+    const warm  = sorted.filter(p => p.kategorie !== 'Kühlware' && p.kategorie !== 'Fleisch');
+    const kuehl = sorted.filter(p => p.kategorie === 'Kühlware' || p.kategorie === 'Fleisch');
+    const ordered = [...warm, ...kuehl];
+
+    const lines = ordered.map((p, i) => `${i + 1}. ${p.emoji} ${p.name} — Gang ${p.gang}`).join('\n');
+    const text = `Meine Einkaufsliste (ShopGuide):\n\n${lines}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
+}
+
+/* ========================================
+   NEWSLETTER ANMELDUNG
+   ======================================== */
+
+function handleNewsletterSignup(e) {
+    e.preventDefault();
+    const input = e.target.querySelector('.newsletter-input');
+    const btn   = e.target.querySelector('.newsletter-btn');
+    const email = input.value.trim();
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        input.style.borderColor = '#e74c3c';
+        input.focus();
+        return;
+    }
+
+    input.style.borderColor = '';
+    localStorage.setItem('sg_newsletter', email);
+    btn.textContent = 'Eingetragen';
+    btn.disabled    = true;
+    input.disabled  = true;
+}
 
 // Service Worker registrieren
 if ('serviceWorker' in navigator) {
