@@ -3499,3 +3499,38 @@ body.dark-mode .newsletter-input {
 .pro-btn.share-variant:hover {
     background: linear-gradient(135deg, #1da851, #128C7E);
 }
+
+/* ═══════════════════════════════════════════════════
+   SVG-ICONS IN FEATURE-WRAPPERN
+   (nf-icon-wrap, stat-icon, feature-icon)
+═══════════════════════════════════════════════════ */
+.nf-icon-wrap svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.nf-icon-wrap.eco svg    { stroke: #27ae60; }
+.nf-icon-wrap.allergy svg { stroke: #e74c3c; }
+.nf-icon-wrap.live svg   { stroke: #3498db; }
+.nf-icon-wrap.heat svg   { stroke: #f39c12; }
+.nf-icon-wrap.voice svg  { stroke: #9b59b6; }
+
+.stat-icon svg,
+.feature-icon:not(.num) svg {
+    width: 32px;
+    height: 32px;
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    display: block;
+    margin-bottom: 1rem;
+}
+body.dark-mode .stat-icon svg,
+body.dark-mode .feature-icon:not(.num) svg {
+    stroke: var(--primary);
+}
