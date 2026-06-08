@@ -31,11 +31,8 @@ function loadRandomVideo() {
             ></iframe>
         `;
         
-        console.log(`✅ Video geladen: ${randomVideo.title} (ID: ${randomVideo.id})`);
     }
 }
-
-document.addEventListener('DOMContentLoaded', loadRandomVideo);
 
 document.addEventListener('DOMContentLoaded', loadRandomVideo);
 /* ========================================
@@ -885,7 +882,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-console.log('✅ ShopGuide geladen - Alle Features aktiv!');
 
 /* ========================================
    14. LADENLAYOUT-PLANER LOGIK
