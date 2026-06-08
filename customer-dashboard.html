@@ -56,14 +56,13 @@
                         ShopGuide macht daraus eine optimale Route durch den Supermarkt.
                     </p>
 
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 1rem;">✅ <strong>Zettel scannen:</strong> Foto machen, fertig</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>KI-Erkennung:</strong> Entziffert jede Handschrift</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>Smart-Route:</strong> Optimale Reihenfolge</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>Navigation:</strong> Direkt zum richtigen Regal</li>
-                        <li style="margin-bottom: 1rem;">✅ <strong>Zeit sparen:</strong> Bis zu 30% schneller einkaufen
-                        </li>
-                    </ul>
+                    <ol class="steps-list">
+                        <li><strong>Zettel scannen</strong> — Foto machen, fertig</li>
+                        <li><strong>KI-Erkennung</strong> — Entziffert jede Handschrift</li>
+                        <li><strong>Smart-Route</strong> — Optimale Reihenfolge</li>
+                        <li><strong>Navigation</strong> — Direkt zum richtigen Regal</li>
+                        <li><strong>Zeit sparen</strong> — Bis zu 30% schneller einkaufen</li>
+                    </ol>
                 </div>
 
                                 <div class="demo-phone">
@@ -133,8 +132,11 @@
                                             </div>
                                         </div>
                                         <div id="route-items-container" class="route-scroll"></div>
+                                        <button class="pro-btn share-variant" onclick="shareRoute()">
+                                            <span class="pro-btn-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.65 3.38 2 2 0 0 1 3.62 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span> Liste via WhatsApp teilen
+                                        </button>
                                         <button class="pro-btn reset-variant" onclick="resetCompleteDemo()">
-                                            🔄 Nochmal testen
+                                            Nochmal testen
                                         </button>
                                     </div>
                                 </div>
@@ -161,7 +163,7 @@
         <div class="story-container">
             <div class="story-card problem">
                 <div class="story-header">
-                    <span class="status-icon">❌</span>
+                    <span class="story-status-badge bad">Vorher</span>
                     <h3>Ohne ShopGuide</h3>
                 </div>
                 <div class="story-content">
@@ -176,7 +178,7 @@
             </div>
             <div class="story-card solution">
                 <div class="story-header">
-                    <span class="status-icon">✅</span>
+                    <span class="story-status-badge good">Nachher</span>
                     <h3>Mit ShopGuide</h3>
                 </div>
                 <div class="story-content">
@@ -197,22 +199,22 @@
         <h2 style="text-align: center;">Deine Vorteile</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">⏱️</div>
+                <div class="feature-icon num">01</div>
                 <h3>Zeit sparen</h3>
                 <p>Keine Suche mehr nach Produkten. Die App führt dich direkt zum Ziel.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🧠</div>
+                <div class="feature-icon num">02</div>
                 <h3>Stressfrei einkaufen</h3>
                 <p>Kein Vergessen, kein Chaos. Alles auf deiner optimierten Route.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">❄️</div>
+                <div class="feature-icon num">03</div>
                 <h3>Frische Produkte</h3>
                 <p>Kühlware wird intelligent am Ende der Route platziert.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">💡</div>
+                <div class="feature-icon num">04</div>
                 <h3>Inspiration</h3>
                 <p>Entdecke neue Produkte, die zu deinem Einkauf passen.</p>
             </div>
@@ -877,37 +879,37 @@
                 <h4 style="margin-bottom: 1rem; color: var(--primary);">Navigation</h4>
                 <a href="#" class="panel-nav-link" data-page="homepage"
                     onclick="window.location.href='index.html'; toggleSettingsPanel(); return false;">
-                    🏠 Home
+                    Home
                 </a>
                 <a href="#" class="panel-nav-link" data-page="customer-verify"
                     onclick="window.location.href='customer-verify.html'; toggleSettingsPanel(); return false;">
-                    🛒 Für Kunden
+                    Für Kunden
                 </a>
                 <a href="#" class="panel-nav-link" data-page="merchant-verify"
                     onclick="window.location.href='merchant-verify.html'; toggleSettingsPanel(); return false;">
-                    🏪 Für Händler
+                    Für Händler
                 </a>
                 <a href="#" class="panel-nav-link" data-page="how-it-works"
                     onclick="window.location.href='so-funktioniert-es.html'; toggleSettingsPanel(); return false;">
-                    🔍 So funktioniert's
+                    So funktioniert's
                 </a>
                 <a href="#" class="panel-nav-link" data-page="about"
                     onclick="window.location.href='about.html'; toggleSettingsPanel(); return false;">
-                    ℹ️ Über uns
+                    Über uns
                 </a>
                 <a href="#" class="panel-nav-link" data-page="impressum"
                     onclick="window.location.href='impressum.html'; toggleSettingsPanel(); return false;">
-                    📄 Impressum
+                    Impressum
                 </a>
                 <a href="#" class="panel-nav-link" data-page="datenschutz"
                     onclick="window.location.href='datenschutz.html'; toggleSettingsPanel(); return false;">
-                    🔒 Datenschutz
+                    Datenschutz
                 </a>
                 <a href="#" class="panel-nav-link" data-page="faq"
                     onclick="window.location.href='faq.html'; toggleSettingsPanel(); return false;">
-                    ❓ FAQ
+                    FAQ
                 </a>
-                <a href="#" class="panel-nav-link" style="color:var(--primary);font-weight:600;" onclick="window.location.href='rewe-partner.html'; toggleSettingsPanel(); return false;">🔴 REWE Partnership</a>
+                <a href="#" class="panel-nav-link" style="color:var(--primary);font-weight:600;" onclick="window.location.href='rewe-partner.html'; toggleSettingsPanel(); return false;">REWE Partnership</a>
             </div>
 
             <div class="settings-divider"></div>
