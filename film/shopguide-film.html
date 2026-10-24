@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>ShopGuide Launchfilm</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e8f5ee}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:#e8f5ee;
+  font-family:'Segoe UI',sans-serif;color:#2c3e50}
+.layer{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden}
+#layerB{background:#e8f5ee}
+.world{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0}
+.a{position:absolute}
+.ln{position:absolute;white-space:nowrap;line-height:1.12}
+.wm{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .03em .1em}
+.wi{display:inline-block}
+.green{color:#27ae60}
+.grey{color:#7f8c8d}
+#dot{position:absolute;left:0;top:0;width:100px;height:100px;border-radius:50%;transform-origin:0 0;
+  display:flex;align-items:center;justify-content:center}
+#dotCore{border-radius:50%;display:flex;align-items:center;justify-content:center}
+#dotDigit{color:#fff;font-weight:800;font-size:56px;line-height:1;display:block}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="layerA" class="layer"><div id="worldA" class="world"></div></div>
+  <div id="layerB" class="layer"><div id="worldB" class="world"></div></div>
+  <div id="dot"><div id="dotCore"><span id="dotDigit">1</span></div></div>
+</div>
+<svg width="0" height="0" style="position:absolute"><defs id="fx"></defs></svg>
+<script>
+/* =====================================================================
+   ShopGuide · 15-second launch film
+   Every style is a pure function of t inside window.seek(t).
+   ===================================================================== */
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const C = { green:'#27ae60', navy:'#2c3e50', field:'#ecf0f1', grey:'#7f8c8d', ground:'#e8f5ee', screen:'#f4f6f7', shelfOn:'#d8e1e6' };
+
+/* ---------- easing ---------- */
+const clamp = (x, a = 0, b = 1) => x < a ? a : x > b ? b : x;
+const lerp = (a, b, u) => a + (b - a) * u;
+const U = (t, a, b) => clamp((t - a) / (b - a));
+// damped spring step response, settles in ~d seconds, overshoot ~1 %
+function spring(t, d = 0.6, z = 0.82) {
+  if (t <= 0) return 0;
+  const w0 = 6.2 / d, wd = w0 * Math.sqrt(1 - z * z);
+  return 1 - Math.exp(-z * w0 * t) * (Math.cos(wd * t) + (z * w0 / wd) * Math.sin(wd * t));
+}
+const expoOut = u => u <= 0 ? 0 : u >= 1 ? 1 : 1 - Math.pow(2, -10 * u);
+const expoIn = u => u <= 0 ? 0 : u >= 1 ? 1 : (Math.pow(2, 10 * u) - 1) / 1023;
+const bump = (t, a, b) => { const u = U(t, a, b); return Math.sin(Math.PI * u); };
+const rgb = c => Array.isArray(c) ? c : [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+const mixA = (c1, c2, u) => { const a = rgb(c1), b = rgb(c2); return a.map((v, i) => lerp(v, b[i], clamp(u))); };
+const mix = (c1, c2, u) => `rgb(${mixA(c1, c2, u).map(Math.round).join(',')})`;
+
+/* ---------- DOM helpers ---------- */
+const UNITLESS = new Set(['zIndex', 'fontWeight', 'opacity']);
+function div(parent, css, html) {
+  const e = document.createElement('div'); e.className = 'a';
+  if (css) for (const k in css) e.style[k] = typeof css[k] === 'number' && !UNITLESS.has(k) ? css[k] + 'px' : css[k];
+  if (html != null) e.innerHTML = html;
+  parent.appendChild(e); return e;
+}
+function svg(parent, tag, attrs) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  parent.appendChild(e); return e;
+}
+// one line of words, each inside its own mask
+function line(parent, o, parts) {
+  const ln = document.createElement('div'); ln.className = 'ln';
+  ln.style.left = (o.x || 0) + 'px'; ln.style.top = o.y + 'px';
+  ln.style.fontSize = o.size + 'px'; ln.style.fontWeight = o.weight || 800;
+  ln.style.letterSpacing = o.ls == null ? '-0.02em' : o.ls;
+  if (o.center) { ln.style.width = '1920px'; ln.style.textAlign = 'center'; }
+  if (o.color) ln.style.color = o.color;
+  const words = [];
+  parts.forEach((p, i) => {
+    const m = document.createElement('span'); m.className = 'wm';
+    const w = document.createElement('span'); w.className = 'wi' + (p.cls ? ' ' + p.cls : '');
+    w.innerHTML = p.t; m.appendChild(w); ln.appendChild(m);
+    if (i < parts.length - 1 && !p.tight) ln.appendChild(document.createTextNode(' '));
+    words.push({ m, w });
+  });
+  parent.appendChild(ln);
+  return words;
+}
+
+/* ---------- motion blur (directional, follows velocity) ---------- */
+const fxDefs = $('fx'); let fxCount = 0;
+function mblur(el, sx, sy) {
+  sx = Math.min(Math.abs(sx), 40); sy = Math.min(Math.abs(sy), 40);
+  if (sx < 0.3 && sy < 0.3) { if (el._fOn) { el.style.filter = 'none'; el._fOn = false; } return; }
+  if (!el._f) {
+    const id = 'mb' + (fxCount++);
+    const f = svg(fxDefs, 'filter', { id, x: '-30%', y: '-30%', width: '160%', height: '160%', 'color-interpolation-filters': 'sRGB' });
+    el._f = { id, g: svg(f, 'feGaussianBlur', { stdDeviation: '0 0' }) };
+  }
+  el._f.g.setAttribute('stdDeviation', sx.toFixed(2) + ' ' + sy.toFixed(2));
+  el.style.filter = `url(#${el._f.id})`; el._fOn = true;
+}
+const SHUTTER = 1 / 300;          // blur sigma per px/s
+const DT = 1 / 240;               // velocity probe
+
+/* ---------- word reveal: rises out of its mask, exits through it ---------- */
+function wordY(t, tin, tout, dir = -1) {
+  let y = t < tin ? 1.18 : 1.18 * (1 - spring(t - tin, 0.5));
+  if (tout != null && t > tout) y += dir * 1.25 * expoIn(U(t, tout, tout + 0.2));
+  return y;
+}
+function animWord(wd, t, tin, tout, dir, extra = '') {
+  const h = wd.h;
+  const y = wordY(t, tin, tout, dir), y0 = wordY(t - DT, tin, tout, dir);
+  wd.w.style.transform = `translateY(${(y * h).toFixed(2)}px)${extra}`;
+  mblur(wd.w, 0, (y - y0) * h / DT * SHUTTER);
+}
+
+/* =====================================================================
+   WORLD A · hook, phone (scan + route)
+   ===================================================================== */
+const worldA = $('worldA'), layerA = $('layerA');
+
+// hook
+const HOOK = 176;
+const hook1 = line(worldA, { y: 286, size: HOOK, center: true }, [{ t: 'Wo' }, { t: 'ist' }, { t: 'bloß' }]);
+const hook2 = line(worldA, { y: 486, size: HOOK, center: true }, [{ t: 'die' }, { t: 'Milch', tight: true }, { t: '?' }]);
+const hookWords = [...hook1, ...hook2];
+const hookIn = [-0.04, 0.03, 0.5, 1.0, 1.07, 1.12];
+const hookOut = [1.53, 1.55, 1.57, 1.47, 1.49, 1.51];   // lower line clears first, the phone rises behind it
+const qWord = hook2[2];
+const qProbe = document.createElement('span');
+qProbe.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
+qWord.w.appendChild(qProbe);
+
+// captions
+const CAPX = 330;
+const cap1 = [line(worldA, { x: CAPX, y: 330, size: 112 }, [{ t: 'Zettel' }])[0],
+              line(worldA, { x: CAPX, y: 452, size: 112 }, [{ t: 'scannen.', cls: 'green' }])[0]];
+const cap2 = [line(worldA, { x: CAPX, y: 330, size: 112 }, [{ t: 'Deine' }])[0],
+              line(worldA, { x: CAPX, y: 452, size: 112 }, [{ t: 'Route.', cls: 'green' }])[0]];
+const sub2 = line(worldA, { x: CAPX + 4, y: 600, size: 40, weight: 600, ls: '0', color: C.grey }, [{ t: 'Kühlware' }, { t: 'zuletzt.' }]);
+
+// phone
+const PX = 1070, PY = 83, FX = 14, FY = 14;
+const phone = div(worldA, { left: PX, top: PY, width: 440, height: 914 });
+div(phone, { left: -4, top: 190, width: 6, height: 58, borderRadius: 3, background: '#2a2a2d' });
+div(phone, { left: -4, top: 262, width: 6, height: 58, borderRadius: 3, background: '#2a2a2d' });
+div(phone, { left: 438, top: 236, width: 6, height: 96, borderRadius: 3, background: '#2a2a2d' });
+div(phone, { left: 0, top: 0, width: 440, height: 914, borderRadius: 74,
+  background: 'linear-gradient(160deg,#1c1c1e 0%,#2c2c2e 60%,#1a1a1c 100%)',
+  boxShadow: 'inset 0 0 0 1.5px rgba(255,255,255,.10), 0 40px 90px rgba(44,62,80,.26), 0 12px 28px rgba(44,62,80,.14)' });
+const face = div(phone, { left: FX, top: FY, width: 412, height: 886, borderRadius: 60, overflow: 'hidden', background: C.screen });
+div(face, { left: 0, top: 0, width: 412, height: 126, background: C.navy });
+div(face, { left: 146, top: 12, width: 120, height: 34, borderRadius: 17, background: '#000' });
+div(face, { left: 42, top: 14, color: '#fff', fontSize: 19, fontWeight: 600 }, '9:41');
+div(face, { left: 300, top: 20 }, `<svg width="82" height="16" viewBox="0 0 82 16">
+  <rect x="0" y="10" width="4" height="6" rx="1" fill="#fff"/><rect x="6" y="7" width="4" height="9" rx="1" fill="#fff"/>
+  <rect x="12" y="4" width="4" height="12" rx="1" fill="#fff"/><rect x="18" y="1" width="4" height="15" rx="1" fill="#fff"/>
+  <rect x="44" y="2" width="30" height="13" rx="4" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.5"/>
+  <rect x="46.5" y="4.5" width="22" height="8" rx="2" fill="#fff"/><rect x="75.5" y="6" width="2.5" height="5" rx="1" fill="#fff" fill-opacity=".6"/></svg>`);
+div(face, { left: 28, top: 70, color: '#fff', fontSize: 27, fontWeight: 800, letterSpacing: '-0.01em' }, 'ShopGuide');
+const kiPill = div(face, { left: 302, top: 74, width: 84, height: 34, borderRadius: 17, background: 'rgba(255,255,255,.16)',
+  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', color: '#fff', fontSize: 16, fontWeight: 800 },
+  'KI<svg width="15" height="13" viewBox="0 0 15 13"><path d="M1.5 7 L5.5 10.8 L13.5 2" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+
+// own stacking contexts, so card z-order never covers the content above them
+const shLayer = div(face, { left: 0, top: 0, zIndex: 0 });
+const bdLayer = div(face, { left: 0, top: 0, zIndex: 0 });
+function cardPair(bg) {
+  return { sh: div(shLayer, { boxShadow: '0 8px 22px rgba(44,62,80,.10), 0 1px 3px rgba(44,62,80,.06)' }),
+           bd: div(bdLayer, { background: bg || '#fff', overflow: 'hidden' }) };
+}
+const header = cardPair(C.field);
+const hdNote = div(header.bd, { left: 22, top: 19, fontSize: 15, fontWeight: 800, letterSpacing: '2px', color: C.navy }, 'EINKAUFSZETTEL');
+const hdRoute = div(header.bd, { left: 22, top: 15, fontSize: 23, fontWeight: 700, color: C.navy }, 'Deine Route');
+const chip = div(header.bd, { left: 268, top: 15, width: 82, height: 34, borderRadius: 17, background: '#fff',
+  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', fontSize: 16, fontWeight: 700, color: C.navy },
+  '<svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.3" fill="none" stroke="#2c3e50" stroke-width="1.8"/><path d="M8 4.5 V8 L10.4 9.6" fill="none" stroke="#2c3e50" stroke-width="1.8" stroke-linecap="round"/></svg>3 Min');
+
+const rows = [
+  { name: 'Milch',   sw: 124, aisle: 'F · R01', cold: true, ni: 0, ri: 2, seed: 7 },
+  { name: 'Äpfel',   sw: 112, aisle: 'A · R10', ni: 1, ri: 0, seed: 3 },
+  { name: 'Shampoo', sw: 188, aisle: 'E · R02', ni: 2, ri: 1, seed: 12 },
+];
+const LINE_Y = [272, 342, 412];
+// note body slices, each holding its own handwritten line (texts live inside their cards)
+const SLICE = [[210, 97], [307, 70], [377, 245]];
+rows.forEach(r => { r.card = cardPair(); });
+
+// handwriting (scribbles) + recognised text
+const scrSvg = svg(face, 'svg', { width: 412, height: 886, style: 'position:absolute;left:0;top:0;overflow:visible' });
+const scrClip = svg(svg(scrSvg, 'defs', {}), 'clipPath', { id: 'scrClip' });
+const scrClipRect = svg(scrClip, 'rect', { x: 0, y: 0, width: 412, height: 886 });
+const scrG = svg(scrSvg, 'g', { 'clip-path': 'url(#scrClip)' });
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function scribble(x0, base, width, seed) {
+  const R = rng(seed), n = Math.max(3, Math.round(width / 21)), adv = width / n, pts = [[x0 - 8, base + 3]];
+  for (let i = 0; i < n; i++) {
+    const tall = i === 0 || R() < 0.24, h = tall ? 33 + R() * 8 : 13 + R() * 7;
+    const a = adv / (2 * Math.PI), b = a * (tall ? 1.9 : 1.3 + R() * 0.45);
+    for (let k = 1; k <= 20; k++) {
+      const th = k / 20 * 2 * Math.PI;
+      let y = base - h * (1 - Math.cos(th)) / 2;
+      const x = x0 + i * adv + a * th - b * Math.sin(th) + (base - y) * 0.3;
+      pts.push([x, y]);
+    }
+  }
+  pts.push([x0 + width + 10, base - 5]);
+  return 'M' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L');
+}
+rows.forEach(r => {
+  svg(scrG, 'path', { d: scribble(52, LINE_Y[r.ni] + 9, r.sw, r.seed), fill: 'none', stroke: C.navy, 'stroke-width': 3.2,
+    'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+});
+rows.forEach(r => {
+  r.text = div(r.card.bd, { left: 0, top: 0, fontSize: 25, fontWeight: 600, color: C.navy, lineHeight: '34px', height: 34, whiteSpace: 'nowrap' }, r.name);
+  r.pill = div(face, { left: 0, top: 0, height: 34, borderRadius: 17, background: C.navy, color: '#fff', fontSize: 16,
+    fontWeight: 700, padding: '0 14px', lineHeight: '34px', whiteSpace: 'nowrap' }, r.aisle);
+  if (r.ri > 0) r.num = div(face, { left: 0, top: 0, width: 36, height: 36, borderRadius: '50%', background: C.navy, color: '#fff',
+    fontSize: 17, fontWeight: 800, display: 'flex', alignItems: 'center', justifyContent: 'center' }, String(r.ri + 1));
+  if (r.cold) r.snow = div(face, { left: 0, top: 0, width: 24, height: 24 },
+    `<svg width="24" height="24" viewBox="-12 -12 24 24" fill="none" stroke="#7f8c8d" stroke-width="2" stroke-linecap="round">
+     ${[0, 60, 120].map(a => `<g transform="rotate(${a})"><path d="M0 -10 V10"/><path d="M-3 -7 L0 -4 L3 -7"/><path d="M-3 7 L0 4 L3 7"/></g>`).join('')}</svg>`);
+});
+
+// scanner
+const scanBand = div(face, { left: 22, top: 0, width: 368, height: 64, background: 'rgba(44,62,80,.06)' });
+const scanLine = div(face, { left: 22, top: 0, width: 368, height: 3, background: C.navy, borderRadius: 2 });
+
+// scan button
+const btn = div(face, { left: 72, top: 712, width: 268, height: 72, borderRadius: 36, background: C.navy,
+  boxShadow: '0 10px 24px rgba(44,62,80,.22)' });
+div(btn, { left: 21, top: 17, width: 38, height: 38, borderRadius: '50%', border: '2.5px solid rgba(255,255,255,.9)' });
+const btnMask = div(btn, { left: 74, top: 0, width: 184, height: 72, overflow: 'hidden' });
+const lbl1 = div(btnMask, { left: 0, top: 20, color: '#fff', fontSize: 22, fontWeight: 600, whiteSpace: 'nowrap' }, 'Zettel scannen');
+const lbl2 = div(btnMask, { left: 0, top: 20, color: '#fff', fontSize: 22, fontWeight: 600, whiteSpace: 'nowrap' }, 'Scanne …');
+div(face, { left: 146, top: 868, width: 120, height: 5, borderRadius: 3, background: 'rgba(44,62,80,.28)' });
+
+// cursor
+const cursor = div(worldA, { left: 0, top: 0, width: 44, height: 52, transformOrigin: '3px 3px' },
+  `<svg width="44" height="52" viewBox="0 0 44 52"><path d="M3 3 L3 39 L12.5 30.5 L18.5 44 L25 41 L19 28 L31 28 Z"
+   fill="#2c3e50" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>`);
+
+/* ---------- world A timing functions ---------- */
+const phoneDy = t => t < 1.62 ? 1180 : 1180 * (1 - spring(t - 1.62, 0.58));
+const s1 = t => spring(t - 4.0, 0.5);   // note splits into cards
+const s2 = t => spring(t - 4.5, 0.55);  // reorder: cold goods last
+const s3 = t => spring(t - 4.56, 0.42); // text shifts for step numbers before the dot lands
+function cardRect(r, t) {
+  const A = { x: 22, y: SLICE[r.ni][0], w: 368, h: SLICE[r.ni][1] };
+  const B = { x: 22, y: 236 + r.ni * 92, w: 368, h: 76 };
+  const Cc = { x: 22, y: 236 + r.ri * 92, w: 368, h: 76 };
+  const a = s1(t), b = s2(t);
+  const o = {};
+  for (const k in A) o[k] = A[k] + (B[k] - A[k]) * a + (Cc[k] - B[k]) * b;
+  const r0 = r.ni === 2 ? [0, 0, 24, 24] : [0, 0, 0, 0];
+  o.rad = r0.map(v => lerp(v, 18, a));
+  return o;
+}
+function textPos(r, t) {
+  const bC = 274 + r.ni * 92, cC = 274 + r.ri * 92;
+  return { x: 50 + 44 * s3(t), y: LINE_Y[r.ni] + (bC - LINE_Y[r.ni]) * s1(t) + (cC - bC) * s2(t) };
+}
+const faceToWorld = (fx, fy, t) => [PX + FX + fx, PY + FY + fy + phoneDy(t)];
+const scanY = t => clamp(272 + 280 * (t - 2.75), 210, 622);
+
+/* =====================================================================
+   WORLD B · store map → logo
+   ===================================================================== */
+const worldB = $('worldB'), layerB = $('layerB');
+const BX = 820, BY = 150, BW = 980, BH = 735;
+const bx = p => BX + p / 100 * BW, by = p => BY + p / 100 * BH;
+
+const capB = [line(worldB, { x: 150, y: 350, size: 112 }, [{ t: 'Direkt' }])[0],
+              line(worldB, { x: 150, y: 472, size: 112 }, [{ t: 'zum' }, { t: 'Regal.', cls: 'green' }])];
+const capBWords = [capB[0], capB[1][0], capB[1][1]];
+
+const board = div(worldB, { background: 'rgba(255,255,255,.86)', border: '1px solid rgba(255,255,255,.7)',
+  boxShadow: '0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.05), inset 0 1.5px 0 rgba(255,255,255,.65)' });
+
+const SHELVES = [
+  ['Obst & Gemüse', 5, 8, 40, 12], ['Fleisch & Fisch', 55, 8, 40, 12],
+  ['Bio-Produkte', 5, 28, 40, 12], ['Getränke', 55, 28, 40, 12],
+  ['Drogerie', 5, 48, 40, 12], ['Unverpackt', 55, 48, 40, 12],
+  ['Kühlregal · Milch · Joghurt · Käse', 5, 68, 90, 12],
+  ['Backwaren', 5, 88, 40, 10], ['Kasse', 55, 88, 40, 10],
+];
+const ARRIVE = { 0: 8.0, 4: 9.5, 6: 10.5, 8: 12.0 };   // shelf index → arrival time
+const shelves = SHELVES.map(([name, l, tp, w, h], i) => {
+  const el = div(worldB, { left: bx(l), top: by(tp), width: w / 100 * BW, height: h / 100 * BH, borderRadius: 14,
+    background: C.field, border: '1px solid rgba(44,62,80,.07)', overflow: 'hidden' });
+  const lab = div(el, { left: 0, top: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', gap: '10px', fontSize: 21, fontWeight: 600, color: C.navy, whiteSpace: 'nowrap' }, name);
+  const s = { el, lab, rect: { x: bx(l), y: by(tp), w: w / 100 * BW, h: h / 100 * BH }, i };
+  if (name === 'Getränke') {
+    s.badge = document.createElement('span');
+    s.badge.style.cssText = 'display:inline-block;background:#2c3e50;color:#fff;font-size:15px;font-weight:700;padding:2px 10px;border-radius:12px;line-height:20px';
+    s.badge.textContent = 'voll'; lab.appendChild(s.badge);
+  }
+  return s;
+});
+const shelfHL = (i, t) => ARRIVE[i] == null ? 0 : spring(t - ARRIVE[i] - 0.02, 0.4);
+
+// status pill
+const status = div(worldB, { left: BX, top: 905, width: 470, height: 60, borderRadius: 30, overflow: 'hidden',
+  background: 'rgba(255,255,255,.86)', border: '1px solid rgba(255,255,255,.7)',
+  boxShadow: '0 6px 22px rgba(0,0,0,.07), inset 0 1.5px 0 rgba(255,255,255,.65)' });
+const STATUS = [
+  [8.3, '<span class="grey">Navigiere zu:</span> Drogerie'],
+  [8.62, 'Getränke voll <span class="grey">–</span> Umweg'],
+  [9.5, '<span class="grey">Navigiere zu:</span> Kühlregal'],
+  [10.5, '<span class="grey">Navigiere zu:</span> Kasse'],
+  [12.05, 'Fertig!'],
+].map(([t, html]) => ({ t, el: div(status, { left: 28, top: 13, fontSize: 22, fontWeight: 700, color: C.navy, whiteSpace: 'nowrap', lineHeight: '34px' }, html) }));
+
+// logo geometry (favicon.png: 4×4 shelf grid + green route with two nodes)
+const TS = 290, TCX = 960, TCY = 430;
+const lg = (x, y) => [TCX - TS / 2 + x * TS / 780, TCY - TS / 2 + y * TS / 780];
+const LU = TS / 780;
+const cellRect = (r, c) => { const [x, y] = lg(42 + c * 184, 42 + r * 184); return { x, y, w: 145 * LU, h: 145 * LU }; };
+
+// grid pieces: shelves split into halves/quarters that fold into the 4×4 grid
+const pieces = [];
+function addPieces(si, parts, row) {
+  const s = shelves[si].rect, n = parts.length, w = s.w / n;
+  parts.forEach((col, k) => {
+    const rad = [k === 0 ? 14 : 0, k === n - 1 ? 14 : 0, k === n - 1 ? 14 : 0, k === 0 ? 14 : 0];
+    pieces.push({ si, el: div(worldB, { display: 'none' }), from: { x: s.x + k * w, y: s.y, w, h: s.h }, rad, row, col });
+  });
+}
+addPieces(0, [0, 1], 0); addPieces(1, [2, 3], 0);
+addPieces(2, [0, 1], 1); addPieces(3, [2, 3], 1);
+addPieces(4, [0, 1], 2); addPieces(5, [2, 3], 2);
+addPieces(6, [0, 1, 2, 3], 3);
+addPieces(7, [0, 1], 3); addPieces(8, [2, 3], 3);
+
+// route svg
+const rsvg = svg(worldB, 'svg', { width: 1920, height: 1080, style: 'position:absolute;left:0;top:0;overflow:visible' });
+const haloPath = svg(rsvg, 'path', { fill: 'none', stroke: '#fff', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+const haloA = svg(rsvg, 'circle', { fill: '#fff', r: 0 });
+const haloB = svg(rsvg, 'circle', { fill: '#fff', r: 0 });
+const casePath = svg(rsvg, 'path', { fill: 'none', stroke: C.navy, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+const dashA = svg(rsvg, 'path', { fill: 'none', stroke: '#fff', 'stroke-dasharray': '7 16', 'stroke-linecap': 'butt' });
+const dashB = svg(rsvg, 'path', { fill: 'none', stroke: '#fff', 'stroke-dasharray': '7 16', 'stroke-linecap': 'butt' });
+const trailPath = svg(rsvg, 'path', { fill: 'none', stroke: C.green, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' });
+const nodeRing = svg(rsvg, 'circle', { fill: C.navy, r: 0 });
+const nodeCore = svg(rsvg, 'circle', { fill: '#fff', r: 0 });
+
+// end card
+const WORD_Y = 600, CTA_Y = 770;
+const wordmark = line(worldB, { y: WORD_Y, size: 124, weight: 600, center: true, ls: '-0.01em' }, [{ t: 'Shop<span class="green">Guide</span>' }])[0];
+const cta = line(worldB, { y: CTA_Y, size: 40, weight: 600, center: true, ls: '0' },
+  [{ t: 'Demo ausprobieren' }, { t: '→' }, { t: 'shopguide.de' }]);
+const underline = div(worldB, { left: 0, top: 0, height: 4, borderRadius: 2, background: C.green, transformOrigin: '0 50%' });
+cta[1].m.style.paddingRight = '24px'; cta[1].m.style.marginRight = '-24px';   // room for the arrow nudge
+
+/* ---------- path utilities ---------- */
+const dist = (a, b) => Math.hypot(b[0] - a[0], b[1] - a[1]);
+function rounded(pts, r) {
+  const out = [pts[0]];
+  for (let i = 1; i < pts.length - 1; i++) {
+    const p = pts[i], a = pts[i - 1], b = pts[i + 1];
+    const la = dist(a, p), lb = dist(b, p);
+    const da = [(a[0] - p[0]) / la, (a[1] - p[1]) / la], db = [(b[0] - p[0]) / lb, (b[1] - p[1]) / lb];
+    if (Math.abs(da[0] * db[1] - da[1] * db[0]) < 1e-6) { out.push(p); continue; }
+    const rr = Math.min(r, la / 2, lb / 2);
+    const p1 = [p[0] + da[0] * rr, p[1] + da[1] * rr], p2 = [p[0] + db[0] * rr, p[1] + db[1] * rr];
+    for (let k = 0; k <= 16; k++) {
+      const u = k / 16;
+      out.push([(1 - u) * (1 - u) * p1[0] + 2 * (1 - u) * u * p[0] + u * u * p2[0],
+                (1 - u) * (1 - u) * p1[1] + 2 * (1 - u) * u * p[1] + u * u * p2[1]]);
+    }
+  }
+  out.push(pts[pts.length - 1]);
+  return out;
+}
+function resample(pts, n) {
+  const cum = [0];
+  for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + dist(pts[i - 1], pts[i]));
+  const L = cum[cum.length - 1], out = [];
+  let j = 0;
+  for (let k = 0; k < n; k++) {
+    const s = L * k / (n - 1);
+    while (j < pts.length - 2 && cum[j + 1] < s) j++;
+    const u = (s - cum[j]) / ((cum[j + 1] - cum[j]) || 1);
+    out.push([lerp(pts[j][0], pts[j + 1][0], u), lerp(pts[j][1], pts[j + 1][1], u)]);
+  }
+  out.L = L; return out;
+}
+const RN = 260;
+const MAP_PTS = [[25, 24], [2.5, 24], [2.5, 44], [25, 44], [50, 44], [50, 64], [97.5, 64], [97.5, 84], [75, 84]].map(([x, y]) => [bx(x), by(y)]);
+const route = resample(rounded(MAP_PTS, 24), RN);
+const LOGO_PTS = [lg(410, 152), lg(585, 305), lg(235, 425), lg(410, 630)];
+const logoRoute = resample(rounded(LOGO_PTS, 46 * LU), RN);
+const nearest = p => { let bi = 0, bd = 1e9; route.forEach((q, i) => { const d = dist(p, q); if (d < bd) { bd = d; bi = i; } }); return bi / (RN - 1); };
+const STOP = { obst: 0, drog: nearest(MAP_PTS[3]), kuehl: nearest(MAP_PTS[5]), kasse: 1 };
+
+function routeU(t) {           // 0..1 along the map route
+  let u = STOP.obst;
+  if (t > 8.5) u = lerp(STOP.obst, STOP.drog, spring(t - 8.5, 1.0));
+  if (t > 9.55) u = lerp(STOP.drog, STOP.kuehl, spring(t - 9.55, 0.95));
+  if (t > 10.55) u = lerp(STOP.kuehl, STOP.kasse, spring(t - 10.55, 1.45));
+  return clamp(u);
+}
+const morphM = t => spring(t - 12.38, 0.85);
+function pathAt(t, i) {
+  const m = morphM(t), a = route[i], b = logoRoute[i];
+  return [lerp(a[0], b[0], m), lerp(a[1], b[1], m)];
+}
+function pointAtU(t, u) {
+  const f = u * (RN - 1), i = Math.min(RN - 2, Math.floor(f)), k = f - i;
+  const a = pathAt(t, i), b = pathAt(t, i + 1);
+  return [lerp(a[0], b[0], k), lerp(a[1], b[1], k)];
+}
+const dPath = pts => 'M' + pts.map(p => p[0].toFixed(2) + ' ' + p[1].toFixed(2)).join(' L');
+
+/* =====================================================================
+   cameras  (screen = (world − focus) · zoom + centre), push ×1.04 per 3 s
+   ===================================================================== */
+const PUSH = t => Math.pow(1.04, t / 3);
+function camEval(keys, t) {
+  let s = { z: keys[0].z, x: keys[0].x, y: keys[0].y };
+  for (let i = 1; i < keys.length; i++) {
+    const k = keys[i]; if (t < k.t) break;
+    const te = i + 1 < keys.length ? Math.min(t, keys[i + 1].t) : t;
+    const p = spring(te - k.t, k.d);
+    const g = k.fn ? k.fn(te) : k;
+    s = { z: s.z * Math.pow(g.z / s.z, p), x: lerp(s.x, g.x, p), y: lerp(s.y, g.y, p) };
+  }
+  return s;
+}
+let S1 = [0, 0];                // step-1 slot in world A (measured)
+let camAKeys, camBKeys;
+function buildCams() {
+  camAKeys = [
+    { t: 0, z: 1, x: 960, y: 540 },
+    { t: 1.45, z: 1.0, x: 960, y: 556, d: 0.7 },
+    { t: 1.9, z: 1.0, x: 930, y: 540, d: 0.6 },
+    { t: 2.62, z: 1.34, x: 1290, y: 520, d: 0.8 },
+    { t: 4.0, z: 1.2, x: 1215, y: 470, d: 0.6 },
+    { t: 4.9, z: 1.06, x: 950, y: 500, d: 0.7 },
+    { t: 6.45, z: 1.28, x: 1180, y: 430, d: 0.6 },
+    { t: 7.0, z: 2.1, x: S1[0], y: S1[1], d: 0.55 },
+    { t: 7.5, z: 3.4, x: S1[0], y: S1[1], d: 0.5 },
+  ];
+  const zc = camEval(camAKeys, 8.0).z;
+  camBKeys = [
+    { t: 8.0, z: zc, x: route[0][0], y: route[0][1] },
+    { t: 8.02, z: 1.0, x: 990, y: 530, d: 0.72 },
+    { t: 8.78, d: 0.7, fn: t => { const p = pointAtU(t, routeU(t - 0.12)); return { z: 1.3, x: lerp(1310, p[0], 0.62), y: lerp(517, p[1], 0.62) }; } },
+    { t: 12.15, z: 0.86, x: 960, y: 520, d: 0.8 },
+  ];
+}
+function cam(world, t) {
+  const s = camEval(world === 'A' ? camAKeys : camBKeys, t);
+  return { z: s.z * PUSH(t), x: s.x, y: s.y };
+}
+const toScreen = (c, p) => [960 + (p[0] - c.x) * c.z, 540 + (p[1] - c.y) * c.z];
+function applyCam(worldEl, world, t) {
+  const c = cam(world, t), c0 = cam(world, t - DT);
+  worldEl.style.transform = `translate(${(960 - c.x * c.z).toFixed(3)}px,${(540 - c.y * c.z).toFixed(3)}px) scale(${c.z.toFixed(5)})`;
+  // pan blur in screen space → local space
+  const vx = ((c0.x - c.x) * c.z) / DT, vy = ((c0.y - c.y) * c.z) / DT;
+  mblur(worldEl, vx * SHUTTER / c.z, vy * SHUTTER / c.z);
+  return c;
+}
+
+/* =====================================================================
+   through-line dot
+   ===================================================================== */
+let Q = { x: 0, y: 0, r: 16 };    // measured "?" dot
+const R_SHUT = 14, R_STEP = 19, R_MARK = 15, R_NODE = 43 * LU;
+function shutterW(t) { return faceToWorld(112, 748, t); }
+function step1W(t) { const c = cardRect(rows[1], t); return faceToWorld(c.x + 38, c.y + 38, t); }
+function dotA(t) {
+  const qy = wordY(t, hookIn[5], null) * qWord.h;
+  const Pq = [Q.x, Q.y + qy], rq = Q.r * spring(t - 1.22, 0.42);
+  if (t < 1.53) return { p: Pq, r: rq, ring: 0.24 };
+  if (t < 4.6) {
+    // aim at where the button will be, hand over to the moving phone as it lands
+    const u = spring(t - 1.53, 0.47), Pf = shutterW(99), Pm = shutterW(t), h = Math.pow(clamp(u), 6);
+    const Ps = [lerp(Pf[0], Pm[0], h), lerp(Pf[1], Pm[1], h)];
+    const p = [lerp(Pq[0], Ps[0], u), lerp(Pq[1], Ps[1], u) - 260 * Math.sin(Math.PI * clamp(u))];
+    return { p, r: lerp(rq, R_SHUT, clamp(u)), ring: 0.24 };
+  }
+  const u = spring(t - 4.6, 0.4), Ps = shutterW(t), P1 = step1W(t);
+  const p = [lerp(Ps[0], P1[0], u), lerp(Ps[1], P1[1], u) - 110 * Math.sin(Math.PI * clamp(u))];
+  return { p, r: lerp(R_SHUT, R_STEP, clamp(u)), ring: lerp(0.24, 0.12, clamp(u)) };
+}
+function dotB(t) {
+  const p = pointAtU(t, routeU(t));
+  const n = spring(t - 12.95, 0.4);
+  return { p, r: lerp(lerp(R_STEP, R_MARK, spring(t - 8.0, 0.4)), R_NODE, n), ring: lerp(lerp(0.12, 0.24, spring(t - 8.0, 0.4)), 0.375, n), node: n };
+}
+function dotScreen(t) {
+  if (t < 8.0) { const d = dotA(t), c = cam('A', t); return { ...d, s: toScreen(c, d.p), R: d.r * c.z }; }
+  const d = dotB(t), c = cam('B', t); return { ...d, s: toScreen(c, d.p), R: d.r * c.z };
+}
+const dotEl = $('dot'), dotCore = $('dotCore'), dotDigit = $('dotDigit');
+function drawDot(t) {
+  const d = dotScreen(t), d0 = dotScreen(t - DT);
+  if (d.R < 0.05) { dotEl.style.display = 'none'; return; }
+  dotEl.style.display = 'flex';
+  const vx = (d.s[0] - d0.s[0]) / DT, vy = (d.s[1] - d0.s[1]) / DT, v = Math.hypot(vx, vy);
+  const ang = Math.atan2(vy, vx), st = 1 + Math.min(v / 4000, 0.45);
+  // squash on landings and the tap
+  const sq = 0.22 * bump(t, 1.48, 1.6) + 0.16 * bump(t, 1.98, 2.12) + 0.2 * bump(t, 2.47, 2.62)
+           + 0.14 * bump(t, 4.98, 5.12) + 0.18 * bump(t, 11.98, 12.16);
+  const s = d.R / 50;
+  dotEl.style.transform = `translate(${d.s[0].toFixed(2)}px,${d.s[1].toFixed(2)}px) rotate(${ang}rad) scale(${st},${1 / Math.sqrt(st)}) rotate(${-ang}rad) scale(${(s * (1 + sq)).toFixed(4)},${(s * (1 - sq)).toFixed(4)}) translate(-50px,-50px)`;
+  const node = d.node || 0;
+  dotEl.style.background = mix('#ffffff', C.navy, node);
+  dotEl.style.boxShadow = `0 ${4 * (1 - node)}px ${10 * (1 - node)}px rgba(44,62,80,${0.22 * (1 - node)})`;
+  const core = 100 * (1 - d.ring);
+  dotCore.style.width = dotCore.style.height = core.toFixed(2) + 'px';
+  dotCore.style.background = mix(C.green, '#ffffff', node);
+  const dg = t < 8 ? spring(t - 4.9, 0.35) * (1 - spring(t - 7.48, 0.3)) : 0;
+  dotDigit.style.transform = `scale(${Math.max(0, dg).toFixed(4)})`;
+}
+
+/* =====================================================================
+   init + seek
+   ===================================================================== */
+function measure() {
+  [hookWords, cap1, cap2, sub2, capBWords, [wordmark], cta].flat().forEach(w => { w.h = w.m.getBoundingClientRect().height; });
+  // the "?" dot, measured from the glyph itself
+  const qf = getComputedStyle(qWord.w);
+  const cv = document.createElement('canvas'); cv.width = cv.height = 420;
+  const g = cv.getContext('2d'); g.font = `${qf.fontWeight} ${qf.fontSize} ${qf.fontFamily}`; g.fillText('?', 100, 320);
+  const px = g.getImageData(0, 0, 420, 420).data, rowsInk = [];
+  for (let y = 0; y < 420; y++) { let a = 1e9, b = -1; for (let x = 0; x < 420; x++) if (px[(y * 420 + x) * 4 + 3] > 110) { if (x < a) a = x; b = x; } rowsInk.push(b >= 0 ? [a, b] : null); }
+  let y = 419; while (y > 0 && !rowsInk[y]) y--; const db = y; while (y > 0 && rowsInk[y]) y--; const dt = y + 1;
+  while (y > 0 && !rowsInk[y]) y--; const hb = y;
+  let a = 1e9, b = -1; for (let k = dt; k <= db; k++) { a = Math.min(a, rowsInk[k][0]); b = Math.max(b, rowsInk[k][1]); }
+  const wr = qWord.w.getBoundingClientRect(), base = qProbe.getBoundingClientRect().top;
+  Q = { x: wr.left + (a + b) / 2 - 100, y: base + (dt + db) / 2 - 320, r: Math.max(b - a, db - dt) * 0.62 };
+  const cut = base + (hb + dt) / 2 - 320;            // hide the glyph's own dot
+  qWord.w.style.clipPath = `inset(0 0 ${(wr.bottom - cut).toFixed(1)}px 0)`;
+  rows.forEach(r => { r.tw = r.text.getBoundingClientRect().width; r.pw = r.pill.getBoundingClientRect().width; });
+  const ur = cta[2].w.getBoundingClientRect();
+  underline.style.left = ur.left + 'px'; underline.style.top = (ur.bottom + 4) + 'px'; underline.style.width = ur.width + 'px';
+  S1 = faceToWorld(22 + 38, 236 + 38, 99);
+}
+
+function seekA(t) {
+  layerA.style.display = t < 8.6 ? 'block' : 'none';
+  if (t >= 8.6) return;
+  applyCam(worldA, 'A', t);
+
+  // hook
+  hookWords.forEach((w, i) => animWord(w, t, hookIn[i], hookOut[i], -1));
+  // captions
+  animWord(cap1[0], t, 2.1, 4.5, -1); animWord(cap1[1], t, 2.2, 4.53, -1);
+  animWord(cap2[0], t, 5.05, null); animWord(cap2[1], t, 5.16, null);
+  animWord(sub2[0], t, 6.0, null); animWord(sub2[1], t, 6.06, null);
+
+  // phone
+  const dy = phoneDy(t), dy0 = phoneDy(t - DT);
+  phone.style.transform = `translateY(${dy.toFixed(2)}px)`;
+  mblur(phone, 0, (dy - dy0) / DT * SHUTTER);
+  phone.style.display = dy > 1150 ? 'none' : 'block';
+
+  // KI badge ticks when the scan completes
+  kiPill.style.transform = `scale(${1 + 0.14 * bump(t, 3.45, 3.72)})`;
+
+  // header: note → route
+  const a = s1(t);
+  const hr = { x: 22, y: 152, w: 368, h: lerp(58, 64, a) };
+  const hrad = [lerp(24, 18, a), lerp(24, 18, a), lerp(0, 18, a), lerp(0, 18, a)];
+  [header.sh, header.bd].forEach(e => {
+    e.style.left = hr.x + 'px'; e.style.top = hr.y + 'px'; e.style.width = hr.w + 'px'; e.style.height = hr.h + 'px';
+    e.style.borderRadius = hrad.map(v => v.toFixed(2) + 'px').join(' ');
+  });
+  hdNote.style.transform = `translateY(${(-70 * expoIn(U(t, 4.0, 4.22))).toFixed(2)}px)`;
+  hdRoute.style.transform = `translateY(${(70 * (1 - spring(t - 4.24, 0.5))).toFixed(2)}px)`;
+  const cp = spring(t - 6.5, 0.45);
+  chip.style.clipPath = `inset(0 0 0 ${((1 - cp) * 100).toFixed(2)}% round 17px)`;
+
+  // cards, text, scribbles
+  const sy = scanY(t), scanning = t > 2.5 && t < 4.08;
+  scrClipRect.setAttribute('y', t < 2.5 ? 0 : sy); scrClipRect.setAttribute('height', 886);
+  scrSvg.style.display = t < 4.05 ? 'block' : 'none';
+  rows.forEach(r => {
+    const c = cardRect(r, t), tp = textPos(r, t), tp0 = textPos(r, t - DT);
+    const lift = r.ri === 2 ? bump(t, 4.5, 5.0) : 0;
+    [r.card.sh, r.card.bd].forEach(e => {
+      e.style.left = c.x + 'px'; e.style.top = c.y + 'px'; e.style.width = c.w + 'px'; e.style.height = c.h + 'px';
+      e.style.borderRadius = c.rad.map(v => v.toFixed(2) + 'px').join(' ');
+      e.style.transform = `scale(${1 + 0.03 * lift})`;
+      e.style.zIndex = r.ri === 2 ? 2 : 1;
+    });    r.card.sh.style.boxShadow = `0 ${8 + 10 * lift}px ${22 + 16 * lift}px rgba(44,62,80,${0.10 + 0.06 * lift}), 0 1px 3px rgba(44,62,80,.06)`;
+    r.text.style.transform = `translate(${(tp.x - c.x).toFixed(2)}px,${(tp.y - 17 - c.y).toFixed(2)}px)`;
+    mblur(r.text, 0, (tp.y - tp0.y) / DT * SHUTTER);
+    const hide = t < 2.5 ? 34 : clamp(LINE_Y[r.ni] + 17 - sy, 0, 34);
+    r.text.style.clipPath = t < 4.05 ? `inset(0 0 ${hide.toFixed(2)}px 0)` : 'none';
+    // aisle pill unfolds from the right
+    const pp = spring(t - (5.5 + r.ri * 0.09), 0.45);
+    r.pill.style.transform = `translate(${(c.x + c.w - 18 - r.pw).toFixed(2)}px,${(c.y + 21).toFixed(2)}px)`;
+    r.pill.style.clipPath = `inset(0 0 0 ${((1 - pp) * 100).toFixed(2)}% round 17px)`;
+    if (r.num) {
+      const ns = spring(t - (5.22 + r.ri * 0.07), 0.4);
+      r.num.style.transform = `translate(${(c.x + 20).toFixed(2)}px,${(c.y + 20).toFixed(2)}px) scale(${ns.toFixed(4)})`;
+    }
+    if (r.snow) {
+      const sp = spring(t - 6.0, 0.45);
+      r.snow.style.transform = `translate(${(tp.x + r.tw + 12).toFixed(2)}px,${(tp.y - 12).toFixed(2)}px) scale(${sp.toFixed(4)}) rotate(${(1 - sp) * -90}deg)`;
+    }
+  });
+
+  // scanner
+  const lg0 = expoOut(U(t, 2.52, 2.7)), lg1 = expoIn(U(t, 3.92, 4.08));
+  scanLine.style.display = scanBand.style.display = scanning ? 'block' : 'none';
+  scanLine.style.top = (sy - 1.5) + 'px';
+  scanLine.style.transformOrigin = lg1 > 0 ? '100% 50%' : '0 50%';
+  scanLine.style.transform = `scaleX(${(lg0 * (1 - lg1)).toFixed(4)})`;
+  const bt = Math.max(210, sy - 64);
+  scanBand.style.top = bt + 'px'; scanBand.style.height = Math.max(0, sy - bt) + 'px';
+  scanBand.style.transformOrigin = scanLine.style.transformOrigin; scanBand.style.transform = scanLine.style.transform;
+
+  // button: press, label swap, exit
+  const press = 1 - 0.045 * bump(t, 2.46, 2.64);
+  const bExit = 260 * expoIn(U(t, 4.55, 4.86));
+  btn.style.transform = `translateY(${bExit.toFixed(2)}px) scale(${press})`;
+  lbl1.style.transform = `translateY(${(-60 * expoIn(U(t, 2.5, 2.66))).toFixed(2)}px)`;
+  lbl2.style.transform = `translateY(${(60 * (1 - spring(t - 2.68, 0.45))).toFixed(2)}px)`;
+
+  // cursor
+  const ct = faceToWorld(236, 752, t), c0 = [1780, 1200];
+  const cu = spring(t - 1.95, 0.5);
+  let cx = lerp(c0[0], ct[0], cu), cy = lerp(c0[1], ct[1], cu);
+  const out = expoIn(U(t, 2.82, 3.25)); cx += 560 * out; cy += 520 * out;
+  const cs = 1 - 0.14 * bump(t, 2.44, 2.62);
+  cursor.style.display = t > 1.9 && t < 3.3 ? 'block' : 'none';
+  cursor.style.transform = `translate(${(cx - 3).toFixed(2)}px,${(cy - 3).toFixed(2)}px) scale(${cs})`;
+}
+
+function seekB(t) {
+  layerB.style.display = t >= 8.0 ? 'block' : 'none';
+  if (t < 8.0) return;
+  const c = applyCam(worldB, 'B', t);
+  // iris from the dot
+  const d = dotScreen(8.0);
+  const R = d.R + 2400 * spring(t - 8.0, 0.62);
+  layerB.style.clipPath = t < 8.75 ? `circle(${R.toFixed(1)}px at ${d.s[0].toFixed(1)}px ${d.s[1].toFixed(1)}px)` : 'none';
+
+  capBWords.forEach((w, i) => animWord(w, t, 8.3 + i * 0.08, 12.22 + i * 0.03, -1));
+
+  // shelves: highlight on arrival, labels exit, then fold into the grid
+  const swap = t >= 12.36;
+  shelves.forEach((s, i) => {
+    const hl = shelfHL(i, t);
+    s.el.style.display = swap ? 'none' : 'block';
+    s.el.style.background = mix(C.field, C.shelfOn, hl);
+    s.el.style.boxShadow = `inset 0 0 0 ${(2 * hl).toFixed(2)}px rgba(44,62,80,.28)`;
+    const ly = 1.3 * expoIn(U(t, 12.12 + i * 0.016, 12.34 + i * 0.016));
+    s.lab.style.transform = `translateY(${(ly * 100).toFixed(2)}%)`;
+    if (s.badge) s.badge.style.transform = `scale(${spring(t - 8.5, 0.4).toFixed(4)})`;
+  });
+  // board → logo tile: it hugs the pieces, so nothing ever sticks out of it
+  const box = { l: 1e9, t: 1e9, r: -1e9, b: -1e9 };
+  pieces.forEach(p => {
+    p.el.style.display = swap ? 'block' : 'none';
+    const k = swap ? spring(t - 12.36 - p.row * 0.03 - p.col * 0.012, 0.6) : 0;
+    const to = cellRect(p.row, p.col);
+    const x = lerp(p.from.x, to.x, k), y = lerp(p.from.y, to.y, k), w = lerp(p.from.w, to.w, k), h = lerp(p.from.h, to.h, k);
+    box.l = Math.min(box.l, x); box.t = Math.min(box.t, y); box.r = Math.max(box.r, x + w); box.b = Math.max(box.b, y + h);
+    if (!swap) return;
+    p.el.style.left = x + 'px'; p.el.style.top = y + 'px'; p.el.style.width = w + 'px'; p.el.style.height = h + 'px';
+    p.el.style.borderRadius = p.rad.map(v => lerp(v, 3, k).toFixed(2) + 'px').join(' ');
+    p.el.style.background = mix(mixA(C.field, C.shelfOn, shelfHL(p.si, t)), C.navy, clamp(k * 1.35));
+  });
+  const bm = spring(t - 12.36, 0.7), pad = 42 * LU;
+  const ml = lerp(box.l - BX, pad, bm), mt = lerp(box.t - BY, pad, bm), mr = lerp(BX + BW - box.r, pad, bm), mb = lerp(BY + BH - box.b, pad, bm);
+  board.style.left = (box.l - ml) + 'px'; board.style.top = (box.t - mt) + 'px';
+  board.style.width = (box.r - box.l + ml + mr) + 'px'; board.style.height = (box.b - box.t + mt + mb) + 'px';
+  board.style.borderRadius = lerp(26, 56, bm) + 'px';
+  board.style.background = `rgba(255,255,255,${lerp(0.86, 1, bm).toFixed(3)})`;
+
+  // status pill
+  const sp = spring(t - 8.22, 0.45), sOut = expoOut(U(t, 12.42, 12.72));
+  status.style.clipPath = `inset(0 ${((1 - sp + sOut) * 100).toFixed(2)}% 0 0 round 30px)`;
+  STATUS.forEach((s, i) => {
+    const next = STATUS[i + 1];
+    const y = wordY(t, s.t + 0.04, next ? next.t - 0.14 : null, -1);
+    s.el.style.transform = `translateY(${(y * 60).toFixed(2)}px)`;
+  });
+
+  // route: green trail grows with the dot, then bends into the logo route
+  const u = routeU(t), n = Math.max(1, Math.round(u * (RN - 1)));
+  const pts = []; for (let i = 0; i <= n; i++) pts.push(pathAt(t, i));
+  pts[pts.length - 1] = pointAtU(t, u);
+  const dp = dPath(pts);
+  const m = morphM(t);
+  trailPath.setAttribute('d', dp); trailPath.setAttribute('stroke-width', lerp(9, 26 * LU, m));
+  trailPath.style.display = t > 8.5 ? 'block' : 'none';
+  const hw = 110 * LU * spring(t - 12.62, 0.6), cw = 62 * LU * spring(t - 12.56, 0.6);
+  haloPath.setAttribute('d', dp); haloPath.setAttribute('stroke-width', hw.toFixed(2));
+  casePath.setAttribute('d', dp); casePath.setAttribute('stroke-width', cw.toFixed(2));
+  const pA = pathAt(t, 0), pB = pointAtU(t, u);
+  const ng = spring(t - 12.72, 0.45);
+  haloA.setAttribute('cx', pA[0]); haloA.setAttribute('cy', pA[1]); haloA.setAttribute('r', (65 * LU * ng).toFixed(2));
+  haloB.setAttribute('cx', pB[0]); haloB.setAttribute('cy', pB[1]); haloB.setAttribute('r', (65 * LU * spring(t - 12.9, 0.45)).toFixed(2));
+  nodeRing.setAttribute('cx', pA[0]); nodeRing.setAttribute('cy', pA[1]); nodeRing.setAttribute('r', (43 * LU * ng).toFixed(2));
+  nodeCore.setAttribute('cx', pA[0]); nodeCore.setAttribute('cy', pA[1]); nodeCore.setAttribute('r', (27 * LU * ng).toFixed(2));
+  // dashed lane markings on the middle leg (as in favicon.png)
+  const c1 = lg(585, 305), c2 = lg(235, 425), dl = dist(c1, c2), dx = (c2[0] - c1[0]) / dl, dyy = (c2[1] - c1[1]) / dl;
+  const nx = -dyy, ny = dx, off = 24 * LU;
+  const seg = (a0, a1, side, g) => {
+    const s0 = [c1[0] + dx * dl * a0 + nx * off * side, c1[1] + dyy * dl * a0 + ny * off * side];
+    const e = lerp(a0, a1, g), s1p = [c1[0] + dx * dl * e + nx * off * side, c1[1] + dyy * dl * e + ny * off * side];
+    return `M${s0[0].toFixed(2)} ${s0[1].toFixed(2)} L${s1p[0].toFixed(2)} ${s1p[1].toFixed(2)}`;
+  };
+  const dg = spring(t - 14.22, 0.42);
+  dashA.setAttribute('d', seg(0.36, 0.76, 1, dg)); dashB.setAttribute('d', seg(0.06, 0.34, -1, spring(t - 14.3, 0.42)));
+  dashA.setAttribute('stroke-width', (20 * LU).toFixed(2)); dashB.setAttribute('stroke-width', (20 * LU).toFixed(2));
+  dashA.style.display = dashB.style.display = t > 14.2 ? 'block' : 'none';
+
+  // end card text
+  animWord(wordmark, t, 13.0, null);
+  animWord(cta[0], t, 13.5, null); animWord(cta[2], t, 13.58, null);
+  animWord(cta[1], t, 13.54, null, -1, ` translateX(${(12 * bump(t, 14.0, 14.36)).toFixed(2)}px)`);
+  underline.style.transform = `scaleX(${spring(t - 14.02, 0.45).toFixed(4)})`;
+}
+
+function seek(t) {
+  t = clamp(t, 0, 15);
+  seekA(t); seekB(t); drawDot(t);
+}
+
+window.seek = seek;
+window.__ready = false;
+document.fonts.ready.then(() => {
+  layerA.style.display = layerB.style.display = 'block';
+  measure(); buildCams(); seek(0);
+  window.__ready = true;
+});
+
+/* =====================================================================
+   SOUNDTRACK · Web Audio, rendered offline · 120 BPM
+   ===================================================================== */
+window.renderAudio = async function () {
+  const SR = 48000, LEN = 15 * SR;
+  const ctx = new OfflineAudioContext(2, LEN, SR);
+  const bus = ctx.createGain(); bus.gain.value = 0.8;
+  const comp = ctx.createDynamicsCompressor();
+  comp.threshold.value = -16; comp.knee.value = 10; comp.ratio.value = 3.5; comp.attack.value = 0.004; comp.release.value = 0.14;
+  bus.connect(comp); comp.connect(ctx.destination);
+  // reverb
+  const ir = ctx.createBuffer(2, SR * 2.2, SR);
+  for (let ch = 0; ch < 2; ch++) { const d = ir.getChannelData(ch); for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 3.2); }
+  const rev = ctx.createConvolver(); rev.buffer = ir; const revOut = ctx.createGain(); revOut.gain.value = 0.32;
+  rev.connect(revOut); revOut.connect(bus);
+  const noise = ctx.createBuffer(1, SR * 2, SR); { const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+
+  function env(g, t, a, peak, dec, sus = 0.0001) {
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a);
+    g.gain.exponentialRampToValueAtTime(Math.max(sus, 0.0001), t + a + dec);
+  }
+  function out(node, dry = 1, wet = 0) {
+    const g = ctx.createGain(); g.gain.value = dry; node.connect(g); g.connect(bus);
+    if (wet) { const w = ctx.createGain(); w.gain.value = wet; node.connect(w); w.connect(rev); }
+  }
+  function noiseSrc(t, dur) { const s = ctx.createBufferSource(); s.buffer = noise; s.start(t, Math.random() * 0.5); s.stop(t + dur); return s; }
+
+  function kick(t, amp = 1) {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(165, t); o.frequency.exponentialRampToValueAtTime(46, t + 0.12);
+    env(g, t, 0.002, amp, 0.42); o.connect(g); out(g, 0.95); o.start(t); o.stop(t + 0.5);
+    const n = noiseSrc(t, 0.02), f = ctx.createBiquadFilter(), gn = ctx.createGain();
+    f.type = 'highpass'; f.frequency.value = 2500; env(gn, t, 0.001, 0.22 * amp, 0.015);
+    n.connect(f); f.connect(gn); out(gn);
+  }
+  function hat(t, amp = 0.1) {
+    const n = noiseSrc(t, 0.08), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = 'highpass'; f.frequency.value = 8000; env(g, t, 0.001, amp, 0.05);
+    n.connect(f); f.connect(g); out(g, 1, 0.05);
+  }
+  function clap(t, amp = 0.32) {
+    [0, 0.011, 0.023].forEach((o, i) => {
+      const n = noiseSrc(t + o, 0.25), f = ctx.createBiquadFilter(), g = ctx.createGain();
+      f.type = 'bandpass'; f.frequency.value = 1700; f.Q.value = 0.9;
+      env(g, t + o, 0.001, amp * (i === 2 ? 1 : 0.6), i === 2 ? 0.16 : 0.03);
+      n.connect(f); f.connect(g); out(g, 1, 0.25);
+    });
+  }
+  function bass(t, m, dur = 0.22, amp = 0.34) {
+    const o = ctx.createOscillator(), s = ctx.createOscillator(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    o.type = 'sawtooth'; o.frequency.value = mtof(m); s.type = 'sine'; s.frequency.value = mtof(m);
+    f.type = 'lowpass'; f.Q.value = 3; f.frequency.setValueAtTime(900, t); f.frequency.exponentialRampToValueAtTime(180, t + dur);
+    env(g, t, 0.004, amp, dur);
+    o.connect(f); s.connect(g); f.connect(g); out(g); o.start(t); s.start(t); o.stop(t + dur + 0.05); s.stop(t + dur + 0.05);
+  }
+  function pluck(t, m, amp = 0.09, dec = 0.32, wet = 0.35) {
+    const f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = 'lowpass'; f.Q.value = 2; f.frequency.setValueAtTime(4200, t); f.frequency.exponentialRampToValueAtTime(500, t + dec);
+    [-6, 6].forEach(det => { const o = ctx.createOscillator(); o.type = 'square'; o.frequency.value = mtof(m); o.detune.value = det; o.connect(f); o.start(t); o.stop(t + dec + 0.1); });
+    env(g, t, 0.003, amp, dec); f.connect(g); out(g, 1, wet);
+  }
+  function pad(t, notes, dur, amp = 0.05) {
+    const f = ctx.createBiquadFilter(), g = ctx.createGain(); f.type = 'lowpass'; f.frequency.value = 1100;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(amp, t + 0.25);
+    g.gain.setValueAtTime(amp, t + dur - 0.2); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    notes.forEach(m => [-8, 8].forEach(det => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = mtof(m); o.detune.value = det; o.connect(f); o.start(t); o.stop(t + dur + 0.05); }));
+    f.connect(g); out(g, 1, 0.5);
+  }
+  function stab(t, notes, amp = 0.07, dec = 0.6) { notes.forEach(m => pluck(t, m, amp, dec, 0.5)); }
+  function hit(t, notes, big = false) {
+    const n = noiseSrc(t, big ? 1.8 : 0.7), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = big ? 'highpass' : 'bandpass'; f.frequency.setValueAtTime(big ? 4000 : 3200, t);
+    if (!big) { f.Q.value = 0.7; f.frequency.exponentialRampToValueAtTime(700, t + 0.5); }
+    env(g, t, 0.002, big ? 0.3 : 0.26, big ? 1.5 : 0.5); n.connect(f); f.connect(g); out(g, 1, 0.5);
+    const o = ctx.createOscillator(), go = ctx.createGain();
+    o.frequency.setValueAtTime(big ? 90 : 75, t); o.frequency.exponentialRampToValueAtTime(36, t + (big ? 1.0 : 0.5));
+    env(go, t, 0.003, big ? 0.6 : 0.42, big ? 1.1 : 0.55); o.connect(go); out(go); o.start(t); o.stop(t + 1.3);
+    stab(t, notes, big ? 0.085 : 0.065, big ? 1.1 : 0.6);
+  }
+  function riser(t0, t1, amp = 0.16) {
+    const n = noiseSrc(t0, t1 - t0), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    f.type = 'bandpass'; f.Q.value = 1.6; f.frequency.setValueAtTime(400, t0); f.frequency.exponentialRampToValueAtTime(6000, t1);
+    g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(amp, t1 - 0.02); g.gain.linearRampToValueAtTime(0.0001, t1);
+    n.connect(f); f.connect(g); out(g, 1, 0.3);
+  }
+  function blip(t, m, amp = 0.12) {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine';
+    o.frequency.setValueAtTime(mtof(m), t); env(g, t, 0.002, amp, 0.12); o.connect(g); out(g, 1, 0.3); o.start(t); o.stop(t + 0.2);
+  }
+
+  // A minor → F → C → G
+  const CH = [
+    { b: 45, n: [57, 60, 64] }, { b: 41, n: [57, 60, 65] }, { b: 48, n: [55, 60, 64] }, { b: 43, n: [55, 59, 62] },
+    { b: 45, n: [57, 60, 64] }, { b: 41, n: [57, 60, 65] }, { b: 48, n: [55, 60, 64] }, { b: 48, n: [55, 60, 64, 67] },
+  ];
+  const chordAt = t => CH[Math.min(7, Math.floor(t / 2))];
+  const ARP = [0, 1, 2, 1, 2, 0, 1, 2];
+
+  for (let b = 0; b < 30; b++) {
+    const t = b * 0.5, ch = chordAt(t);
+    kick(t, b === 24 ? 1.0 : 0.82);
+    if (t >= 2) {
+      hat(t + 0.25, 0.1);
+      if (t < 14) bass(t + 0.25, ch.b, 0.2, 0.42);
+      if (b % 2 === 1 && t >= 4) clap(t);
+    }
+    // arpeggio 8ths from bar 2
+    if (t >= 2 && t < 14) for (let e = 0; e < 2; e++) {
+      const tt = t + e * 0.25, idx = ARP[(b * 2 + e) % 8];
+      pluck(tt, ch.n[idx] + 12, 0.075, 0.22, 0.4);
+    }
+  }
+  // hook bar: sparse, the question hangs
+  stab(0, [57, 60, 64], 0.05, 0.5);
+  blip(1.22, 88, 0.1); blip(1.5, 93, 0.12);       // dot appears / pops out
+  blip(2.5, 84, 0.1);                             // tap
+  [2.75, 3.0, 3.25].forEach((t, i) => blip(t, 81 + i * 2, 0.06)); // words recognised
+  blip(9.5, 86, 0.08); blip(10.5, 88, 0.08);        // shelf arrivals
+  // pads
+  pad(8, [57, 60, 64], 2); pad(10, [53, 57, 60], 2); pad(12, [55, 60, 64], 3);
+  // scene-change hits
+  riser(1.5, 2.0, 0.08); hit(2.0, [53, 57, 60]);
+  hit(5.0, [55, 60, 64]);
+  riser(7.0, 8.0, 0.14); hit(8.0, [57, 60, 64]);
+  riser(10.6, 12.0, 0.2); hit(12.0, [48, 55, 60, 64], true);
+  stab(14.0, [60, 64, 67, 72], 0.06, 1.0);
+
+  const buf = await ctx.startRendering();
+  // normalise to −1 dBFS and fade the last 40 ms
+  let peak = 0; for (let ch = 0; ch < 2; ch++) { const d = buf.getChannelData(ch); for (let i = 0; i < d.length; i++) peak = Math.max(peak, Math.abs(d[i])); }
+  const gain = 0.89 / (peak || 1), fade = Math.round(0.04 * SR);
+  const dv = new DataView(new ArrayBuffer(44 + LEN * 4));
+  const ws = (o, s) => { for (let i = 0; i < s.length; i++) dv.setUint8(o + i, s.charCodeAt(i)); };
+  ws(0, 'RIFF'); dv.setUint32(4, 36 + LEN * 4, true); ws(8, 'WAVE'); ws(12, 'fmt ');
+  dv.setUint32(16, 16, true); dv.setUint16(20, 1, true); dv.setUint16(22, 2, true); dv.setUint32(24, SR, true);
+  dv.setUint32(28, SR * 4, true); dv.setUint16(32, 4, true); dv.setUint16(34, 16, true); ws(36, 'data'); dv.setUint32(40, LEN * 4, true);
+  const L = buf.getChannelData(0), Rr = buf.getChannelData(1);
+  for (let i = 0; i < LEN; i++) {
+    const f = i > LEN - fade ? (LEN - i) / fade : 1;
+    dv.setInt16(44 + i * 4, clamp(L[i] * gain * f, -1, 1) * 32767, true);
+    dv.setInt16(46 + i * 4, clamp(Rr[i] * gain * f, -1, 1) * 32767, true);
+  }
+  const bytes = new Uint8Array(dv.buffer); let bin = '';
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+  return btoa(bin);
+};
+</script>
+</body>
+</html>
