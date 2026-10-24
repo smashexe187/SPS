@@ -2181,7 +2181,8 @@ body.dark-mode .glass-circle { opacity:.20; filter: blur(90px); }
   transform: scale(1.02);
 }
 
-.video-wrapper iframe {
+.video-wrapper iframe,
+.video-wrapper video {
   width: 100%;
   height: auto;
   aspect-ratio: 16 / 9;
