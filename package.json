@@ -1,0 +1,13 @@
+{
+  "name": "shopguide",
+  "version": "1.0.0",
+  "description": "ShopGuide - Das Betriebssystem für den effizienten Einkauf",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No tests configured\" && exit 0"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.3.1"
+  },
+  "devDependencies": {}
+}
